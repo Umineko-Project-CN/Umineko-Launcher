@@ -1,0 +1,31 @@
+﻿<Window x:Class="UminekoLauncher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UminekoLauncher"
+        mc:Ignorable="d"
+        Title="海猫鸣泣之时" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Img/logo.ico" Closing="Window_Closing" Activated="Window_Activated">
+    <Window.Background>
+        <ImageBrush ImageSource="Img/bg.png" Stretch="UniformToFill"/>
+    </Window.Background>
+    <Grid>
+        <Border Width="400" Height="250" Margin="20,0,0,40" Background="#D5000000" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <Border.Effect>
+                <BlurEffect Radius="5"/>
+            </Border.Effect>
+        </Border>
+        <ScrollViewer x:Name="scrollViewer" Width="380" Height="230" Margin="30,0,0,50" HorizontalAlignment="Left" VerticalAlignment="Bottom" VerticalScrollBarVisibility="Auto">
+            <TextBlock x:Name="textInfo" Text="检查更新中……" FontFamily="KaiTi" FontWeight="Bold" FontSize="16" TextWrapping="Wrap"/>
+        </ScrollViewer>
+        <StackPanel Margin="0,0,20,10" Height="Auto" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="250">
+            <Button x:Name="btnStart" Content="Start" Padding="0,0,15,0" Margin="0,0,0,3" HorizontalContentAlignment="Right" IsDefault="True" Click="btnStart_Click"/>
+            <Button x:Name="btnUpgrade" Content="Game Update" Padding="0,0,15,0" Margin="0,0,0,3" HorizontalContentAlignment="Right" Click="btnUpgrade_Click" IsEnabled="False"/>
+            <Button x:Name="btnConfig" Content="Launch Config" Padding="0,0,15,0" Margin="0,0,0,3" HorizontalContentAlignment="Right" Click="btnConfig_Click"/>
+            <Button x:Name="btnAbout" Content="About" Padding="0,0,15,0" Margin="0,0,0,3" HorizontalContentAlignment="Right" Click="btnAbout_Click"/>
+            <Button x:Name="btnExit" Content="Exit" Padding="0,0,15,0" Margin="0,0,0,3" HorizontalContentAlignment="Right" Click="btnExit_Click"/>
+        </StackPanel>
+        <TextBlock x:Name="textVersion" Margin="20,0,0,10" Text="GameVer: " HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+        <Image Source="Img/splash.png" Margin="450,-25,-25,245"/>
+    </Grid>
+</Window>
