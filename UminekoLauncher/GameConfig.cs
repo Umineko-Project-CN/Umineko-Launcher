@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UminekoLauncher
 {
@@ -27,6 +25,7 @@ namespace UminekoLauncher
     static class GameConfig
     {
         private static List<string> config;
+        public static bool IsLoaded { get; set; } = false;
         public static Version GameVersion { get; set; }
         public static DisplayResolution DisplayResolution { get; set; }
         public static DisplayMode DisplayMode { get; set; }
@@ -111,6 +110,7 @@ namespace UminekoLauncher
                 config[i] = line;
             }
             config.RemoveAll(line => line == null);
+            IsLoaded = true;
         }
         public static void SaveConfig(string path)
         {

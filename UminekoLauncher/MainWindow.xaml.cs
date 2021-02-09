@@ -1,21 +1,12 @@
 ﻿using AutoUpdaterDotNET;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using UminekoLauncher.Dialogs;
 
 namespace UminekoLauncher
@@ -49,7 +40,7 @@ namespace UminekoLauncher
         {
             if (args.Error == null)
             {
-                textInfo.Text = new WebClient().DownloadString(new Uri(args.ChangelogURL));
+                textInfo.Text = new WebClient() { Encoding = Encoding.UTF8 }.DownloadString(new Uri(args.ChangelogURL));
                 if (args.IsUpdateAvailable)
                 {
                     textVersion.Text = "New: " + args.CurrentVersion;
@@ -107,7 +98,8 @@ namespace UminekoLauncher
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            GameConfig.SaveConfig("ons.cfg");
+            if (GameConfig.IsLoaded)
+                GameConfig.SaveConfig("ons.cfg");
         }
         private void Window_Activated(object sender, EventArgs e)
         {
