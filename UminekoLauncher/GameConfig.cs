@@ -48,7 +48,7 @@ namespace UminekoLauncher
                 config[i] = null;
 
                 #region 更新版本
-                if(line.StartsWith("#game-version"))
+                if (line.StartsWith("#game-version"))
                 {
                     GameVersion = new Version(line.Split('=')[1]);
                     continue;
@@ -87,12 +87,12 @@ namespace UminekoLauncher
                 #endregion
 
                 #region 显示模式
-                if (line == "window")
+                if (line.StartsWith("window"))
                 {
                     DisplayMode = DisplayMode.Window;
                     continue;
                 }
-                if (line == "fullscreen")
+                if (line.StartsWith("fullscreen"))
                 {
                     DisplayMode = DisplayMode.FullScreen;
                     continue;
@@ -100,7 +100,7 @@ namespace UminekoLauncher
                 #endregion
 
                 #region 缩放全屏
-                if (line == "scale")
+                if (line.StartsWith("scale"))
                 {
                     IsScaleEnabled = true;
                     continue;
