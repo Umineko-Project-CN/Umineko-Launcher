@@ -1,219 +1,176 @@
-﻿<Application
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Application xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:UminekoLauncher"
-             xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="UminekoLauncher.App"
+             xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
+             x:Class="UminekoLauncher.App"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <!--全局 Button 样式-->
-        <Style TargetType="{x:Type Button}">
+
+        <!--#region 透明 FButton 样式 -->
+        <Style x:Key="TransparentFButton" TargetType="local:FButton">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#dddddd"/>
+            <Setter Property="Effect" Value="{x:Null}"/>
+            <Setter Property="IconSize" Value="25"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1AFFFFFF"/>
+                    <Setter Property="ContentEffect">
+                        <Setter.Value>
+                            <DropShadowEffect ShadowDepth="0" BlurRadius="4" Direction="270" Color="White"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Foreground" Value="#666666"/>
+                    <Setter Property="ContentEffect" Value="{x:Null}"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="#666666"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--#endregion-->
+
+        <!--#region 默认 Button 样式 -->
+        <Style TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="27"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Background" Value="#693a47"/>
+            <Setter Property="Foreground" Value="#dddddd"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Background" Value="#371b1b"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" Background="{TemplateBinding Background}" 
-                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                            <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}"
-                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}"
-                                       FontFamily="Sylfaen" FontSize="25" FontWeight="SemiBold" VerticalAlignment="Center">
-                                <TextBlock.Effect>
-                                    <DropShadowEffect ShadowDepth="2" BlurRadius="4"/>
-                                </TextBlock.Effect>
-                            </TextBlock>
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="0" CornerRadius="4" >
+                            <Grid>
+                                <Grid.Effect>
+                                    <DropShadowEffect ShadowDepth="1.5" Opacity="0.4" Direction="270" BlurRadius="0"/>
+                                </Grid.Effect>
+                                <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}"
+                                           FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <TextBlock Text="&#xe037;" FontFamily="/UminekoLauncher;component/Fonts/#Material Icons"
+                                           Foreground="{TemplateBinding Foreground}" FontSize="{TemplateBinding FontSize}"
+                                           Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            </Grid>
                         </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#ff2929"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#ff2929"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#ff2929"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#a15265"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#58313c"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#666666"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
-        <!--全局 TextBlock 样式-->
-        <Style TargetType="{x:Type TextBlock}">
-            <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontFamily" Value="STZhongsong"/>
-            <Setter Property="FontSize" Value="22"/>
+        <!--#endregion-->
+
+        <!--#region 全局 ComboBox 样式-->
+        <Style x:Key="ComboBoxText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#dddddd"/>
+            <Setter Property="FontFamily" Value="Microsoft Yahei UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="Effect">
                 <Setter.Value>
-                    <DropShadowEffect ShadowDepth="1" BlurRadius="5"/>
+                    <DropShadowEffect ShadowDepth="1.5" Opacity="0.4" Direction="270" BlurRadius="0"/>
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Opacity" Value="0.6"/>
+                    <Setter Property="Foreground" Value="#666666"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <!--额外 Button 样式-->
-        <Style x:Key="TextButton" TargetType="{x:Type Button}">
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="{x:Null}"/>
-            <Setter Property="Background" Value="{x:Null}"/>
-            <Setter Property="Opacity" Value="0.6"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" Background="{TemplateBinding Background}" 
-                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                            <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" 
-                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}"
-                                       FontFamily="Sylfaen" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center">
-                                <TextBlock.Effect>
-                                    <DropShadowEffect ShadowDepth="2" BlurRadius="4"/>
-                                </TextBlock.Effect>
-                            </TextBlock>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="Opacity" Value="1.0"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Opacity" Value="1.0"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Opacity" Value="1.0"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <!--全局 RadioButton 样式-->
-        <Style TargetType="RadioButton">
-            <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Opacity" Value="0.6"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type RadioButton}">
-                        <Border x:Name="border" Background="{TemplateBinding Background}" 
-                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                            <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" 
-                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}"
-                                       FontFamily="STZhongsong" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center">
-                                <TextBlock.Effect>
-                                    <DropShadowEffect ShadowDepth="2" BlurRadius="4"/>
-                                </TextBlock.Effect>
-                            </TextBlock>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="Opacity" Value="1.0"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Opacity" Value="1.0"/>
-                            </Trigger>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter Property="Opacity" Value="1.0"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <!--全局 ComboBox 样式-->
         <Style x:Key="TriangleButton" TargetType="ToggleButton">
-            <Setter Property="Opacity" Value="0.6"/>
             <Setter Property="Template" >
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ToggleButton}">
-                        <Grid>
-                            <Border Width="{TemplateBinding ActualWidth}" Height="30" Background="Transparent">
-                                <TextBlock x:Name="triangle" Text="▼" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                            </Border>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Opacity" Value="1.0"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Width="{TemplateBinding ActualWidth}" Background="Transparent">
+                            <TextBlock Text="▼" Foreground="#dddddd" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="{x:Type ComboBox}">
+        <Style TargetType="ComboBox">
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="Height" Value="35"/>
+            <Setter Property="Height" Value="27"/>
+            <Setter Property="Width" Value="120"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ComboBox}">
-                        <Border Background="Transparent">
+                    <ControlTemplate TargetType="ComboBox">
+                        <Border x:Name="bd" Background="#693a47" CornerRadius="4">
                             <Grid>
-                                <ToggleButton x:Name="btn" Style="{StaticResource TriangleButton}" Focusable="False" ClickMode="Press"
+                                <ToggleButton Margin="0,0,5,0" Style="{StaticResource TriangleButton}" Focusable="False" ClickMode="Press"
                                             IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"/>
-                                <ContentPresenter IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" 
-                                               ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" 
-                                               ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" 
-                                               VerticalAlignment="Center" Margin="0" HorizontalAlignment="Stretch"/>
-                                <TextBox x:Name="PART_EditableTextBox" HorizontalAlignment="Stretch" Focusable="True" Visibility="Collapsed" IsReadOnly="False"/>
-                                <Popup AllowsTransparency="True" HorizontalOffset="0" Width="{TemplateBinding ActualWidth}" IsOpen="{TemplateBinding IsDropDownOpen}" Focusable="False">
+                                <TextBlock Text="{TemplateBinding Text}" Style="{StaticResource ComboBoxText}" IsHitTestVisible="false"/>
+                                <Popup AllowsTransparency="True" HorizontalOffset="0" Width="{TemplateBinding ActualWidth}"
+                                       IsOpen="{TemplateBinding IsDropDownOpen}" Focusable="False">
                                     <Grid HorizontalAlignment="Stretch">
-                                        <Border Margin="5" Background="#D5000000" HorizontalAlignment="Stretch">
-                                            <Border.Effect>
-                                                <BlurEffect Radius="5"/>
-                                            </Border.Effect>
-                                        </Border>
-                                        <StackPanel Margin="10" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" HorizontalAlignment="Stretch"/>
+                                        <Border CornerRadius="4" Background="#F0666666" HorizontalAlignment="Stretch"/>
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" HorizontalAlignment="Stretch"/>
                                     </Grid>
                                 </Popup>
                             </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="Opacity" TargetName="btn" Value="1.0"/>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#a15265"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="{x:Type ComboBoxItem}">
-            <Setter Property="TextBlock.Opacity" Value="0.6"/>
+        <Style TargetType="ComboBoxItem">
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate  TargetType="{x:Type ComboBoxItem}">
-                        <Border x:Name="ItemBorder" Padding="3" HorizontalAlignment="Stretch">
-                            <ContentPresenter HorizontalAlignment="Stretch"/>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border Padding="0,5,0,5" HorizontalAlignment="Stretch">
+                            <TextBlock x:Name="item" Text="{TemplateBinding Content}" Style="{StaticResource ComboBoxText}" Opacity="0.6"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="TextBlock.Opacity" Value="1.0"/>
+                                <Setter TargetName="item" Property="Opacity" Value="1.0"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="TextBlock.Opacity" Value="1.0"/>
+                                <Setter TargetName="item" Property="Opacity" Value="1.0"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <!--全局 ScrollViewer 样式-->
-        <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
+        <!--#endregion-->
+
+        <!--#region 全局 ScrollViewer 样式-->
+        <Style x:Key="ScrollBarThumb" TargetType="Thumb">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
             <Setter Property="IsTabStop" Value="false"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Thumb}">
+                    <ControlTemplate TargetType="Thumb">
                         <Grid>
-                            <Border Background="White" CornerRadius="5"/>
+                            <Border Background="White" CornerRadius="2"/>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="HorizontalScrollBarPageButton" TargetType="{x:Type RepeatButton}">
+        <Style x:Key="HorizontalScrollBarPageButton" TargetType="RepeatButton">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Focusable" Value="false"/>
@@ -221,13 +178,13 @@
             <Setter Property="Opacity" Value="0.2"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <ControlTemplate TargetType="RepeatButton">
                         <Rectangle Fill="{TemplateBinding Background}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"/>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="VerticalScrollBarPageButton" TargetType="{x:Type RepeatButton}">
+        <Style x:Key="VerticalScrollBarPageButton" TargetType="RepeatButton">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Focusable" Value="false"/>
@@ -235,13 +192,13 @@
             <Setter Property="Opacity" Value="0.2"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <ControlTemplate TargetType="RepeatButton">
                         <Rectangle Fill="{TemplateBinding Background}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"/>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="VerticalScrollBarPageButton2" TargetType="{x:Type RepeatButton}">
+        <Style x:Key="VerticalScrollBarPageButton2" TargetType="RepeatButton">
             <Setter Property="OverridesDefaultStyle"  Value="true"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Focusable" Value="false"/>
@@ -249,31 +206,31 @@
             <Setter Property="Opacity"  Value="0"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <ControlTemplate TargetType="RepeatButton">
                         <Rectangle Fill="#90000000" Width="0" Height="0"/>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="for_scrollbar" TargetType="{x:Type ScrollBar}">
+        <Style x:Key="for_scrollbar" TargetType="ScrollBar">
             <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
             <Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Margin" Value="0,1,1,6"/>
-            <Setter Property="Width"  Value="8"/>
-            <Setter Property="MinWidth" Value="5"/>
+            <Setter Property="Width"  Value="4"/>
+            <Setter Property="MinWidth" Value="4"/>
             <Setter Property="Opacity" Value="0.1"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                    <ControlTemplate TargetType="ScrollBar">
                         <Grid x:Name="Bg" SnapsToDevicePixels="true">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
                                 <RowDefinition Height="auto"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <RepeatButton  Grid.Row="0" Style="{StaticResource VerticalScrollBarPageButton2}" Command="{x:Static ScrollBar.PageUpCommand}"/>
-                            <Track x:Name="PART_Track"   Grid.Row="1" IsEnabled="{TemplateBinding IsMouseOver}" IsDirectionReversed="true">
+                            <RepeatButton Grid.Row="0" Style="{StaticResource VerticalScrollBarPageButton2}" Command="{x:Static ScrollBar.PageUpCommand}"/>
+                            <Track x:Name="PART_Track" Grid.Row="1" IsEnabled="{TemplateBinding IsMouseOver}" IsDirectionReversed="true">
                                 <Track.DecreaseRepeatButton>
                                     <RepeatButton Style="{StaticResource VerticalScrollBarPageButton}" Command="{x:Static ScrollBar.PageUpCommand}"/>
                                 </Track.DecreaseRepeatButton>
@@ -299,7 +256,7 @@
                     <Setter Property="Opacity" Value="0.2"/>
                     <Setter Property="Template">
                         <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type ScrollBar}">
+                            <ControlTemplate TargetType="ScrollBar">
                                 <Grid x:Name="Bg" SnapsToDevicePixels="true">
                                     <Track x:Name="PART_Track" IsEnabled="{TemplateBinding IsMouseOver}">
                                         <Track.DecreaseRepeatButton>
@@ -319,17 +276,17 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="for_scrollviewer" TargetType="{x:Type ScrollViewer}">
+        <Style x:Key="for_scrollviewer" TargetType="ScrollViewer">
             <Setter Property="BorderBrush" Value="White"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                    <ControlTemplate TargetType="ScrollViewer">
                         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
                             <Grid Background="{TemplateBinding Background}">
                                 <ScrollContentPresenter  Cursor="{TemplateBinding Cursor}" Margin="{TemplateBinding Padding}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
                                 <ScrollBar x:Name="PART_VerticalScrollBar"
-                                       HorizontalAlignment="Right"
+                                       HorizontalAlignment="Left" Margin="-15,0,0,0"
                                        Maximum="{TemplateBinding ScrollableHeight}"
                                        Orientation="Vertical"
                                        Style="{StaticResource for_scrollbar}"
@@ -355,11 +312,11 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
         <!--默认ScrollBar-->
         <Style TargetType="ScrollBar" BasedOn="{StaticResource for_scrollbar}"/>
-
         <!--默认ScrollView-->
         <Style TargetType="ScrollViewer" BasedOn="{StaticResource for_scrollviewer}"/>
+        <!--#endregion-->
+
     </Application.Resources>
 </Application>

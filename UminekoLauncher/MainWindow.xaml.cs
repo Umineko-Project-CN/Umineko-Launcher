@@ -16,10 +16,12 @@ namespace UminekoLauncher
     /// </summary>
     public partial class MainWindow : Window
     {
+        private UpdateInfoEventArgs updateInfo;
+        private const string configPath= "ons.cfg";
         public MainWindow()
         {
             InitializeComponent();
-            if (!File.Exists("ons.cfg"))
+            if (!File.Exists(configPath))
             {
                 new MessageWindow("出错了!\n\n未检测到配置文件，请检查游戏完整性。\a").ShowDialog();
                 Application.Current.Shutdown();
@@ -27,12 +29,12 @@ namespace UminekoLauncher
             else
             {
                 // 载入配置，检查更新
-                GameConfig.LoadConfig("ons.cfg");
+                configPopup.LoadConfig(configPath);
                 AutoUpdater.CheckForUpdateEvent += CheckForUpdate;
                 AutoUpdater.InstalledVersion = GameConfig.GameVersion;
                 AutoUpdater.RunUpdateAsAdmin = false;
                 AutoUpdater.Start("https://down.snsteam.club/update.xml");
-                textVersion.Text += GameConfig.GameVersion.ToString();
+                textVersion.Text = GameConfig.GameVersion.ToString();
             }
         }
 
@@ -40,28 +42,41 @@ namespace UminekoLauncher
         {
             if (args.Error == null)
             {
-                textInfo.Text = new WebClient() { Encoding = Encoding.UTF8 }.DownloadString(new Uri(args.ChangelogURL));
+                textNews.Text = new WebClient() { Encoding = Encoding.UTF8 }.DownloadString(new Uri(args.ChangelogURL));
                 if (args.IsUpdateAvailable)
                 {
-                    textVersion.Text = "New: " + args.CurrentVersion;
-                    textVersion.Foreground = Brushes.Yellow;
-                    btnUpgrade.IsEnabled = true;
-                    UpdateWindow.updateInfo = args;
+                    textUpdate.Text = args.CurrentVersion;
+                    bdInfo.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a32630"));
+                    textInfo.Text = "需要更新";
+                    textArrow.Visibility = Visibility.Visible;
+                    textUpdate.Visibility = Visibility.Visible;
+                    btnAction.Icon = "";
+                    btnAction.Content = "获 取 更 新";
+                    btnAction.Click -= Start;
+                    btnAction.Click += Upgrade;
+                    updateInfo = args;
+                }
+                else
+                {
+                    bdInfo.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#4b9f2a"));
+                    textInfo.Text = "最新版本";
                 }
             }
             else
             {
+                bdInfo.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a32630"));
+                textInfo.Text = "检测失败";
                 if (args.Error is WebException)
                 {
-                    textInfo.Text = "连接至更新服务器时出错。";
+                    textNews.Text = "连接至更新服务器时出错。";
                 }
                 else
                 {
-                    textInfo.Text = args.Error.Message;
+                    textNews.Text = args.Error.Message;
                 }
             }
         }
-        private void btnStart_Click(object sender, RoutedEventArgs e)
+        private void Start(object sender, RoutedEventArgs e)
         {
             var startInfo = new ProcessStartInfo
             {
@@ -79,31 +94,52 @@ namespace UminekoLauncher
                 new MessageWindow("启动失败!\n\n请检查游戏完整性及相关设置。") { Owner = this }.ShowDialog();
             }
         }
-        private void btnUpgrade_Click(object sender, RoutedEventArgs e)
+        private void Upgrade(object sender, RoutedEventArgs e)
         {
-            new UpdateWindow() { Owner = this }.ShowDialog();
+            bdInfo.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#868686"));
+            textInfo.Text = "正在更新";
+            GameConfig.GameVersion = new Version(updateInfo.CurrentVersion);
+            try
+            {
+                if (AutoUpdater.DownloadUpdate(updateInfo))
+                {
+                    Application.Current.Shutdown();
+                }
+            }
+            catch (Exception exception)
+            {
+                textNews.Text = exception.Message;
+            }
         }
         private void btnConfig_Click(object sender, RoutedEventArgs e)
         {
-            new ConfigWindow { Owner = this }.ShowDialog();
+            configPopup.Visibility = Visibility.Visible;
         }
         private void btnAbout_Click(object sender, RoutedEventArgs e)
         {
-            new AboutWindow { Owner = this }.ShowDialog();
+            aboutPopup.Visibility = Visibility.Visible;
         }
-        private void btnExit_Click(object sender, RoutedEventArgs e)
+        private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (GameConfig.IsLoaded)
                 GameConfig.SaveConfig("ons.cfg");
         }
-        private void Window_Activated(object sender, EventArgs e)
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Keyboard.Focus(scrollViewer);
+            DragMove();
+        }
+        private void configPopup_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            spButtons.IsEnabled = (configPopup.Visibility == Visibility.Collapsed);
+        }
+
+        private void aboutPopup_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            spButtons.IsEnabled = (aboutPopup.Visibility == Visibility.Collapsed);
         }
     }
 }

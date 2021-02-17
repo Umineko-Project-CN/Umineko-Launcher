@@ -1,22 +1,24 @@
 ﻿using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace UminekoLauncher.Dialogs
 {
     /// <summary>
-    /// AboutWindow.xaml 的交互逻辑
+    /// AboutPopup.xaml 的交互逻辑
     /// </summary>
-    public partial class AboutWindow : Window
+    public partial class AboutPopup : UserControl
     {
-        public AboutWindow()
+        public AboutPopup()
         {
             InitializeComponent();
             textVersion.Text += System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            Visibility = Visibility.Collapsed;
         }
 
-        private void btnOk_Click(object sender, RoutedEventArgs e)
+        private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
+            Visibility = Visibility.Collapsed;
         }
 
         private void btnWebsite1_Click(object sender, RoutedEventArgs e)

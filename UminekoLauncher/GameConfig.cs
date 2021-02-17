@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace UminekoLauncher
 {
-    public enum DisplayMode { Auto, Window, FullScreen }
+    public enum DisplayMode { Window, FullScreen, Auto }
     public enum DisplayResolution
     {
         [Description("1280x720")]
@@ -38,13 +38,13 @@ namespace UminekoLauncher
             GameVersion = new Version("8.21.2.9");
             DisplayMode = DisplayMode.Auto;
             DisplayResolution = DisplayResolution.x1920;
-            IsScaleEnabled = true;
+            IsScaleEnabled = false;
             #endregion
 
             config = File.ReadAllLines(path).ToList();
             for (int i = 0; i < config.Count; i++)
             {
-                string line = config[i];
+                string line = config[i].Trim();
                 config[i] = null;
 
                 #region 更新版本
@@ -150,14 +150,13 @@ namespace UminekoLauncher
             #region 显示模式
             switch (DisplayMode)
             {
-                case DisplayMode.Auto:
-                    break;
                 case DisplayMode.Window:
                     config.Add("window");
                     break;
                 case DisplayMode.FullScreen:
                     config.Add("fullscreen");
                     break;
+                case DisplayMode.Auto:
                 default:
                     break;
             }
