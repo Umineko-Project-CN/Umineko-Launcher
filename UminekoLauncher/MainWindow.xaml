@@ -32,16 +32,16 @@
             </TextBlock>
         </ScrollViewer>
         <local:FButton x:Name="btnAction" Margin="27,293,0,0" Width="200" Height="43" Click="Start" HorizontalAlignment="Left" VerticalAlignment="Top"
-                       Icon="&#xe037;" IconMargin="-10, 0, 5, 0" IconSize="32" Content="开 始 游 戏" FontWeight="Bold" FontSize="20"/>
+                       Icon="&#xe037;" IconMargin="-10, 0, 7, 0" IconSize="32" Content="开 始 游 戏" FontWeight="Bold" FontSize="20"/>
         <StackPanel Orientation="Horizontal" Margin="27,383,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Border x:Name="bdInfo" Background="#868686" CornerRadius="4" Width="70" Height="18">
+            <Border x:Name="bdInfo" Background="#868686" CornerRadius="4" Width="60" Height="18">
                 <TextBlock x:Name="textInfo" Text="正在检测" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12">
                     <TextBlock.Effect>
                         <DropShadowEffect ShadowDepth="1" BlurRadius="0" Direction="270" Opacity="0.4"/>
                     </TextBlock.Effect>
                 </TextBlock>
             </Border>
-            <StackPanel Orientation="Horizontal" Margin="6,0,0,0">
+            <StackPanel Orientation="Horizontal" Margin="6,0,0,0" VerticalAlignment="Center">
                 <StackPanel.Effect>
                     <DropShadowEffect ShadowDepth="1" BlurRadius="0" Direction="270"/>
                 </StackPanel.Effect>

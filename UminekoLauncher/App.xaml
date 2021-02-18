@@ -33,6 +33,26 @@
         </Style>
         <!--#endregion-->
 
+        <!--#region 按钮 TextBlock 样式 -->
+        <Style x:Key="ButtonText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#dddddd"/>
+            <Setter Property="FontFamily" Value="Microsoft Yahei UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="1.5" Opacity="0.4" Direction="270" BlurRadius="0"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="#666666"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--#endregion-->
+        
         <!--#region 默认 Button 样式 -->
         <Style TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -48,15 +68,8 @@
                         <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="0" CornerRadius="4" >
                             <Grid>
-                                <Grid.Effect>
-                                    <DropShadowEffect ShadowDepth="1.5" Opacity="0.4" Direction="270" BlurRadius="0"/>
-                                </Grid.Effect>
-                                <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}"
-                                           FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"
-                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                <TextBlock Text="&#xe037;" FontFamily="/UminekoLauncher;component/Fonts/#Material Icons"
-                                           Foreground="{TemplateBinding Foreground}" FontSize="{TemplateBinding FontSize}"
-                                           Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                <TextBlock Text="{TemplateBinding Content}" Style="{StaticResource ButtonText}"/>
+                                <TextBlock Text="▶" Margin="0,0,5,0" Style="{StaticResource ButtonText}" FontSize="12" HorizontalAlignment="Right"/>
                             </Grid>
                         </Border>
                     </ControlTemplate>
@@ -77,29 +90,12 @@
         <!--#endregion-->
 
         <!--#region 全局 ComboBox 样式-->
-        <Style x:Key="ComboBoxText" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="#dddddd"/>
-            <Setter Property="FontFamily" Value="Microsoft Yahei UI"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect ShadowDepth="1.5" Opacity="0.4" Direction="270" BlurRadius="0"/>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Foreground" Value="#666666"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
         <Style x:Key="TriangleButton" TargetType="ToggleButton">
             <Setter Property="Template" >
                 <Setter.Value>
                     <ControlTemplate TargetType="ToggleButton">
                         <Border Width="{TemplateBinding ActualWidth}" Background="Transparent">
-                            <TextBlock Text="▼" Foreground="#dddddd" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            <TextBlock Text="▼" Style="{StaticResource ButtonText}" FontSize="12" HorizontalAlignment="Right"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -116,7 +112,7 @@
                             <Grid>
                                 <ToggleButton Margin="0,0,5,0" Style="{StaticResource TriangleButton}" Focusable="False" ClickMode="Press"
                                             IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"/>
-                                <TextBlock Text="{TemplateBinding Text}" Style="{StaticResource ComboBoxText}" IsHitTestVisible="false"/>
+                                <TextBlock Text="{TemplateBinding Text}" Style="{StaticResource ButtonText}" IsHitTestVisible="false"/>
                                 <Popup AllowsTransparency="True" HorizontalOffset="0" Width="{TemplateBinding ActualWidth}"
                                        IsOpen="{TemplateBinding IsDropDownOpen}" Focusable="False">
                                     <Grid HorizontalAlignment="Stretch">
@@ -140,7 +136,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBoxItem">
                         <Border Padding="0,5,0,5" HorizontalAlignment="Stretch">
-                            <TextBlock x:Name="item" Text="{TemplateBinding Content}" Style="{StaticResource ComboBoxText}" Opacity="0.6"/>
+                            <TextBlock x:Name="item" Text="{TemplateBinding Content}" Style="{StaticResource ButtonText}" Opacity="0.6"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsFocused" Value="True">
