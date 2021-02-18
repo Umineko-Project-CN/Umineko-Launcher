@@ -134,7 +134,7 @@ namespace UminekoLauncher
         {
             spButtons.IsEnabled = (aboutPopup.Visibility == Visibility.Collapsed);
         }
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
         }
