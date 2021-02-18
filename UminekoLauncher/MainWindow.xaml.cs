@@ -98,11 +98,13 @@ namespace UminekoLauncher
         {
             bdInfo.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#868686"));
             textInfo.Text = "正在更新";
+            btnAction.IsEnabled = false;
             GameConfig.GameVersion = new Version(updateInfo.CurrentVersion);
             try
             {
                 if (AutoUpdater.DownloadUpdate(updateInfo))
                 {
+                    GameConfig.SaveConfig("ons.cfg");
                     Application.Current.Shutdown();
                 }
             }
@@ -123,15 +125,6 @@ namespace UminekoLauncher
         {
             Application.Current.Shutdown();
         }
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (GameConfig.IsLoaded)
-                GameConfig.SaveConfig("ons.cfg");
-        }
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
         private void configPopup_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             spButtons.IsEnabled = (configPopup.Visibility == Visibility.Collapsed);
@@ -140,6 +133,10 @@ namespace UminekoLauncher
         private void aboutPopup_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             spButtons.IsEnabled = (aboutPopup.Visibility == Visibility.Collapsed);
+        }
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
     }
 }

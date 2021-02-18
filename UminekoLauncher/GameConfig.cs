@@ -25,24 +25,14 @@ namespace UminekoLauncher
     static class GameConfig
     {
         private static List<string> config;
-        public static bool IsLoaded { get; set; } = false;
-        public static Version GameVersion { get; set; }
-        public static bool IsLegacyOpEnabled { get; set; }
-        public static DisplayResolution DisplayResolution { get; set; }
-        public static DisplayMode DisplayMode { get; set; }
-        public static bool IsScaleEnabled { get; set; }
+        public static Version GameVersion { get; set; } = new Version("8.21.2.9");
+        public static bool IsLegacyOpEnabled { get; set; } = false;
+        public static DisplayResolution DisplayResolution { get; set; } = DisplayResolution.x1920;
+        public static DisplayMode DisplayMode { get; set; } = DisplayMode.Auto;
+        public static bool IsScaleEnabled { get; set; } = false;
 
         public static void LoadConfig(string path)
         {
-
-            #region 默认值
-            GameVersion = new Version("8.21.2.9");
-            IsLegacyOpEnabled = false;
-            DisplayMode = DisplayMode.Auto;
-            DisplayResolution = DisplayResolution.x1920;
-            IsScaleEnabled = false;
-            #endregion
-
             config = File.ReadAllLines(path).ToList();
             for (int i = 0; i < config.Count; i++)
             {
@@ -120,7 +110,6 @@ namespace UminekoLauncher
                 config[i] = line;
             }
             config.RemoveAll(line => line == null);
-            IsLoaded = true;
         }
         public static void SaveConfig(string path)
         {

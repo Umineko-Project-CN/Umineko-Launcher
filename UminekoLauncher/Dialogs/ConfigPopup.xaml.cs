@@ -54,6 +54,7 @@ namespace UminekoLauncher.Dialogs
             GameConfig.IsLegacyOpEnabled = Convert.ToBoolean(cmbLegacyOp.SelectedIndex);
             #endregion
 
+            GameConfig.SaveConfig("ons.cfg");
             Visibility = Visibility.Collapsed;
         }
     }
