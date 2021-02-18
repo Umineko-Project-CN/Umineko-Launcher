@@ -30,5 +30,24 @@ namespace UminekoLauncher.Dialogs
         {
             Process.Start("https://snsteam.club/");
         }
+        private void btnWebsite3_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("http://entergram.co.jp/umineko/");
+        }
+
+        private void btnHome1_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://store.steampowered.com/bundle/5465/Umineko_When_They_Cry_Complete_Collection/");
+        }
+
+        private void btnHome2_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://store.playstation.com/ja-jp/product/JP0741-CUSA16973_00-UMINEKOSAKUZZZZZ");
+        }
+
+        private void btnHome3_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://store-jp.nintendo.com/list/software/70010000012343.html");
+        }
     }
 }

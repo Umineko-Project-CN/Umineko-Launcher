@@ -15,26 +15,31 @@
         </Grid.RowDefinitions>
         <StackPanel Margin="13,13,13,20">
             <TextBlock.Foreground>#cccccc</TextBlock.Foreground>
-            <DockPanel Margin="0,0,0,20">
+            <DockPanel Margin="0,0,0,19">
                 <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
                     <TextBlock x:Name="textVersion" Text="LauncherVer. " FontSize="20" FontWeight="Bold"/>
-                    <TextBlock Text="Umineko PS3 Remaster Launcher" FontSize="10" FontWeight="Bold"/>
+                    <TextBlock Text="本游戏为免费提供，仅供学习交流使用，热爱本作品请购买正版。" FontSize="10" FontWeight="Bold"/>
                 </StackPanel>
             </DockPanel>
-            <DockPanel Margin="0,0,0,20">
+            <DockPanel Margin="0,0,0,19">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="Umineko Project" FontSize="17"/>
                     <TextBlock Text="访问官网。" FontSize="10"/>
                 </StackPanel>
                 <Button x:Name="btnWebsite1" Content="前往" Click="btnWebsite1_Click" HorizontalAlignment="Right"/>
             </DockPanel>
-            <DockPanel>
+            <DockPanel Margin="0,0,0,19">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="日不落汉化组" FontSize="17"/>
                     <TextBlock Text="访问官网。" FontSize="10"/>
                 </StackPanel>
                 <Button x:Name="btnWebsite2" Content="前往" Click="btnWebsite2_Click" HorizontalAlignment="Right"/>
             </DockPanel>
+            <StackPanel Orientation="Horizontal" Height="35">
+                <local:FButton x:Name="btnHome1" Margin="0,0,13.5,0" Content="Steam 版" Click="btnHome1_Click"  Style="{StaticResource BlackButton}"/>
+                <local:FButton x:Name="btnHome2" Content="PS4 版" Click="btnHome2_Click" Style="{StaticResource BlueButton}"/>
+                <local:FButton x:Name="btnHome3" Margin="13.5,0,0,0" Content="NS 版" Click="btnHome3_Click" Style="{StaticResource RedButton}"/>
+            </StackPanel>
         </StackPanel>
         <local:FButton x:Name="btnConfirm" Content="确 定" Click="btnConfirm_Click" Grid.Row="1" Margin="13,0,13,13" Padding="15,0,0,0" IsCancel="True" IsDefault="True"
                        IconMargin="0" FontSize="17" FontWeight="Bold"/>

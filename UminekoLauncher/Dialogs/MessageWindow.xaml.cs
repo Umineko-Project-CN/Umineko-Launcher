@@ -7,9 +7,14 @@ namespace UminekoLauncher.Dialogs
     /// </summary>
     public partial class MessageWindow : Window
     {
-        public MessageWindow(string message)
+        public MessageWindow(string message, Window owner = null)
         {
             InitializeComponent();
+            if (owner != null)
+            {
+                Owner = owner;
+                WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            }
             textMessage.Text = message;
         }
 

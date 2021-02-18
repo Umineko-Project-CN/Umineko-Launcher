@@ -26,8 +26,9 @@
                                        FontSize="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IconSize}"
                                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}"
+                                       Margin="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=FontMargin}" 
                                        FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"
-                                       Margin="0,-2,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Border>
                 </ControlTemplate>

@@ -164,9 +164,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imgs\bg.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -191,6 +188,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Imgs\wbg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imgs\bg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imgs\mbg.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

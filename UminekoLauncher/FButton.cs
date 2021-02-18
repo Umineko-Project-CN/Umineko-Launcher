@@ -45,7 +45,7 @@ namespace UminekoLauncher
         public static readonly DependencyProperty ContentEffectProperty =
             DependencyProperty.Register("ContentEffect", typeof(Effect), typeof(FButton), new PropertyMetadata());
 
-        [Description("表示按钮的图标。参考 Material Icons Codepoints。"), Category("公共")]
+        [Description("表示按钮的图标。参考 Material Icons Codepoints。"), Category("文本")]
         public string Icon
         {
             get { return (string)GetValue(IconProperty); }
@@ -54,7 +54,7 @@ namespace UminekoLauncher
         public static readonly DependencyProperty IconProperty =
             DependencyProperty.Register("Icon", typeof(string), typeof(FButton), new PropertyMetadata());
 
-        [Description("表示按钮图标的外边距。"), Category("公共")]
+        [Description("表示按钮图标的外边距。"), Category("文本")]
         public Thickness IconMargin
         {
             get { return (Thickness)GetValue(IconMarginProperty); }
@@ -63,7 +63,7 @@ namespace UminekoLauncher
         public static readonly DependencyProperty IconMarginProperty =
             DependencyProperty.Register("IconMargin", typeof(Thickness), typeof(FButton), new PropertyMetadata());
 
-        [Description("表示按钮图标的大小。"), Category("公共")]
+        [Description("表示按钮图标的大小。"), Category("文本")]
         public double IconSize
         {
             get { return (double)GetValue(IconSizeProperty); }
@@ -71,5 +71,14 @@ namespace UminekoLauncher
         }
         public static readonly DependencyProperty IconSizeProperty =
             DependencyProperty.Register("IconSize", typeof(double), typeof(FButton), new PropertyMetadata(32.0));
+
+        [Description("表示按钮文本的外边距。"), Category("文本")]
+        public Thickness FontMargin
+        {
+            get { return (Thickness)GetValue(FontMarginProperty); }
+            set { SetValue(FontMarginProperty, value); }
+        }
+        public static readonly DependencyProperty FontMarginProperty =
+            DependencyProperty.Register("FontMargin", typeof(Thickness), typeof(FButton), new PropertyMetadata());
     }
 }

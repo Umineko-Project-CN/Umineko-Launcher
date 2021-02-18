@@ -4,20 +4,24 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UminekoLauncher"
-        mc:Ignorable="d"
-        AllowsTransparency="True" Background="Transparent"
+        mc:Ignorable="d" AllowsTransparency="True"
         Window.SizeToContent="Height" Width="350" WindowStyle="None" ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Topmost="True">
+        WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Topmost="True" Background="{x:Null}">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        <Border Grid.RowSpan="2" CornerRadius="5" Background="#D8000000"/>
-        <StackPanel Margin="30">
-            <TextBlock x:Name="textMessage" Style="{StaticResource ButtonText}" Text="Message" FontSize="18" FontWeight="Bold" TextWrapping="Wrap"/>
+        <Border Grid.RowSpan="2" CornerRadius="5">
+            <Border.Background>
+                <ImageBrush Stretch="UniformToFill" ImageSource="/UminekoLauncher;component/Imgs/mbg.jpg" Opacity="0.9"/>
+            </Border.Background>
+        </Border>
+        <StackPanel Margin="13,13,13,20">
+            <TextBlock x:Name="textMessage" Style="{StaticResource ButtonText}" Text="Message" FontSize="17" FontWeight="Bold" TextWrapping="Wrap"/>
         </StackPanel>
-        <Button x:Name="btnConfirm" Content="确认" Click="btnConfirm_Click" Grid.Row="1" Margin="30,0,30,30" Padding="15,0,0,0" HorizontalContentAlignment="Left" IsCancel="True" IsDefault="True"/>
+        <local:FButton x:Name="btnConfirm" Content="确 定" Click="btnConfirm_Click" Grid.Row="1" Margin="13,0,13,13" Padding="15,0,0,0" IsCancel="True" IsDefault="True"
+                       IconMargin="0" FontSize="17" FontWeight="Bold"/>
     </Grid>
 </Window>

@@ -25,6 +25,7 @@ namespace UminekoLauncher
     static class GameConfig
     {
         private static List<string> config;
+        public static bool IsLoaded { get; set; } = false;
         public static Version GameVersion { get; set; } = new Version("8.21.2.9");
         public static bool IsLegacyOpEnabled { get; set; } = false;
         public static DisplayResolution DisplayResolution { get; set; } = DisplayResolution.x1920;
@@ -110,6 +111,7 @@ namespace UminekoLauncher
                 config[i] = line;
             }
             config.RemoveAll(line => line == null);
+            IsLoaded = true;
         }
         public static void SaveConfig(string path)
         {

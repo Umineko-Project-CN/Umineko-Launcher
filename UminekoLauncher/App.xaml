@@ -52,7 +52,7 @@
             </Style.Triggers>
         </Style>
         <!--#endregion-->
-        
+
         <!--#region 默认 Button 样式 -->
         <Style TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -75,12 +75,72 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="2" BlurRadius="2" Direction="270" Opacity="0.3"/>
+                </Setter.Value>
+            </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="#a15265"/>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
                     <Setter Property="Background" Value="#58313c"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#666666"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--#endregion-->
+
+        <!--#region 彩色 Button 样式 -->
+        <Style x:Key="ColorButton" TargetType="local:FButton">
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Foreground" Value="#dddddd"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Icon" Value="&#xe8cc;"/>
+            <Setter Property="IconMargin" Value="0,0,5,0"/>
+            <Setter Property="IconSize" Value="18"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style x:Key="BlackButton" TargetType="local:FButton" BasedOn="{StaticResource ColorButton}">
+            <Setter Property="Background" Value="#181818"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#222222"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#000000"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#666666"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="BlueButton" TargetType="local:FButton" BasedOn="{StaticResource ColorButton}">
+            <Setter Property="Background" Value="#264e90"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#3166b2"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#1b366e"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#666666"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="RedButton" TargetType="local:FButton" BasedOn="{StaticResource ColorButton}">
+            <Setter Property="Background" Value="#943030"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#b43e3e"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#742222"/>
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="False">
                     <Setter Property="Background" Value="#666666"/>
@@ -105,6 +165,11 @@
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="Height" Value="27"/>
             <Setter Property="Width" Value="120"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="2" BlurRadius="2" Direction="270" Opacity="0.3"/>
+                </Setter.Value>
+            </Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
@@ -135,7 +200,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBoxItem">
-                        <Border Padding="0,5,0,5" HorizontalAlignment="Stretch">
+                        <Border Padding="0,5,0,5" HorizontalAlignment="Stretch" Background="Transparent">
                             <TextBlock x:Name="item" Text="{TemplateBinding Content}" Style="{StaticResource ButtonText}" Opacity="0.6"/>
                         </Border>
                         <ControlTemplate.Triggers>

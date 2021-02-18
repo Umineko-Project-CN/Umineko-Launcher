@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <StackPanel Margin="13,13,13,20">
             <TextBlock.Foreground>#cccccc</TextBlock.Foreground>
-            <DockPanel Margin="0,0,0,20">
+            <DockPanel Margin="0,0,0,19">
                 <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
                     <TextBlock Text="分辨率" FontSize="17" FontWeight="Bold"/>
                     <TextBlock Text="设置游戏使用的画面分辨率。" FontSize="10"/>
@@ -29,7 +29,7 @@
                     <ComboBoxItem Content="2560×1440"/>
                 </ComboBox>
             </DockPanel>
-            <DockPanel Margin="0,0,0,20">
+            <DockPanel Margin="0,0,0,19">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="显示模式" FontSize="17" FontWeight="Bold"/>
                     <TextBlock Text="设置游戏使用的显示模式。" FontSize="10"/>
@@ -40,7 +40,7 @@
                     <ComboBoxItem Content="自动"/>
                 </ComboBox>
             </DockPanel>
-            <DockPanel Margin="0,0,0,20">
+            <DockPanel Margin="0,0,0,19">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="缩放全屏" FontSize="17" FontWeight="Bold"/>
                     <TextBlock Text="设置全屏游戏时是否铺满屏幕。" FontSize="10"/>
@@ -53,7 +53,7 @@
             <DockPanel>
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="片头曲版本" FontSize="17" FontWeight="Bold"/>
-                    <TextBlock Text="可在经典版与 PS3 版间进行切换，只会影响 EP1-4。" FontSize="10"/>
+                    <TextBlock Text="可在 PS3 版与经典版间进行切换，只会影响 EP1-4。" FontSize="10"/>
                 </StackPanel>
                 <ComboBox x:Name="cmbLegacyOp" SelectedIndex="0" HorizontalAlignment="Right">
                     <ComboBoxItem Content="PS3 版"/>

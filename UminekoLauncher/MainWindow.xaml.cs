@@ -25,12 +25,12 @@ namespace UminekoLauncher
             mutex = new System.Threading.Mutex(true, "UminekoLauncher");
             if (!mutex.WaitOne(0, false))
             {
-                new MessageWindow("出错了!\n\n启动器已在运行。").ShowDialog();
+                new MessageWindow("出错了！启动器已在运行。").ShowDialog();
                 Application.Current.Shutdown();
             }
             if (!File.Exists(configPath))
             {
-                new MessageWindow("出错了!\n\n未检测到配置文件，请检查游戏完整性。").ShowDialog();
+                new MessageWindow("出错了！未检测到配置文件，请检查游戏完整性。").ShowDialog();
                 Application.Current.Shutdown();
             }
             else
@@ -98,7 +98,7 @@ namespace UminekoLauncher
             }
             catch (Exception)
             {
-                new MessageWindow("启动失败!\n\n请检查游戏完整性及相关设置。") { Owner = this }.ShowDialog();
+                new MessageWindow("启动失败！请检查游戏完整性及相关设置。", this).ShowDialog();
             }
         }
         private void Upgrade(object sender, RoutedEventArgs e)
@@ -147,7 +147,8 @@ namespace UminekoLauncher
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            GameConfig.SaveConfig("ons.cfg");
+            if (GameConfig.IsLoaded)
+                GameConfig.SaveConfig("ons.cfg");
         }
     }
 }
