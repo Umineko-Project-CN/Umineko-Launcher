@@ -16,25 +16,32 @@ namespace UminekoLauncher
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static System.Threading.Mutex mutex;
         private UpdateInfoEventArgs updateInfo;
-        private const string configPath= "ons.cfg";
+        private const string configPath = "ons.cfg";
         public MainWindow()
         {
             InitializeComponent();
+            mutex = new System.Threading.Mutex(true, "UminekoLauncher");
+            if (!mutex.WaitOne(0, false))
+            {
+                new MessageWindow("出错了!\n\n启动器已在运行。").ShowDialog();
+                Application.Current.Shutdown();
+            }
             if (!File.Exists(configPath))
             {
-                new MessageWindow("出错了!\n\n未检测到配置文件，请检查游戏完整性。\a").ShowDialog();
+                new MessageWindow("出错了!\n\n未检测到配置文件，请检查游戏完整性。").ShowDialog();
                 Application.Current.Shutdown();
             }
             else
             {
-                // 载入配置，检查更新
+                // 载入配置，检查游戏更新
                 configPopup.LoadConfig(configPath);
+                textVersion.Text = GameConfig.GameVersion.ToString();
+                AutoUpdater.RunUpdateAsAdmin = false;
                 AutoUpdater.CheckForUpdateEvent += CheckForUpdate;
                 AutoUpdater.InstalledVersion = GameConfig.GameVersion;
-                AutoUpdater.RunUpdateAsAdmin = false;
                 AutoUpdater.Start("https://down.snsteam.club/update.xml");
-                textVersion.Text = GameConfig.GameVersion.ToString();
             }
         }
 

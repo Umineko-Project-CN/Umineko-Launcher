@@ -13,7 +13,7 @@ namespace UminekoLauncher.Dialogs
             textMessage.Text = message;
         }
 
-        private void btnOk_Click(object sender, RoutedEventArgs e)
+        private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
         }
