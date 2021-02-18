@@ -30,6 +30,10 @@ namespace UminekoLauncher.Dialogs
             #region 缩放全屏
             cmbScale.SelectedIndex = Convert.ToInt32(!GameConfig.IsScaleEnabled);
             #endregion
+
+            #region 片头曲版本
+            cmbLegacyOp.SelectedIndex = Convert.ToInt32(GameConfig.IsLegacyOpEnabled);
+            #endregion
         }
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
@@ -44,6 +48,10 @@ namespace UminekoLauncher.Dialogs
 
             #region 缩放全屏
             GameConfig.IsScaleEnabled = !Convert.ToBoolean(cmbScale.SelectedIndex);
+            #endregion
+
+            #region 片头曲版本
+            GameConfig.IsLegacyOpEnabled = Convert.ToBoolean(cmbLegacyOp.SelectedIndex);
             #endregion
 
             Visibility = Visibility.Collapsed;

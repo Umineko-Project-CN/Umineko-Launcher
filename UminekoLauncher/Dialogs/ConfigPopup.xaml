@@ -40,7 +40,7 @@
                     <ComboBoxItem Content="自动"/>
                 </ComboBox>
             </DockPanel>
-            <DockPanel>
+            <DockPanel Margin="0,0,0,20">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="缩放全屏" FontSize="17" FontWeight="Bold"/>
                     <TextBlock Text="设置全屏游戏时是否铺满屏幕。" FontSize="10"/>
@@ -48,6 +48,16 @@
                 <ComboBox x:Name="cmbScale" SelectedIndex="0" HorizontalAlignment="Right">
                     <ComboBoxItem Content="开启"/>
                     <ComboBoxItem Content="关闭"/>
+                </ComboBox>
+            </DockPanel>
+            <DockPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="片头曲版本" FontSize="17" FontWeight="Bold"/>
+                    <TextBlock Text="可在经典版与 PS3 版间进行切换，只会影响 EP1-4。" FontSize="10"/>
+                </StackPanel>
+                <ComboBox x:Name="cmbLegacyOp" SelectedIndex="0" HorizontalAlignment="Right">
+                    <ComboBoxItem Content="PS3 版"/>
+                    <ComboBoxItem Content="经典版"/>
                 </ComboBox>
             </DockPanel>
         </StackPanel>

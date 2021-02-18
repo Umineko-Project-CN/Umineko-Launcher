@@ -27,6 +27,7 @@ namespace UminekoLauncher
         private static List<string> config;
         public static bool IsLoaded { get; set; } = false;
         public static Version GameVersion { get; set; }
+        public static bool IsLegacyOpEnabled { get; set; }
         public static DisplayResolution DisplayResolution { get; set; }
         public static DisplayMode DisplayMode { get; set; }
         public static bool IsScaleEnabled { get; set; }
@@ -36,6 +37,7 @@ namespace UminekoLauncher
 
             #region 默认值
             GameVersion = new Version("8.21.2.9");
+            IsLegacyOpEnabled = false;
             DisplayMode = DisplayMode.Auto;
             DisplayResolution = DisplayResolution.x1920;
             IsScaleEnabled = false;
@@ -51,6 +53,14 @@ namespace UminekoLauncher
                 if (line.StartsWith("#game-version"))
                 {
                     GameVersion = new Version(line.Split('=')[1]);
+                    continue;
+                }
+                #endregion
+
+                #region 旧版OP
+                if (line.StartsWith("env[legacy_op]"))
+                {
+                    IsLegacyOpEnabled = Convert.ToBoolean(line.Split('=')[1]);
                     continue;
                 }
                 #endregion
@@ -116,6 +126,10 @@ namespace UminekoLauncher
         {
             #region 更新版本
             config.Insert(0, "#game-version=" + GameVersion.ToString());
+            #endregion
+
+            #region 旧版OP
+            config.Add("env[legacy_op]=" + IsLegacyOpEnabled.ToString().ToLower());
             #endregion
 
             #region 分辨率
