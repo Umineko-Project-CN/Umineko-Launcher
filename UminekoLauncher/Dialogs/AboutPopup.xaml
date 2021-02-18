@@ -24,14 +24,14 @@
             <DockPanel Margin="0,0,0,19">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="Umineko Project" FontSize="17"/>
-                    <TextBlock Text="访问官网。" FontSize="10"/>
+                    <TextBlock Text="访问制作组官网。" FontSize="10"/>
                 </StackPanel>
                 <Button x:Name="btnWebsite1" Content="前往" Click="btnWebsite1_Click" HorizontalAlignment="Right"/>
             </DockPanel>
             <DockPanel Margin="0,0,0,19">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="日不落汉化组" FontSize="17"/>
-                    <TextBlock Text="访问官网。" FontSize="10"/>
+                    <TextBlock Text="访问汉化组官网。" FontSize="10"/>
                 </StackPanel>
                 <Button x:Name="btnWebsite2" Content="前往" Click="btnWebsite2_Click" HorizontalAlignment="Right"/>
             </DockPanel>
