@@ -111,7 +111,6 @@ namespace UminekoLauncher
             {
                 if (AutoUpdater.DownloadUpdate(updateInfo))
                 {
-                    GameConfig.SaveConfig("ons.cfg");
                     Application.Current.Shutdown();
                 }
             }
@@ -144,6 +143,11 @@ namespace UminekoLauncher
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            GameConfig.SaveConfig("ons.cfg");
         }
     }
 }
