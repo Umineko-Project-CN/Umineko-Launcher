@@ -8,22 +8,14 @@
         Window.SizeToContent="Height" Width="350" WindowStyle="None" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner" ShowInTaskbar="False" Topmost="True" Background="{x:Null}"
         Loaded="Window_Loaded" Closing="Window_Closing">
-    <Window.Resources>
-        <Style TargetType="ProgressBar">
-            <Setter Property="Height" Value="12"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Background" Value="DarkGray"/>
-            <Setter Property="Foreground" Value="#bfa55c"/>
-        </Style>
-    </Window.Resources>
     <Grid>
         <Border CornerRadius="5">
             <Border.Background>
                 <ImageBrush Stretch="UniformToFill" ImageSource="/UminekoLauncher;component/Imgs/mbg.jpg" Opacity="0.9"/>
             </Border.Background>
         </Border>
-        <StackPanel Margin="13,13,13,20">
-            <DockPanel Margin="0,0,0,5">
+        <StackPanel Margin="13">
+            <DockPanel Margin="0,0,0,10">
                 <TextBlock x:Name="textInformation" Style="{StaticResource ButtonText}" Text="正在下载……" FontSize="17" FontWeight="Bold" TextWrapping="Wrap"/>
                 <TextBlock x:Name="textSize" Style="{StaticResource ButtonText}" FontSize="17" FontWeight="Bold" TextWrapping="Wrap" HorizontalAlignment="Right"/>
             </DockPanel>

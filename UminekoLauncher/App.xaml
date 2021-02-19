@@ -149,7 +149,7 @@
         </Style>
         <!--#endregion-->
 
-        <!--#region 全局 ComboBox 样式-->
+        <!--#region 默认 ComboBox 样式-->
         <Style x:Key="TriangleButton" TargetType="ToggleButton">
             <Setter Property="Template" >
                 <Setter.Value>
@@ -217,7 +217,7 @@
         </Style>
         <!--#endregion-->
 
-        <!--#region 全局 ScrollViewer 样式-->
+        <!--#region 默认 ScrollViewer 样式-->
         <Style x:Key="ScrollBarThumb" TargetType="Thumb">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
             <Setter Property="IsTabStop" Value="false"/>
@@ -378,6 +378,28 @@
         <Style TargetType="ScrollBar" BasedOn="{StaticResource for_scrollbar}"/>
         <!--默认ScrollView-->
         <Style TargetType="ScrollViewer" BasedOn="{StaticResource for_scrollviewer}"/>
+        <!--#endregion-->
+
+        <!--#region 默认 ProgressBar 样式 -->
+        <Style TargetType="ProgressBar">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Foreground" Value="#bfa55c" />
+            <Setter Property="Background" Value="#80000000" />
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Height" Value="10" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ProgressBar">
+                        <Grid>
+                            <Border x:Name="PART_Track"
+                                    Background="{TemplateBinding Background}" CornerRadius="4"/>
+                            <Border x:Name="PART_Indicator"
+                                    Background="{TemplateBinding Foreground}" CornerRadius="4" HorizontalAlignment="Left"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <!--#endregion-->
 
     </Application.Resources>
