@@ -18,9 +18,7 @@
                 <ImageBrush Stretch="UniformToFill" ImageSource="/UminekoLauncher;component/Imgs/mbg.jpg" Opacity="0.9"/>
             </Border.Background>
         </Border>
-        <StackPanel Margin="13,13,13,20">
-            <TextBlock x:Name="textMessage" Style="{StaticResource ButtonText}" Text="Message" FontSize="17" FontWeight="Bold" TextWrapping="Wrap"/>
-        </StackPanel>
+        <TextBlock Margin="13,13,13,20" x:Name="textMessage" Style="{StaticResource ButtonText}" Text="Message" FontSize="17" FontWeight="Bold" TextWrapping="Wrap"/>
         <local:FButton x:Name="btnConfirm" Content="确 定" Click="btnConfirm_Click" Grid.Row="1" Margin="13,0,13,13" Padding="15,0,0,0" IsCancel="True" IsDefault="True"
                        IconMargin="0" FontSize="17" FontWeight="Bold"/>
     </Grid>

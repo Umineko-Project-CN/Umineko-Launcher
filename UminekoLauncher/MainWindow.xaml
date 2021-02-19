@@ -46,7 +46,7 @@
                     <DropShadowEffect ShadowDepth="1" BlurRadius="0" Direction="270"/>
                 </StackPanel.Effect>
                 <TextBlock.FontSize>13</TextBlock.FontSize>
-                <TextBlock Margin="0,0,5,0" Text="GameVer." Foreground="#aaaaaa"/>
+                <TextBlock x:Name="textItem" Margin="0,0,5,0" Text="GameVer." Foreground="#aaaaaa"/>
                 <TextBlock x:Name="textVersion" Text="8.21.2.9" Foreground="#dddddd" FontWeight="Bold"/>
                 <TextBlock x:Name="textArrow" Text=" >> " Foreground="#dddddd" Visibility="Collapsed"/>
                 <TextBlock x:Name="textUpdate" Foreground="#ac2832" FontWeight="Bold" Visibility="Collapsed"/>

@@ -1,5 +1,4 @@
-﻿using AutoUpdaterDotNET;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -38,21 +37,32 @@ namespace UminekoLauncher
                 // 载入配置，检查游戏更新
                 configPopup.LoadConfig(configPath);
                 textVersion.Text = GameConfig.GameVersion.ToString();
-                AutoUpdater.RunUpdateAsAdmin = false;
-                AutoUpdater.CheckForUpdateEvent += CheckForUpdate;
-                AutoUpdater.InstalledVersion = GameConfig.GameVersion;
-                AutoUpdater.Start("https://down.snsteam.club/update.xml");
+                Updater.UpdateCheckedEvent += Check;
+                Updater.InstalledGameVersion = GameConfig.GameVersion;
+                Updater.Start("https://down.snsteam.club/update.xml");
             }
         }
-
+        private void Check(UpdateInfoEventArgs args)
+        {
+            Dispatcher.Invoke(new Action<UpdateInfoEventArgs>(CheckForUpdate), args);
+        }
         private void CheckForUpdate(UpdateInfoEventArgs args)
         {
             if (args.Error == null)
             {
                 textNews.Text = new WebClient() { Encoding = Encoding.UTF8 }.DownloadString(new Uri(args.ChangelogURL));
-                if (args.IsUpdateAvailable)
+                if (args.GameInfo.IsUpdateAvailable || args.LauncherInfo.IsUpdateAvailable)
                 {
-                    textUpdate.Text = args.CurrentVersion;
+                    if (args.GameInfo.IsUpdateAvailable)
+                    {
+                        textUpdate.Text = args.GameInfo.LatestVersion;
+                    }
+                    else
+                    {
+                        textItem.Text = "LauncherVer.";
+                        textVersion.Text = Updater.InstalledLauncherVersion.ToString();
+                        textUpdate.Text = args.LauncherInfo.LatestVersion;
+                    }
                     bdInfo.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a32630"));
                     textInfo.Text = "需要更新";
                     textArrow.Visibility = Visibility.Visible;
@@ -106,10 +116,13 @@ namespace UminekoLauncher
             bdInfo.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#868686"));
             textInfo.Text = "正在更新";
             btnAction.IsEnabled = false;
-            GameConfig.GameVersion = new Version(updateInfo.CurrentVersion);
+            if (updateInfo.GameInfo.IsUpdateAvailable)
+            {
+                GameConfig.GameVersion = new Version(updateInfo.GameInfo.LatestVersion);
+            }
             try
             {
-                if (AutoUpdater.DownloadUpdate(updateInfo))
+                if (Updater.DownloadUpdate(updateInfo, this))
                 {
                     Application.Current.Shutdown();
                 }

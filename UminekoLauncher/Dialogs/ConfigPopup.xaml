@@ -16,7 +16,7 @@
         <StackPanel Margin="13,13,13,20">
             <TextBlock.Foreground>#cccccc</TextBlock.Foreground>
             <DockPanel Margin="0,0,0,19">
-                <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
+                <StackPanel Orientation="Vertical">
                     <TextBlock Text="分辨率" FontSize="17" FontWeight="Bold"/>
                     <TextBlock Text="设置游戏使用的画面分辨率。" FontSize="10"/>
                 </StackPanel>
