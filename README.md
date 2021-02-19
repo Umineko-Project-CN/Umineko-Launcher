@@ -11,3 +11,6 @@ Umineko-Project-CN 所使用的启动器/更新器。
 ![screenshot2](./Img/screenshot2.webp)
 ### V 1.0.0.0
 ![screenshot1](./Img/screenshot1.webp)
+## 致谢
+* 感谢 [Lumi](https://github.com/LumiLuminas) 精心设计的界面
+* 更新功能参考 [ravibpatel](https://github.com/ravibpatel) 的 [AutoUpdater.NET](https://github.com/ravibpatel/AutoUpdater.NET) 项目
