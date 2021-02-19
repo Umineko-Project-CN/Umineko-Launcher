@@ -126,6 +126,12 @@ namespace UminekoLauncher
                 {
                     Application.Current.Shutdown();
                 }
+                else
+                {
+                    bdInfo.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a32630"));
+                    textInfo.Text = "更新失败";
+                    btnAction.IsEnabled = true;
+                }
             }
             catch (Exception exception)
             {
