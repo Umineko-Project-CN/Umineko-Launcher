@@ -1,0 +1,53 @@
+﻿<Application x:Class="ZipExtractor.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ZipExtractor"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+
+        <!--#region 默认 TextBlock 样式 -->
+        <Style TargetType="TextBlock">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Foreground" Value="#dddddd"/>
+            <Setter Property="FontFamily" Value="Microsoft Yahei UI"/>
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="1.5" Opacity="0.4" Direction="270" BlurRadius="0"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="#666666"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--#endregion-->
+        
+        <!--#region 默认 ProgressBar 样式 -->
+        <Style TargetType="ProgressBar">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Foreground" Value="#bfa55c" />
+            <Setter Property="Background" Value="#80000000" />
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Height" Value="10" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ProgressBar">
+                        <Grid>
+                            <Border x:Name="PART_Track"
+                                    Background="{TemplateBinding Background}" CornerRadius="4"/>
+                            <Border x:Name="PART_Indicator"
+                                    Background="{TemplateBinding Foreground}" CornerRadius="4" HorizontalAlignment="Left"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--#endregion-->
+        
+    </Application.Resources>
+</Application>
