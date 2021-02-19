@@ -104,12 +104,15 @@ namespace ZipExtractor
                                 try
                                 {
                                     filePath = Path.Combine(path, entry.FullName);
-                                    var parentDirectory = Path.GetDirectoryName(filePath);
-                                    if (!Directory.Exists(parentDirectory))
+                                    if (entry.Name != "")
                                     {
-                                        Directory.CreateDirectory(parentDirectory);
+                                        var parentDirectory = Path.GetDirectoryName(filePath);
+                                        if (!Directory.Exists(parentDirectory))
+                                        {
+                                            Directory.CreateDirectory(parentDirectory);
+                                        }
+                                        entry.ExtractToFile(filePath, true);
                                     }
-                                    entry.ExtractToFile(filePath, true);
                                     notCopied = false;
                                 }
                                 catch (IOException exception)
