@@ -27,6 +27,7 @@ namespace UminekoLauncher
         private static List<string> config;
         public static bool IsLoaded { get; set; } = false;
         public static Version GameVersion { get; set; } = new Version("8.21.2.9");
+        public static string GameScript { get; set; } = "cn.file";
         public static bool IsLegacyOpEnabled { get; set; } = false;
         public static DisplayResolution DisplayResolution { get; set; } = DisplayResolution.x1920;
         public static DisplayMode DisplayMode { get; set; } = DisplayMode.Auto;
@@ -44,6 +45,14 @@ namespace UminekoLauncher
                 if (line.StartsWith("#game-version"))
                 {
                     GameVersion = new Version(line.Split('=')[1]);
+                    continue;
+                }
+                #endregion
+
+                #region 游戏脚本
+                if (line.StartsWith("game-script"))
+                {
+                    GameScript = line.Split('=')[1];
                     continue;
                 }
                 #endregion
@@ -117,6 +126,10 @@ namespace UminekoLauncher
         {
             #region 更新版本
             config.Insert(0, "#game-version=" + GameVersion.ToString());
+            #endregion
+
+            #region 游戏脚本
+            config.Add("game-script=" + GameScript);
             #endregion
 
             #region 旧版OP
