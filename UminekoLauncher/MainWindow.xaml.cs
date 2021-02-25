@@ -18,6 +18,7 @@ namespace UminekoLauncher
         private static System.Threading.Mutex mutex;
         private UpdateInfoEventArgs updateInfo;
         private const string configPath = "ons.cfg";
+        private bool verify = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -98,9 +99,12 @@ namespace UminekoLauncher
             var startInfo = new ProcessStartInfo
             {
                 UseShellExecute = true,
-                // Arguments = "--env[legacy_op] true",
                 FileName = "onscripter-ru.exe"
             };
+            if (verify)
+            {
+                startInfo.Arguments = "--env[verify] full";
+            }
             try
             {
                 Process.Start(startInfo);
@@ -109,6 +113,14 @@ namespace UminekoLauncher
             catch (Exception)
             {
                 new MessageWindow("启动失败！请检查游戏完整性及相关设置。", this).ShowDialog();
+            }
+        }
+        private void VerifyStart(object sender, MouseButtonEventArgs e)
+        {
+            if (new MessageWindow("确定要检查游戏完整性吗？", this, true).ShowDialog() == true)
+            {
+                verify = true;
+                Start(sender, e);
             }
         }
         private void Upgrade(object sender, RoutedEventArgs e)

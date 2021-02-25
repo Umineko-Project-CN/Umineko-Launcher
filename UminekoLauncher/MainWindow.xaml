@@ -32,7 +32,8 @@
             </TextBlock>
         </ScrollViewer>
         <local:FButton x:Name="btnAction" Margin="27,293,0,0" Width="200" Height="43" Click="Start" HorizontalAlignment="Left" VerticalAlignment="Top"
-                       Icon="&#xe037;" IconMargin="-10, 0, 7, 0" IconSize="32" Content="开 始 游 戏" FontMargin="0,-2,0,0" FontWeight="Bold" FontSize="20"/>
+                       Icon="&#xe037;" IconMargin="-10, 0, 7, 0" IconSize="32" Content="开 始 游 戏" FontMargin="0,-2,0,0" FontWeight="Bold" FontSize="20"
+                       MouseRightButtonUp="VerifyStart"/>
         <StackPanel Orientation="Horizontal" Margin="27,383,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Border x:Name="bdInfo" Background="#868686" CornerRadius="4" Width="60" Height="18">
                 <TextBlock x:Name="textInfo" Text="正在检测" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12">

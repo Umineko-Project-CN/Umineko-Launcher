@@ -19,7 +19,11 @@
             </Border.Background>
         </Border>
         <TextBlock Margin="13,13,13,20" x:Name="textMessage" Style="{StaticResource ButtonText}" Text="Message" FontSize="17" FontWeight="Bold" TextWrapping="Wrap"/>
-        <local:FButton x:Name="btnConfirm" Content="确 定" Click="btnConfirm_Click" Grid.Row="1" Margin="13,0,13,13" Padding="15,0,0,0" IsCancel="True" IsDefault="True"
+        <UniformGrid Grid.Row="1" Margin="10,0,10,10" Rows="1">
+            <local:FButton x:Name="btnConfirm" Content="确 定" Click="btnConfirm_Click" Margin="3,0,3,3"
                        IconMargin="0" FontSize="17" FontWeight="Bold"/>
+            <local:FButton x:Name="btnCancel" Content="取 消" Click="btnCancel_Click" IsCancel="True" Margin="3,0,3,3" Visibility="Collapsed"
+                       IconMargin="0" FontSize="17" FontWeight="Bold"/>
+        </UniformGrid>
     </Grid>
 </Window>
