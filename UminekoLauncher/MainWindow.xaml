@@ -1,5 +1,4 @@
-﻿<Window
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -8,13 +7,27 @@
         mc:Ignorable="d"
         Title="海猫鸣泣之时" Width="790" Height="420" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Imgs/icon.ico"
         Closing="Window_Closing" MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+    <Window.Resources>
+        <Storyboard x:Key="LoadAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.2"/>
+        </Storyboard>
+        <Storyboard x:Key="ExitAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2"/>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <EventTrigger.Actions>
+                <BeginStoryboard Storyboard="{StaticResource LoadAnimation}"/>
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </Window.Triggers>
     <Grid>
         <Border CornerRadius="5">
             <Border.Background>
                 <ImageBrush ImageSource="Imgs/bg.jpg" Stretch="UniformToFill"/>
             </Border.Background>
         </Border>
-        
         <!--#region 主界面 -->
         <StackPanel x:Name="spButtons" Margin="27,27,0,0" Orientation="Horizontal" Width="200" Height="33" VerticalAlignment="Top" HorizontalAlignment="Left">
             <StackPanel.Background>
@@ -61,6 +74,6 @@
         <dialogs:AboutPopup x:Name="aboutPopup" Margin="26.5,73,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
                             IsVisibleChanged="aboutPopup_IsVisibleChanged"/>
         <!--#endregion-->
-        
+
     </Grid>
 </Window>

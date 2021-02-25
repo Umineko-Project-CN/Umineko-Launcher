@@ -18,7 +18,12 @@ namespace UminekoLauncher.Dialogs
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
-            Visibility = Visibility.Collapsed;
+            var animation = FindResource("ExitAnimation") as System.Windows.Media.Animation.Storyboard;
+            animation.Completed += (a, b) =>
+            {
+                Visibility = Visibility.Collapsed;
+            };
+            animation.Begin(this);
         }
 
         private void btnWebsite1_Click(object sender, RoutedEventArgs e)

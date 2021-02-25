@@ -6,6 +6,36 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
 
+        <!--#region 默认 FButton 样式 -->
+        <Style TargetType="local:FButton">
+            <Setter Property="Background" Value="#bfa55c"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#d3b666" Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#bfa55c" Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#ab9454"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#999999"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--#endregion-->
+
         <!--#region 透明 FButton 样式 -->
         <Style x:Key="TransparentFButton" TargetType="local:FButton">
             <Setter Property="Background" Value="Transparent"/>
@@ -15,12 +45,24 @@
             <Setter Property="FontSize" Value="12"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#1AFFFFFF"/>
-                    <Setter Property="ContentEffect">
-                        <Setter.Value>
-                            <DropShadowEffect ShadowDepth="0" BlurRadius="4" Direction="270" Color="White"/>
-                        </Setter.Value>
-                    </Setter>
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#1AFFFFFF" Duration="0:0:0.25"/>
+                                <DoubleAnimation Storyboard.TargetProperty="(ContentEffect).BlurRadius" From="0" To="4" Duration="0:0:0.25"/>
+                                <DoubleAnimation Storyboard.TargetProperty="(ContentEffect).ShadowDepth" To="0" Duration="0"/>
+                                <ColorAnimation Storyboard.TargetProperty="(ContentEffect).Color" To="White" Duration="0"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="Background.Color" To="Transparent" Duration="0:0:0.25"/>
+                                <DoubleAnimation Storyboard.TargetProperty="(ContentEffect).BlurRadius" To="0" Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
                     <Setter Property="Foreground" Value="#666666"/>
@@ -82,7 +124,20 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#a15265"/>
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#a15265" Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#693a47" Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
                     <Setter Property="Background" Value="#58313c"/>
@@ -109,7 +164,20 @@
             <Setter Property="Background" Value="#181818"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#222222"/>
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#222222" Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#181818" Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
                     <Setter Property="Background" Value="#000000"/>
@@ -123,7 +191,20 @@
             <Setter Property="Background" Value="#264e90"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#3166b2"/>
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#3166b2" Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#264e90" Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
                     <Setter Property="Background" Value="#1b366e"/>
@@ -137,7 +218,20 @@
             <Setter Property="Background" Value="#943030"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#b43e3e"/>
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#b43e3e" Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#943030" Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
                     <Setter Property="Background" Value="#742222"/>
@@ -179,7 +273,7 @@
                                             IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"/>
                                 <TextBlock Text="{TemplateBinding Text}" Style="{StaticResource ButtonText}" IsHitTestVisible="false"/>
                                 <Popup AllowsTransparency="True" HorizontalOffset="0" Width="{TemplateBinding ActualWidth}"
-                                       IsOpen="{TemplateBinding IsDropDownOpen}" Focusable="False">
+                                       IsOpen="{TemplateBinding IsDropDownOpen}" Focusable="False" PopupAnimation="Fade">
                                     <Grid HorizontalAlignment="Stretch">
                                         <Border CornerRadius="4" Background="#F0666666" HorizontalAlignment="Stretch"/>
                                         <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" HorizontalAlignment="Stretch"/>
@@ -189,7 +283,20 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="bd" Property="Background" Value="#a15265"/>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="bd" Storyboard.TargetProperty="Background.Color" To="#a15265" Duration="0:0:0.25"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="bd" Storyboard.TargetProperty="Background.Color" To="#693a47" Duration="0:0:0.25"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -208,7 +315,20 @@
                                 <Setter TargetName="item" Property="Opacity" Value="1.0"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="item" Property="Opacity" Value="1.0"/>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="item" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.25"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="item" Storyboard.TargetProperty="Opacity" To="0.6" Duration="0:0:0.25"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -367,7 +487,20 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Opacity" TargetName="PART_VerticalScrollBar" Value="0.2"/>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="PART_VerticalScrollBar" Storyboard.TargetProperty="Opacity" To="0.2" Duration="0:0:0.25"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="PART_VerticalScrollBar" Storyboard.TargetProperty="Opacity" To="0.1" Duration="0:0:0.25"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

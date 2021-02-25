@@ -7,7 +7,6 @@
         mc:Ignorable="d" AllowsTransparency="True"
         Window.SizeToContent="Height" Width="350" WindowStyle="None" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Topmost="True" Background="{x:Null}">
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>

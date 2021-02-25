@@ -8,6 +8,11 @@
     <UserControl.Background>
         <ImageBrush ImageSource="/UminekoLauncher;component/Imgs/wbg.png" Stretch="UniformToFill"/>
     </UserControl.Background>
+    <UserControl.Resources>
+        <Storyboard x:Key="ExitAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2"/>
+        </Storyboard>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>

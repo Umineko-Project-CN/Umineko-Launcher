@@ -54,7 +54,12 @@ namespace UminekoLauncher.Dialogs
             GameConfig.IsLegacyOpEnabled = Convert.ToBoolean(cmbLegacyOp.SelectedIndex);
             #endregion
 
-            Visibility = Visibility.Collapsed;
+            var animation = FindResource("ExitAnimation") as System.Windows.Media.Animation.Storyboard;
+            animation.Completed += (a, b) =>
+            {
+                Visibility = Visibility.Collapsed;
+            };
+            animation.Begin(this);
         }
     }
 }

@@ -153,14 +153,21 @@ namespace UminekoLauncher
         private void btnConfig_Click(object sender, RoutedEventArgs e)
         {
             configPopup.Visibility = Visibility.Visible;
+            (FindResource("LoadAnimation") as System.Windows.Media.Animation.Storyboard).Begin(configPopup);
         }
         private void btnAbout_Click(object sender, RoutedEventArgs e)
         {
             aboutPopup.Visibility = Visibility.Visible;
+            (FindResource("LoadAnimation") as System.Windows.Media.Animation.Storyboard).Begin(aboutPopup);
         }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            var animation = FindResource("ExitAnimation") as System.Windows.Media.Animation.Storyboard;
+            animation.Completed += (a, b) =>
+            {
+                Application.Current.Shutdown();
+            };
+            animation.Begin(this);
         }
         private void configPopup_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
