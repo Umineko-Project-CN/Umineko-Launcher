@@ -42,21 +42,29 @@ namespace UminekoLauncher
         /// <returns>以大写形式返回校验值。</returns>
         public static Checksum GetHash(string filePath, Checksum checksum)
         {
-            using (var hashAlgorithm = HashAlgorithm.Create(checksum.HashingAlgorithm ?? "MD5"))
+            try
             {
-                using (var stream = File.OpenRead(filePath))
+                using (var hashAlgorithm = HashAlgorithm.Create(checksum.HashingAlgorithm ?? "MD5"))
                 {
-                    if (hashAlgorithm != null)
+                    using (var stream = File.OpenRead(filePath))
                     {
-                        var hash = hashAlgorithm.ComputeHash(stream);
-                        return new Checksum()
+                        if (hashAlgorithm != null)
                         {
-                            Value = BitConverter.ToString(hash).Replace("-", string.Empty),
-                            HashingAlgorithm = checksum.HashingAlgorithm
-                        };
+                            var hash = hashAlgorithm.ComputeHash(stream);
+                            return new Checksum()
+                            {
+                                Value = BitConverter.ToString(hash).Replace("-", string.Empty),
+                                HashingAlgorithm = checksum.HashingAlgorithm
+                            };
+                        }
+                        throw new Exception("不支持该校验算法。");
                     }
-                    throw new Exception("不支持该校验算法。");
                 }
+
+            }
+            catch (Exception)
+            {
+                return new Checksum() { Value = "0", HashingAlgorithm = "0" };
             }
         }
         /// <summary>

@@ -28,7 +28,7 @@ namespace UminekoLauncher
                 new MessageWindow("出错了！启动器已在运行。").ShowDialog();
                 Application.Current.Shutdown();
             }
-            if (!File.Exists(GameConfig.ConfigPath) || !File.Exists(GameHash.HashPath) || !File.Exists("cn.file"))
+            if (!File.Exists(GameConfig.ConfigPath))
             {
                 new MessageWindow("出错了！未检测到相关重要文件，请检查游戏完整性。").ShowDialog();
                 Application.Current.Shutdown();
@@ -56,7 +56,7 @@ namespace UminekoLauncher
                 textNews.Text = new WebClient() { Encoding = Encoding.UTF8 }.DownloadString(new Uri(args.ChangelogURL));
                 if (args.LauncherInfo.IsUpdateAvailable || args.ScriptInfo.IsUpdateAvailable || args.ResourceInfo.IsUpdateAvailable)
                 {
-                    circle.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a32630"));
+                    circle.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f00013"));
                     textStatus.FontWeight = FontWeights.Bold;
                     textStatus.Foreground = Brushes.White;
                     btnAction.Icon = "";
@@ -79,7 +79,7 @@ namespace UminekoLauncher
                         if (new Version(args.ResourceInfo.LatestVersion).Major > args.ResourceInfo.InstalledVersion.Major)
                         {
                             textStatus.Text = "资源文件需要手动更新";
-                            textInfo.Text = "为保证游玩体验 强烈建议下载";
+                            textInfo.Text = "点击按钮以前往下载";
                             btnAction.Icon = "";
                             btnAction.Content = "前 往 下 载";
                             btnAction.Click += (a, b) => Process.Start(args.ExtraLink);
@@ -102,7 +102,9 @@ namespace UminekoLauncher
             }
             else
             {
-                circle.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a32630"));
+                circle.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f00013"));
+                textStatus.FontWeight = FontWeights.Bold;
+                textStatus.Foreground = Brushes.White;
                 textStatus.Text = "检测失败";
                 textInfo.Text = "请检查互联网连接并稍后重试";
                 if (args.Error is WebException)
