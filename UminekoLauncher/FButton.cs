@@ -12,9 +12,6 @@ namespace UminekoLauncher
             DefaultStyleKeyProperty.OverrideMetadata(typeof(FButton), new FrameworkPropertyMetadata(typeof(FButton)));
         }
 
-        /// <summary>
-        /// 设置 FButton 的圆角
-        /// </summary>
         [Description("表示按钮边框的圆角半径。不能为负值。"), Category("外观")]
         public CornerRadius CornerRadius
         {

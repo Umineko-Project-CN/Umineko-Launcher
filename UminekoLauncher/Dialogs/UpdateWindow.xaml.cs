@@ -25,7 +25,18 @@ namespace UminekoLauncher.Dialogs
             InitializeComponent();
 
             Owner = owner;
-            _args = (args.GameInfo.IsUpdateAvailable) ? args.GameInfo : args.LauncherInfo;
+            if (args.LauncherInfo.IsUpdateAvailable)
+            {
+                _args = args.LauncherInfo;
+            }
+            else if (args.ScriptInfo.IsUpdateAvailable)
+            {
+                _args = args.ScriptInfo;
+            }
+            else if (args.ResourceInfo.IsUpdateAvailable)
+            {
+                _args = args.ResourceInfo;
+            }
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -169,24 +180,8 @@ namespace UminekoLauncher.Dialogs
 
         private static void CompareChecksum(string fileName, Checksum checksum)
         {
-            using (var hashAlgorithm =
-                HashAlgorithm.Create(
-                    string.IsNullOrEmpty(checksum.HashingAlgorithm) ? "MD5" : checksum.HashingAlgorithm))
-            {
-                using (var stream = File.OpenRead(fileName))
-                {
-                    if (hashAlgorithm != null)
-                    {
-                        var hash = hashAlgorithm.ComputeHash(stream);
-                        var fileChecksum = BitConverter.ToString(hash).Replace("-", string.Empty).ToLowerInvariant();
-
-                        if (fileChecksum == checksum.Value.ToLower()) return;
-
-                        throw new Exception("文件完整性检查失败。");
-                    }
-                    throw new Exception("不支持该校验算法。");
-                }
-            }
+            if (GameHash.GetHash(fileName, checksum).Value == checksum.Value) return;
+            throw new Exception("文件完整性检查失败。");
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)

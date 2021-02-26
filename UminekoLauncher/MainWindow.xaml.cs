@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
@@ -17,7 +18,6 @@ namespace UminekoLauncher
     {
         private static System.Threading.Mutex mutex;
         private UpdateInfoEventArgs updateInfo;
-        private const string configPath = "ons.cfg";
         private bool verify = false;
         public MainWindow()
         {
@@ -28,18 +28,20 @@ namespace UminekoLauncher
                 new MessageWindow("出错了！启动器已在运行。").ShowDialog();
                 Application.Current.Shutdown();
             }
-            if (!File.Exists(configPath))
+            if (!File.Exists(GameConfig.ConfigPath) || !File.Exists(GameHash.HashPath) || !File.Exists("cn.file"))
             {
-                new MessageWindow("出错了！未检测到配置文件，请检查游戏完整性。").ShowDialog();
+                new MessageWindow("出错了！未检测到相关重要文件，请检查游戏完整性。").ShowDialog();
                 Application.Current.Shutdown();
             }
             else
             {
                 // 载入配置，检查游戏更新
-                configPopup.LoadConfig(configPath);
-                textVersion.Text = GameConfig.GameVersion.ToString();
+                configPopup.LoadConfig();
+                // textVersion.Text = GameConfig.GameVersion.ToString();
                 Updater.UpdateCheckedEvent += Check;
-                Updater.InstalledGameVersion = GameConfig.GameVersion;
+                Updater.InstalledLauncherVersion = Assembly.GetExecutingAssembly().GetName().Version;
+                // Updater.InstalledScriptHash 在检测更新时给出
+                Updater.InstalledResourceVersion = GameHash.ResourceVersion;
                 Updater.Start("https://down.snsteam.club/update.xml");
             }
         }
@@ -52,38 +54,57 @@ namespace UminekoLauncher
             if (args.Error == null)
             {
                 textNews.Text = new WebClient() { Encoding = Encoding.UTF8 }.DownloadString(new Uri(args.ChangelogURL));
-                if (args.GameInfo.IsUpdateAvailable || args.LauncherInfo.IsUpdateAvailable)
+                if (args.LauncherInfo.IsUpdateAvailable || args.ScriptInfo.IsUpdateAvailable || args.ResourceInfo.IsUpdateAvailable)
                 {
-                    if (args.GameInfo.IsUpdateAvailable)
-                    {
-                        textUpdate.Text = args.GameInfo.LatestVersion;
-                    }
-                    else
-                    {
-                        textItem.Text = "LauncherVer.";
-                        textVersion.Text = Updater.InstalledLauncherVersion.ToString();
-                        textUpdate.Text = args.LauncherInfo.LatestVersion;
-                    }
-                    bdInfo.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a32630"));
-                    textInfo.Text = "需要更新";
-                    textArrow.Visibility = Visibility.Visible;
-                    textUpdate.Visibility = Visibility.Visible;
+                    circle.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a32630"));
+                    textStatus.FontWeight = FontWeights.Bold;
+                    textStatus.Foreground = Brushes.White;
                     btnAction.Icon = "";
                     btnAction.Content = "获 取 更 新";
                     btnAction.Click -= Start;
-                    btnAction.Click += Upgrade;
+                    if (args.LauncherInfo.IsUpdateAvailable)
+                    {
+                        textStatus.Text = "启动器需要更新";
+                        textInfo.Text = "点击按钮以自动更新";
+                        btnAction.Click += Upgrade;
+                    }
+                    else if (args.ScriptInfo.IsUpdateAvailable)
+                    {
+                        textStatus.Text = "脚本文件需要更新";
+                        textInfo.Text = "点击按钮以自动更新";
+                        btnAction.Click += Upgrade;
+                    }
+                    else
+                    {
+                        if (new Version(args.ResourceInfo.LatestVersion).Major > args.ResourceInfo.InstalledVersion.Major)
+                        {
+                            textStatus.Text = "资源文件需要手动更新";
+                            textInfo.Text = "为保证游玩体验 强烈建议下载";
+                            btnAction.Icon = "";
+                            btnAction.Content = "前 往 下 载";
+                            btnAction.Click += (a, b) => Process.Start(args.ExtraLink);
+                        }
+                        else
+                        {
+                            textStatus.Text = "资源文件需要更新";
+                            btnAction.Click += Upgrade;
+                            textInfo.Text = "点击按钮以自动更新";
+                        }
+                    }
                     updateInfo = args;
                 }
                 else
                 {
-                    bdInfo.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#4b9f2a"));
-                    textInfo.Text = "最新版本";
+                    circle.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#4b9f2a"));
+                    textStatus.Text = "最新版本";
+                    textInfo.Text = "无可用更新";
                 }
             }
             else
             {
-                bdInfo.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a32630"));
-                textInfo.Text = "检测失败";
+                circle.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a32630"));
+                textStatus.Text = "检测失败";
+                textInfo.Text = "请检查互联网连接并稍后重试";
                 if (args.Error is WebException)
                 {
                     textNews.Text = "连接至更新服务器时出错。";
@@ -125,13 +146,10 @@ namespace UminekoLauncher
         }
         private void Upgrade(object sender, RoutedEventArgs e)
         {
-            bdInfo.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#868686"));
-            textInfo.Text = "正在更新";
+            circle.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#868686"));
+            textStatus.Text = "正在更新";
+            textInfo.Text = "请稍候";
             btnAction.IsEnabled = false;
-            if (updateInfo.GameInfo.IsUpdateAvailable)
-            {
-                GameConfig.GameVersion = new Version(updateInfo.GameInfo.LatestVersion);
-            }
             try
             {
                 if (Updater.DownloadUpdate(updateInfo, this))
@@ -140,8 +158,9 @@ namespace UminekoLauncher
                 }
                 else
                 {
-                    bdInfo.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a32630"));
-                    textInfo.Text = "更新失败";
+                    circle.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a32630"));
+                    textStatus.Text = "更新失败";
+                    textInfo.Text = "请稍候重试";
                     btnAction.IsEnabled = true;
                 }
             }
@@ -186,7 +205,7 @@ namespace UminekoLauncher
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (GameConfig.IsLoaded)
-                GameConfig.SaveConfig("ons.cfg");
+                GameConfig.SaveConfig();
         }
     }
 }

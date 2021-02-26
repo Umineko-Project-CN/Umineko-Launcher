@@ -83,6 +83,7 @@
     <Compile Include="Dialogs\UpdateWindow.xaml.cs">
       <DependentUpon>UpdateWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GameHash.cs" />
     <Compile Include="UpdateInfoEventArgs.cs" />
     <Compile Include="Updater.cs" />
     <Page Include="Dialogs\AboutPopup.xaml">

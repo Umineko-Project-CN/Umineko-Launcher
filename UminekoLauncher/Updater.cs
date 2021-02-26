@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Cache;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -34,14 +30,19 @@ namespace UminekoLauncher
         public static bool Synchronous { get; set; } = false;
 
         /// <summary>
-        /// 已安装的游戏版本。
-        /// </summary>
-        public static Version InstalledGameVersion { get; set; }
-
-        /// <summary>
         /// 已安装的启动器版本。
         /// </summary>
-        public static Version InstalledLauncherVersion { get; set; } = Assembly.GetExecutingAssembly().GetName().Version;
+        public static Version InstalledLauncherVersion { get; set; }
+
+        /// <summary>
+        /// 已安装的脚本校验值。
+        /// </summary>
+        public static Checksum InstalledScriptHash { get; set; }
+
+        /// <summary>
+        /// 已安装的资源版本。
+        /// </summary>
+        public static Version InstalledResourceVersion { get; set; }
 
         /// <summary>
         /// 用于挂接更新通知的委托类型。
@@ -108,15 +109,18 @@ namespace UminekoLauncher
                 XmlTextReader xmlTextReader = new XmlTextReader(new StringReader(xml)) { XmlResolver = null };
                 args = (UpdateInfoEventArgs)xmlSerializer.Deserialize(xmlTextReader);
             }
-            if (string.IsNullOrEmpty(args.GameInfo.LatestVersion) || string.IsNullOrEmpty(args.GameInfo.DownloadURL) ||
-                string.IsNullOrEmpty(args.LauncherInfo.LatestVersion) || string.IsNullOrEmpty(args.LauncherInfo.DownloadURL))
+            if (string.IsNullOrEmpty(args.LauncherInfo.LatestVersion) || string.IsNullOrEmpty(args.LauncherInfo.DownloadURL) ||
+                string.IsNullOrEmpty(args.ScriptInfo.LatestHash.Value) || string.IsNullOrEmpty(args.ScriptInfo.DownloadURL) ||
+                string.IsNullOrEmpty(args.ResourceInfo.LatestVersion) || string.IsNullOrEmpty(args.ResourceInfo.DownloadURL))
             {
                 throw new MissingFieldException();
             }
-            args.GameInfo.InstalledVersion = InstalledGameVersion;
-            args.GameInfo.IsUpdateAvailable = new Version(args.GameInfo.LatestVersion) > args.GameInfo.InstalledVersion;
             args.LauncherInfo.InstalledVersion = InstalledLauncherVersion;
             args.LauncherInfo.IsUpdateAvailable = new Version(args.LauncherInfo.LatestVersion) > args.LauncherInfo.InstalledVersion;
+            args.ScriptInfo.InstalledHash = InstalledScriptHash ?? GameHash.GetHash("cn.file", args.ScriptInfo.LatestHash);
+            args.ScriptInfo.IsUpdateAvailable = !args.ScriptInfo.InstalledHash.Equals(args.ScriptInfo.LatestHash);
+            args.ResourceInfo.InstalledVersion = InstalledResourceVersion;
+            args.ResourceInfo.IsUpdateAvailable = new Version(args.ResourceInfo.LatestVersion) > args.ResourceInfo.InstalledVersion;
             UpdateCheckedEvent?.Invoke(args);
         }
         private static void ShowError(Exception exception)

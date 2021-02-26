@@ -14,9 +14,9 @@ namespace UminekoLauncher.Dialogs
             InitializeComponent();
             Visibility = Visibility.Collapsed;
         }
-        public void LoadConfig(string path)
+        public void LoadConfig()
         {
-            GameConfig.LoadConfig(path);
+            GameConfig.LoadConfig();
             // 我太菜了，不会写 MVVM，有大神来帮忙改改嘛
 
             #region 分辨率

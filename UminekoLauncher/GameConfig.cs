@@ -6,7 +6,13 @@ using System.Linq;
 
 namespace UminekoLauncher
 {
+    /// <summary>
+    /// 游戏的显示模式。
+    /// </summary>
     public enum DisplayMode { Window, FullScreen, Auto }
+    /// <summary>
+    /// 游戏的显示分辨率。
+    /// </summary>
     public enum DisplayResolution
     {
         [Description("1280x720")]
@@ -22,32 +28,57 @@ namespace UminekoLauncher
         [Description("2560x1440")]
         x2560
     }
+    /// <summary>
+    /// 该静态类用于执行游戏配置的相关操作。
+    /// </summary>
     static class GameConfig
     {
         private static List<string> config;
-        public static bool IsLoaded { get; set; } = false;
-        public static Version GameVersion { get; set; } = new Version("8.21.2.9");
+
+        /// <summary>
+        /// 获取游戏配置文件（ons.cfg）所在路径。
+        /// </summary>
+        public static string ConfigPath { get; } = "ons.cfg";
+        /// <summary>
+        /// 若当前已读取配置，则该值为真。
+        /// </summary>
+        public static bool IsLoaded { get; private set; } = false;
+
+        /// <summary>
+        /// 获取或设置当前所使用的游戏脚本。
+        /// </summary>
         public static string GameScript { get; set; } = "cn.file";
+
+        /// <summary>
+        /// 获取或设置是否启用经典开场。
+        /// </summary>
         public static bool IsLegacyOpEnabled { get; set; } = false;
+
+        /// <summary>
+        /// 获取或设置游戏分辨率。
+        /// </summary>
         public static DisplayResolution DisplayResolution { get; set; } = DisplayResolution.x1920;
+
+        /// <summary>
+        /// 获取或设置游戏显示模式。
+        /// </summary>
         public static DisplayMode DisplayMode { get; set; } = DisplayMode.Auto;
+
+        /// <summary>
+        /// 获取或设置是否缩放全屏。
+        /// </summary>
         public static bool IsScaleEnabled { get; set; } = false;
 
-        public static void LoadConfig(string path)
+        /// <summary>
+        /// 从配置文件（ons.cfg）中载入游戏配置。
+        /// </summary>
+        public static void LoadConfig()
         {
-            config = File.ReadAllLines(path).ToList();
+            config = File.ReadAllLines(ConfigPath).ToList();
             for (int i = 0; i < config.Count; i++)
             {
                 string line = config[i].Trim();
                 config[i] = null;
-
-                #region 更新版本
-                if (line.StartsWith("#game-version"))
-                {
-                    GameVersion = new Version(line.Split('=')[1]);
-                    continue;
-                }
-                #endregion
 
                 #region 游戏脚本
                 if (line.StartsWith("game-script"))
@@ -122,11 +153,12 @@ namespace UminekoLauncher
             config.RemoveAll(line => line == null);
             IsLoaded = true;
         }
-        public static void SaveConfig(string path)
+
+        /// <summary>
+        /// 保存游戏配置至配置文件（ons.cfg）。
+        /// </summary>
+        public static void SaveConfig()
         {
-            #region 更新版本
-            config.Insert(0, "#game-version=" + GameVersion.ToString());
-            #endregion
 
             #region 游戏脚本
             config.Add("game-script=" + GameScript);
@@ -187,7 +219,7 @@ namespace UminekoLauncher
             }
             #endregion
 
-            File.WriteAllLines(path, config);
+            File.WriteAllLines(ConfigPath, config);
         }
     }
 }

@@ -28,6 +28,7 @@
                 <ImageBrush ImageSource="Imgs/bg.jpg" Stretch="UniformToFill"/>
             </Border.Background>
         </Border>
+        
         <!--#region 主界面 -->
         <StackPanel x:Name="spButtons" Margin="27,27,0,0" Orientation="Horizontal" Width="200" Height="33" VerticalAlignment="Top" HorizontalAlignment="Left">
             <StackPanel.Background>
@@ -48,22 +49,15 @@
                        Icon="&#xe037;" IconMargin="-10, 0, 7, 0" IconSize="32" Content="开 始 游 戏" FontMargin="0,-2,0,0" FontWeight="Bold" FontSize="20"
                        MouseRightButtonUp="VerifyStart"/>
         <StackPanel Orientation="Horizontal" Margin="27,383,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Border x:Name="bdInfo" Background="#868686" CornerRadius="4" Width="60" Height="18">
-                <TextBlock x:Name="textInfo" Text="正在检测" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12">
-                    <TextBlock.Effect>
-                        <DropShadowEffect ShadowDepth="1" BlurRadius="0" Direction="270" Opacity="0.4"/>
-                    </TextBlock.Effect>
-                </TextBlock>
-            </Border>
+            <Ellipse x:Name="circle" Fill="#bb5a25" Width="15" Height="15" VerticalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" Margin="6,0,0,0" VerticalAlignment="Center">
                 <StackPanel.Effect>
                     <DropShadowEffect ShadowDepth="1" BlurRadius="0" Direction="270"/>
                 </StackPanel.Effect>
                 <TextBlock.FontSize>13</TextBlock.FontSize>
-                <TextBlock x:Name="textItem" Margin="0,0,5,0" Text="GameVer." Foreground="#aaaaaa"/>
-                <TextBlock x:Name="textVersion" Text="8.21.2.9" Foreground="#dddddd" FontWeight="Bold"/>
-                <TextBlock x:Name="textArrow" Text=" >> " Foreground="#dddddd" Visibility="Collapsed"/>
-                <TextBlock x:Name="textUpdate" Foreground="#ac2832" FontWeight="Bold" Visibility="Collapsed"/>
+                <TextBlock x:Name="textStatus" Text="正在检测" FontWeight="Normal" Foreground="#aaaaaa"/>
+                <TextBlock Text="  |  " Foreground="#aaaaaa"/>
+                <TextBlock x:Name="textInfo" Text="请稍候" Foreground="#aaaaaa"/>
             </StackPanel>
         </StackPanel>
         <!--#endregion-->
