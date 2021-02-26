@@ -37,7 +37,7 @@ namespace UminekoLauncher
             {
                 // 载入配置，检查游戏更新
                 configPopup.LoadConfig();
-                // textVersion.Text = GameConfig.GameVersion.ToString();
+                GameHash.LoadHashFile();
                 Updater.UpdateCheckedEvent += Check;
                 Updater.InstalledLauncherVersion = Assembly.GetExecutingAssembly().GetName().Version;
                 // Updater.InstalledScriptHash 在检测更新时给出
@@ -80,7 +80,7 @@ namespace UminekoLauncher
                         {
                             textStatus.Text = "资源文件需要手动更新";
                             textInfo.Text = "为保证游玩体验 强烈建议下载";
-                            btnAction.Icon = "";
+                            btnAction.Icon = "";
                             btnAction.Content = "前 往 下 载";
                             btnAction.Click += (a, b) => Process.Start(args.ExtraLink);
                         }

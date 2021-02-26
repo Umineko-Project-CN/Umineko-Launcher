@@ -17,7 +17,22 @@ namespace UminekoLauncher
         /// <summary>
         /// 获取或设置游戏资源版本。
         /// </summary>
-        public static Version ResourceVersion { get; set; } = GetVersion();
+        public static Version ResourceVersion { get; set; }
+
+        /// <summary>
+        /// 载入游戏校验值文件（locale_game.hash）。
+        /// </summary>
+        public static void LoadHashFile()
+        {
+            try
+            {
+                ResourceVersion = GetVersion();
+            }
+            catch (Exception)
+            {
+                ResourceVersion = new Version(0, 0, 0, 0);
+            }
+        }
 
         /// <summary>
         /// 获取某文件的校验值。
