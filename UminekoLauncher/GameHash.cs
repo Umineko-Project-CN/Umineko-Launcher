@@ -24,14 +24,7 @@ namespace UminekoLauncher
         /// </summary>
         public static void LoadHashFile()
         {
-            try
-            {
-                ResourceVersion = GetVersion();
-            }
-            catch (Exception)
-            {
-                ResourceVersion = new Version(0, 0, 0, 0);
-            }
+            ResourceVersion = GetVersion();
         }
 
         /// <summary>
@@ -73,14 +66,22 @@ namespace UminekoLauncher
         /// <returns>版本号。</returns>
         private static Version GetVersion()
         {
-            using (var reader = new StreamReader(HashPath))
+            try
             {
-                string str;
-                do
+                using (var reader = new StreamReader(HashPath))
                 {
-                    str = reader.ReadLine();
-                } while (!str.StartsWith("\"resver\""));
-                return new Version(str.Split('=')[1].Trim('\"'));
+                    string str;
+                    do
+                    {
+                        str = reader.ReadLine();
+                    } while (!str.StartsWith("\"resver\""));
+                    return new Version(str.Split('=')[1].Trim('\"'));
+                }
+
+            }
+            catch (Exception)
+            {
+                return new Version(0, 0, 0, 0);
             }
         }
     }

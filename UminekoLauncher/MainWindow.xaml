@@ -39,7 +39,7 @@
             <local:FButton x:Name="btnAbout" Click="btnAbout_Click" Width="68" Style="{StaticResource TransparentFButton}" CornerRadius="0,15,15,0" Icon="&#xe89e;"/>
         </StackPanel>
         <ScrollViewer x:Name="scrollViewer" Margin="27,115,0,0" Width="320" Height="153" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Auto">
-            <TextBlock x:Name="textNews" Text="正在加载……&#x000A;为保证游玩体验，强烈建议检测完成后再开始游戏。" FontSize="15" TextWrapping="Wrap" Foreground="#FFCCCCCC">
+            <TextBlock x:Name="textNews" Text="正在加载……&#x000A;&#x000A;为保证体验，建议等待检测完成后再开始游戏。" FontSize="15" TextWrapping="Wrap" Foreground="#FFCCCCCC">
                 <TextBlock.Effect>
                     <DropShadowEffect ShadowDepth="2" BlurRadius="0" Direction="270" Opacity="0.4"/>
                 </TextBlock.Effect>
