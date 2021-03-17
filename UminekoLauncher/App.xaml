@@ -49,9 +49,9 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#1AFFFFFF" Duration="0:0:0.25"/>
-                                <DoubleAnimation Storyboard.TargetProperty="(ContentEffect).BlurRadius" From="0" To="4" Duration="0:0:0.25"/>
-                                <DoubleAnimation Storyboard.TargetProperty="(ContentEffect).ShadowDepth" To="0" Duration="0"/>
-                                <ColorAnimation Storyboard.TargetProperty="(ContentEffect).Color" To="White" Duration="0"/>
+                                <DoubleAnimation Storyboard.TargetProperty="(ContentEffect).BlurRadius" To="5" Duration="0:0:0.25"/>
+                                <DoubleAnimation Storyboard.TargetProperty="(ContentEffect).ShadowDepth" To="0" Duration="0:0:0.25"/>
+                                <ColorAnimation Storyboard.TargetProperty="(ContentEffect).Color" To="White" Duration="0:0:0.25"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.EnterActions>
@@ -60,6 +60,8 @@
                             <Storyboard>
                                 <ColorAnimation Storyboard.TargetProperty="Background.Color" To="Transparent" Duration="0:0:0.25"/>
                                 <DoubleAnimation Storyboard.TargetProperty="(ContentEffect).BlurRadius" To="0" Duration="0:0:0.25"/>
+                                <DoubleAnimation Storyboard.TargetProperty="(ContentEffect).ShadowDepth" To="1.5" Duration="0:0:0.25"/>
+                                <ColorAnimation Storyboard.TargetProperty="(ContentEffect).Color" To="Black" Duration="0:0:0.25"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.ExitActions>
@@ -69,7 +71,20 @@
                     <Setter Property="ContentEffect" Value="{x:Null}"/>
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Foreground" Value="#666666"/>
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="Foreground.Color" To="#666666" Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="Foreground.Color" To="#dddddd" Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
                 </Trigger>
             </Style.Triggers>
         </Style>
