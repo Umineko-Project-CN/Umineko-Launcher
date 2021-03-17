@@ -116,11 +116,15 @@ namespace UminekoLauncher
                 throw new MissingFieldException();
             }
             args.LauncherInfo.InstalledVersion = InstalledLauncherVersion;
-            args.LauncherInfo.IsUpdateAvailable = new Version(args.LauncherInfo.LatestVersion) > args.LauncherInfo.InstalledVersion;
             args.ScriptInfo.InstalledHash = InstalledScriptHash ?? GameHash.GetHash("cn.file", args.ScriptInfo.LatestHash);
-            args.ScriptInfo.IsUpdateAvailable = !args.ScriptInfo.InstalledHash.Equals(args.ScriptInfo.LatestHash);
             args.ResourceInfo.InstalledVersion = InstalledResourceVersion;
-            args.ResourceInfo.IsUpdateAvailable = new Version(args.ResourceInfo.LatestVersion) > args.ResourceInfo.InstalledVersion;
+            Item[] updateItems = { args.LauncherInfo, args.ScriptInfo, args.ResourceInfo };
+            foreach (var item in updateItems)
+            {
+                item.IsUpdateAvailable = item.LatestHash == null
+                    ? new Version(item.LatestVersion) > item.InstalledVersion
+                    : !item.InstalledHash.Equals(item.LatestHash);
+            }
             UpdateCheckedEvent?.Invoke(args);
         }
         private static void ShowError(Exception exception)

@@ -106,7 +106,7 @@ namespace UminekoLauncher
         public string LatestVersion { get; set; }
 
         /// <summary>
-        /// 最新版本的校验值。
+        /// 最新版本文件的校验值。
         /// </summary>
         [XmlElement("Hash")]
         public Checksum LatestHash { get; set; }
@@ -122,7 +122,7 @@ namespace UminekoLauncher
         }
 
         /// <summary>
-        /// 更新文件的校验码。
+        /// 更新包的校验值。
         /// </summary>
         [XmlElement("Checksum")]
         public Checksum Checksum { get; set; }
