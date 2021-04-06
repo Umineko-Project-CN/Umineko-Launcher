@@ -92,7 +92,6 @@
 
         <!--#region 按钮 TextBlock 样式 -->
         <Style x:Key="ButtonText" TargetType="TextBlock">
-            <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="Foreground" Value="#dddddd"/>
             <Setter Property="FontFamily" Value="Microsoft Yahei UI"/>
             <Setter Property="FontSize" Value="14"/>
