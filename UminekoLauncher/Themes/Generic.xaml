@@ -24,11 +24,11 @@
                                        Margin="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IconMargin}" 
                                        FontFamily="/UminekoLauncher;component/Fonts/#Material Icons" Foreground="{TemplateBinding Foreground}"
                                        FontSize="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IconSize}"
-                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" SnapsToDevicePixels="True"/>
                             <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}"
                                        Margin="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=FontMargin}" 
                                        FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"
-                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" SnapsToDevicePixels="True"/>
                         </StackPanel>
                     </Border>
                 </ControlTemplate>
