@@ -26,7 +26,9 @@ namespace UminekoLauncher
         [Description("1920x1080")]
         x1920,
         [Description("2560x1440")]
-        x2560
+        x2560,
+        [Description("Custom")]
+        Custom
     }
     /// <summary>
     /// 该静态类用于执行游戏配置的相关操作。
@@ -58,6 +60,11 @@ namespace UminekoLauncher
         /// 获取或设置游戏分辨率。
         /// </summary>
         public static DisplayResolution DisplayResolution { get; set; } = DisplayResolution.x1920;
+
+        /// <summary>
+        /// 获取或设置自定义游戏分辨率。此属性默认为空。
+        /// </summary>
+        public static string CustomDisplayResolution { get; set; } = null;
 
         /// <summary>
         /// 获取或设置游戏显示模式。
@@ -99,7 +106,8 @@ namespace UminekoLauncher
                 #region 分辨率
                 if (line.StartsWith("window-width"))
                 {
-                    switch (line.Split('=')[1])
+                    string strValue = line.Split('=')[1];
+                    switch (strValue)
                     {
                         case "1280":
                             DisplayResolution = DisplayResolution.x1280;
@@ -120,7 +128,8 @@ namespace UminekoLauncher
                             DisplayResolution = DisplayResolution.x2560;
                             break;
                         default:
-                            DisplayResolution = DisplayResolution.x1920;
+                            DisplayResolution = DisplayResolution.Custom;
+                            CustomDisplayResolution = strValue;
                             break;
                     }
                     continue;
@@ -170,29 +179,36 @@ namespace UminekoLauncher
 
             #region 分辨率
             string displayResolution = "window-width=";
-            switch (DisplayResolution)
+            if (DisplayResolution == DisplayResolution.Custom && !string.IsNullOrEmpty(CustomDisplayResolution))
             {
-                case DisplayResolution.x1280:
-                    displayResolution += "1280";
-                    break;
-                case DisplayResolution.x1366:
-                    displayResolution += "1366";
-                    break;
-                case DisplayResolution.x1440:
-                    displayResolution += "1440";
-                    break;
-                case DisplayResolution.x1600:
-                    displayResolution += "1600";
-                    break;
-                case DisplayResolution.x1920:
-                    displayResolution += "1920";
-                    break;
-                case DisplayResolution.x2560:
-                    displayResolution += "2560";
-                    break;
-                default:
-                    displayResolution += "1920";
-                    break;
+                displayResolution += CustomDisplayResolution;
+            }
+            else
+            {
+                switch (DisplayResolution)
+                {
+                    case DisplayResolution.x1280:
+                        displayResolution += "1280";
+                        break;
+                    case DisplayResolution.x1366:
+                        displayResolution += "1366";
+                        break;
+                    case DisplayResolution.x1440:
+                        displayResolution += "1440";
+                        break;
+                    case DisplayResolution.x1600:
+                        displayResolution += "1600";
+                        break;
+                    case DisplayResolution.x1920:
+                        displayResolution += "1920";
+                        break;
+                    case DisplayResolution.x2560:
+                        displayResolution += "2560";
+                        break;
+                    default:
+                        displayResolution += "1920";
+                        break;
+                }
             }
             config.Add(displayResolution);
             #endregion
