@@ -79,7 +79,7 @@ namespace ZipExtractor
                     // extraction path.
                     if (!path.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
                         path += Path.DirectorySeparatorChar;
-                    var archive = ZipFile.OpenRead(args[1]);
+                    var archive = ZipFile.OpenRead(args[1], System.IO.Compression.ZipArchiveMode.Read, System.Encoding.GetEncoding("gb2312"));
                     var entries = archive.Entries;
                     _logBuilder.AppendLine($"在此 zip 文件中找到总共 {entries.Count} 个文件和文件夹。");
 
