@@ -162,7 +162,7 @@ namespace UminekoLauncher
                 {
                     circle.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a32630"));
                     textStatus.Text = "更新失败";
-                    textInfo.Text = "请稍候重试";
+                    textInfo.Text = "请稍后重试";
                     btnAction.IsEnabled = true;
                 }
             }
