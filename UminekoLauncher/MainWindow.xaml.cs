@@ -190,6 +190,10 @@ namespace UminekoLauncher
             };
             animation.Begin(this);
         }
+        private void btnSurvey_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://wj.qq.com/s2/8553984/974a/");
+        }
         private void configPopup_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             spButtons.IsEnabled = (configPopup.Visibility == Visibility.Collapsed);

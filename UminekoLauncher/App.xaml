@@ -90,6 +90,36 @@
         </Style>
         <!--#endregion-->
 
+        <!--#region 图标 FButton 样式 -->
+        <Style x:Key="IconFButton" TargetType="local:FButton">
+            <Setter Property="Background" Value="#be7681"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#dd7f8d" Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#be7681" Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#c35969"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#999999"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--#endregion-->
+
         <!--#region 按钮 TextBlock 样式 -->
         <Style x:Key="ButtonText" TargetType="TextBlock">
             <Setter Property="SnapsToDevicePixels" Value="True"/>

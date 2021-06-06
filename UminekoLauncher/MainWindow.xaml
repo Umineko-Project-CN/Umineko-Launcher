@@ -48,6 +48,9 @@
         <local:FButton x:Name="btnAction" Margin="27,293,0,0" Width="200" Height="43" Click="Start" HorizontalAlignment="Left" VerticalAlignment="Top"
                        Icon="&#xe037;" IconMargin="-10, 0, 7, 0" IconSize="32" Content="开 始 游 戏" FontMargin="0,-2,0,0" FontWeight="Bold" FontSize="20"
                        MouseRightButtonUp="VerifyStart"/>
+        <local:FButton x:Name="btnSurvey" Style="{StaticResource IconFButton}" Content=""
+                       Margin="237,293,0,0" Width="55" Height="43" Click="btnSurvey_Click" HorizontalAlignment="Left" VerticalAlignment="Top"
+                       Icon="&#xe9a2;" IconMargin="0" IconSize="32" ToolTip="填写反馈"/>
         <StackPanel Orientation="Horizontal" Margin="27,383,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Ellipse x:Name="circle" Fill="#bb5a25" Width="15" Height="15" VerticalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" Margin="6,0,0,0" VerticalAlignment="Center">
