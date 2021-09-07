@@ -154,16 +154,25 @@ namespace UminekoLauncher
             btnAction.IsEnabled = false;
             try
             {
-                if (Updater.DownloadUpdate(updateInfo, this))
+                var a = Updater.DownloadUpdate(updateInfo, this);
+                switch (a)
                 {
-                    Application.Current.Shutdown();
-                }
-                else
-                {
-                    circle.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a32630"));
-                    textStatus.Text = "更新失败";
-                    textInfo.Text = "请稍后重试";
-                    btnAction.IsEnabled = true;
+                    case null:
+                        circle.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a32630"));
+                        textStatus.Text = "更新失败";
+                        textInfo.Text = "请稍后重试";
+                        btnAction.IsEnabled = true;
+                        break;
+                    case true:
+                        Application.Current.Shutdown();
+                        break;
+                    case false:
+                        // 根据目前的更新策略，不重启的情况一定会更到最新。
+                        // 如果之后不是这样，请在此处检查更新。
+                        circle.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#4b9f2a"));
+                        textStatus.Text = "最新版本";
+                        textInfo.Text = "无可用更新";
+                        break;
                 }
             }
             catch (Exception exception)
