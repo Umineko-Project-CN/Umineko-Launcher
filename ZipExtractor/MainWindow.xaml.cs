@@ -12,7 +12,13 @@ using System.Windows;
 namespace ZipExtractor
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// 命令行参数：
+    /// <list type="number">
+    /// <item>压缩文件路径</item>
+    /// <item>解压目标路径</item>
+    /// <item>（可选）完成后运行的程序路径</item>
+    /// <item>（可选）加给那个程序的参数</item>
+    /// </list>
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -29,7 +35,17 @@ namespace ZipExtractor
             _logBuilder.AppendLine();
             _logBuilder.AppendLine("ZipExtractor 以下列命令行参数启动。");
 
-            string[] args = Environment.GetCommandLineArgs();
+
+            string[] args = null;
+            try
+            {
+                args = Environment.GetCommandLineArgs();
+            }
+            catch (Exception ex)
+            {
+                _logBuilder.AppendLine(ex.ToString());
+            }
+            
             for (var index = 0; index < args.Length; index++)
             {
                 var arg = args[index];
@@ -38,9 +54,13 @@ namespace ZipExtractor
 
             _logBuilder.AppendLine();
 
-            if (args.Length >= 4)
+            if (args.Length >= 3)
             {
-                string executablePath = args[3];
+                bool hasExecutable = args.Length >= 4;
+                string getExecutablePath()
+                {
+                    return args[3];
+                }
 
                 // Extract all the files.
                 _backgroundWorker = new BackgroundWorker
@@ -51,21 +71,24 @@ namespace ZipExtractor
 
                 _backgroundWorker.DoWork += (o, eventArgs) =>
                 {
-                    foreach (var process in Process.GetProcessesByName(Path.GetFileNameWithoutExtension(executablePath)))
+                    if (hasExecutable)
                     {
-                        try
+                        foreach (var process in Process.GetProcessesByName(Path.GetFileNameWithoutExtension(getExecutablePath())))
                         {
-                            if (process.MainModule != null && process.MainModule.FileName.Equals(executablePath))
+                            try
                             {
-                                _logBuilder.AppendLine("等待应用进程退出……");
+                                if (process.MainModule != null && process.MainModule.FileName.Equals(getExecutablePath()))
+                                {
+                                    _logBuilder.AppendLine("等待应用进程退出……");
 
-                                _backgroundWorker.ReportProgress(0, "等待应用退出……");
-                                process.WaitForExit();
+                                    _backgroundWorker.ReportProgress(0, "等待应用退出……");
+                                    process.WaitForExit();
+                                }
                             }
-                        }
-                        catch (Exception exception)
-                        {
-                            Debug.WriteLine(exception.Message);
+                            catch (Exception exception)
+                            {
+                                Debug.WriteLine(exception.Message);
+                            }
                         }
                     }
 
@@ -195,21 +218,25 @@ namespace ZipExtractor
                         if (!eventArgs.Cancelled)
                         {
                             textInformation.Text = @"Finished";
-                            try
+
+                            if (hasExecutable)
                             {
-                                ProcessStartInfo processStartInfo = new ProcessStartInfo(executablePath);
-                                if (args.Length > 4)
+                                try
                                 {
-                                    processStartInfo.Arguments = args[4];
+                                    ProcessStartInfo processStartInfo = new ProcessStartInfo(getExecutablePath());
+                                    if (args.Length > 4)
+                                    {
+                                        processStartInfo.Arguments = args[4];
+                                    }
+                                    Process.Start(processStartInfo);
+                                    _logBuilder.AppendLine("已成功启动更新后的应用。");
                                 }
-                                Process.Start(processStartInfo);
-                                _logBuilder.AppendLine("已成功启动更新后的应用。");
-                            }
-                            catch (Win32Exception exception)
-                            {
-                                if (exception.NativeErrorCode != 1223)
+                                catch (Win32Exception exception)
                                 {
-                                    throw;
+                                    if (exception.NativeErrorCode != 1223)
+                                    {
+                                        throw;
+                                    }
                                 }
                             }
                         }

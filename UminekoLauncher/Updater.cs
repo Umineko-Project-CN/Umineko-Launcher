@@ -134,17 +134,33 @@ namespace UminekoLauncher
 
         /// <summary>
         /// 开始下载更新。
+        /// <list type="table">
+        /// <listheader>返回值：</listheader>
+        /// <item>
+        ///     <term>null</term>
+        ///     <description>出错</description>
+        /// </item>
+        /// <item>
+        ///     <term>true</term>
+        ///     <description>需要重启启动器</description>
+        /// </item>
+        /// <item>
+        ///     <term>false</term>
+        ///     <description>不需要重启启动器</description>
+        /// </item>
+        /// </list>
         /// </summary>
-        public static bool DownloadUpdate(UpdateInfoEventArgs args, System.Windows.Window owner)
+        public static bool? DownloadUpdate(UpdateInfoEventArgs args, System.Windows.Window owner)
         {
             try
             {
-                return (bool)new Dialogs.UpdateWindow(args, owner).ShowDialog();
+                var a = new Dialogs.UpdateWindow(args, owner).ShowDialog();
+                return a;
             }
             catch (TargetInvocationException)
             {
             }
-            return false;
+            return null;
         }
         internal static UpdaterWebClient GetWebClient()
         {
