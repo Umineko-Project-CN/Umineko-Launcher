@@ -172,9 +172,9 @@ namespace ZipExtractor
                                         {
                                             foreach (var lockingProcess in lockingProcesses)
                                             {
-                                                var dialogResult = MessageBox.Show(
-                                                    string.Format("{0} 仍处于打开状态并且其正在使用“{1}”。请手动关闭此进程并重试。", lockingProcess.ProcessName, filePath), "无法更新该文件！",
-                                                    MessageBoxButton.OKCancel, MessageBoxImage.Error);
+                                                var dialogResult = MessageBox.Show($"{lockingProcess.ProcessName} 仍处于打开状态并且其正在使用“{filePath}”。请手动关闭此进程并重试。",
+                                                                                   "无法更新该文件！", MessageBoxButton.OKCancel,
+                                                                                   MessageBoxImage.Error);
                                                 if (dialogResult == MessageBoxResult.Cancel)
                                                 {
                                                     throw;

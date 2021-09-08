@@ -153,7 +153,7 @@ namespace UminekoLauncher.Dialogs
                     // 只有在更新启动器时才重启它
                     if (_isLauncherUpdate)
                     {
-                        arguments.Append(" \"{executablePath}\"");
+                        arguments.Append($" \"{executablePath}\"");
                         string[] args = Environment.GetCommandLineArgs();
                         for (int i = 1; i < args.Length; i++)
                         {
