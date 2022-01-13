@@ -132,7 +132,7 @@ namespace UminekoLauncher.ViewModels
             try
             {
                 Process.Start(startInfo);
-                Environment.Exit(0);
+                Application.Current.MainWindow.Close();
             }
             catch (Exception)
             {
