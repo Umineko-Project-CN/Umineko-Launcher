@@ -1,14 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30907.101
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UminekoLauncher", "UminekoLauncher\UminekoLauncher.csproj", "{9B71CB97-FEE8-4605-B55E-790F5DF8714B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZipExtractor", "ZipExtractor\ZipExtractor.csproj", "{1D51D73B-98C7-414F-92A8-479A8DC6A567}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UminekoLauncher", "UminekoLauncher\UminekoLauncher.csproj", "{28A6DD40-CA5F-4354-B326-5D39A0EA6688}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1D51D73B-98C7-414F-92A8-479A8DC6A567} = {1D51D73B-98C7-414F-92A8-479A8DC6A567}
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZipExtractor", "ZipExtractor\ZipExtractor.csproj", "{1D51D73B-98C7-414F-92A8-479A8DC6A567}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,14 +16,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9B71CB97-FEE8-4605-B55E-790F5DF8714B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B71CB97-FEE8-4605-B55E-790F5DF8714B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B71CB97-FEE8-4605-B55E-790F5DF8714B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B71CB97-FEE8-4605-B55E-790F5DF8714B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1D51D73B-98C7-414F-92A8-479A8DC6A567}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1D51D73B-98C7-414F-92A8-479A8DC6A567}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D51D73B-98C7-414F-92A8-479A8DC6A567}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D51D73B-98C7-414F-92A8-479A8DC6A567}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28A6DD40-CA5F-4354-B326-5D39A0EA6688}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28A6DD40-CA5F-4354-B326-5D39A0EA6688}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28A6DD40-CA5F-4354-B326-5D39A0EA6688}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28A6DD40-CA5F-4354-B326-5D39A0EA6688}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
