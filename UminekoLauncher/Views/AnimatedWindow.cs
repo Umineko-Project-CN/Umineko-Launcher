@@ -60,12 +60,12 @@ namespace UminekoLauncher.Views
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            if (_closing)
+            if (_closing || DialogResult != null)
             {
                 return;
             }
-            e.Cancel = true;
             _closing = true;
+            e.Cancel = true;
             _fadeOutAnimation.Begin(this);
         }
     }
