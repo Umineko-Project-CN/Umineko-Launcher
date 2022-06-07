@@ -8,7 +8,7 @@ namespace ZipExtractor
     /// <summary>
     /// https://stackoverflow.com/a/20623302/1273550
     /// </summary>
-    public static class FileUtil
+    internal static class FileUtil
     {
         private const int CCH_RM_MAX_APP_NAME = 255;
 
