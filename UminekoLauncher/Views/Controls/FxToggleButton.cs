@@ -3,8 +3,11 @@ using System.Windows;
 
 namespace UminekoLauncher.Views.Controls
 {
-    public class FxToggleButton : FxButton
+    internal class FxToggleButton : FxButton
     {
+        public static readonly DependencyProperty IsCheckedProperty =
+            DependencyProperty.Register(nameof(IsChecked), typeof(bool), typeof(FxToggleButton), new PropertyMetadata(false));
+
         static FxToggleButton()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(FxToggleButton), new FrameworkPropertyMetadata(typeof(FxToggleButton)));
@@ -21,8 +24,5 @@ namespace UminekoLauncher.Views.Controls
             get => (bool)GetValue(IsCheckedProperty);
             set => SetValue(IsCheckedProperty, value);
         }
-        public static readonly DependencyProperty IsCheckedProperty =
-            DependencyProperty.Register(nameof(IsChecked), typeof(bool), typeof(FxToggleButton), new PropertyMetadata(false));
-
     }
 }

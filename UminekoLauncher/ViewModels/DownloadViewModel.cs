@@ -11,28 +11,21 @@ namespace UminekoLauncher.ViewModels
 {
     internal class DownloadViewModel : ObservableObject
     {
-        private Window _downloadWindow;
         private readonly Timer _timer = new Timer();
         private long _bytesReceived;
         private long _currentBytesReceived;
-
+        private int _downloadProgress;
         private string _downloadSpeed = "正在下载……";
-
-        public string DownloadSpeed
-        {
-            get => _downloadSpeed;
-            set => SetProperty(ref _downloadSpeed, value);
-        }
-
+        private Window _downloadWindow;
         private string _fileSize;
 
-        public string FileSize
+        public DownloadViewModel()
         {
-            get => _fileSize;
-            set => SetProperty(ref _fileSize, value);
+            LoadedCommand = new RelayCommand<Window>(Loaded);
+            ClosingCommand = new RelayCommand(Closing);
         }
 
-        private int _downloadProgress;
+        public ICommand ClosingCommand { get; }
 
         public int DownloadProgress
         {
@@ -40,9 +33,37 @@ namespace UminekoLauncher.ViewModels
             set => SetProperty(ref _downloadProgress, value);
         }
 
-        public ICommand LoadedCommand => new RelayCommand<Window>(Loaded);
+        public string DownloadSpeed
+        {
+            get => _downloadSpeed;
+            set => SetProperty(ref _downloadSpeed, value);
+        }
 
-        public ICommand ClosingCommand => new RelayCommand(Closing);
+        public string FileSize
+        {
+            get => _fileSize;
+            set => SetProperty(ref _fileSize, value);
+        }
+
+        public ICommand LoadedCommand { get; }
+
+        private static string BytesToString(long byteCount)
+        {
+            string[] suf = { "B", "KB", "MB", "GB", "TB", "PB", "EB" };
+            if (byteCount == 0)
+                return "0" + suf[0];
+            long bytes = Math.Abs(byteCount);
+            int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
+            double num = Math.Round(bytes / Math.Pow(1024, place), 1);
+            return $"{Math.Sign(byteCount) * num} {suf[place]}";
+        }
+
+        private void Closing()
+        {
+            _timer.Stop();
+            UpdateService.DownloadProgressChanged -= UpdateService_DownloadProgressChanged;
+            UpdateService.UpdatesAllDownloaded -= UpdateService_UpdatesAllDownloaded;
+        }
 
         private void Loaded(Window window)
         {
@@ -54,15 +75,6 @@ namespace UminekoLauncher.ViewModels
             _timer.Elapsed += UpdateSpeedText;
             _timer.Start();
         }
-
-
-        private void Closing()
-        {
-            _timer.Stop();
-            UpdateService.DownloadProgressChanged -= UpdateService_DownloadProgressChanged;
-            UpdateService.UpdatesAllDownloaded -= UpdateService_UpdatesAllDownloaded;
-        }
-
 
         private void UpdateService_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
@@ -81,17 +93,6 @@ namespace UminekoLauncher.ViewModels
             long bytesPerSecond = _currentBytesReceived - _bytesReceived;
             DownloadSpeed = $"正在下载：{BytesToString(bytesPerSecond)}/s";
             _bytesReceived = _currentBytesReceived;
-        }
-
-        private static string BytesToString(long byteCount)
-        {
-            string[] suf = { "B", "KB", "MB", "GB", "TB", "PB", "EB" };
-            if (byteCount == 0)
-                return "0" + suf[0];
-            long bytes = Math.Abs(byteCount);
-            int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
-            double num = Math.Round(bytes / Math.Pow(1024, place), 1);
-            return $"{Math.Sign(byteCount) * num} {suf[place]}";
         }
     }
 }

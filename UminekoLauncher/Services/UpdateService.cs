@@ -12,26 +12,40 @@ using UminekoLauncher.Models;
 namespace UminekoLauncher.Services
 {
     /// <summary>
+    /// 表示更新服务状态。
+    /// </summary>
+    internal enum UpdateStatus
+    {
+        NotStarted,
+        ReadyToUpdate,
+        NeedManualUpdate,
+        UpToDate,
+        Error
+    }
+
+    /// <summary>
     /// 更新服务。
     /// </summary>
-    public static class UpdateService
+    internal static class UpdateService
     {
         private const string UpdateUrl = "https://down.snsteam.club/update.xml";
-        private static bool _needManualUpdate = false;
         private static readonly string _installerPath = Path.Combine(Path.GetTempPath(), "ZipExtractor.exe");
         private static readonly Queue<UpdateItem> _updateItems = new Queue<UpdateItem>();
+
         private static readonly WebClient _webClient = new WebClient
         {
             Encoding = System.Text.Encoding.UTF8,
             CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)
         };
+
         private static string _changelog = "尚未检查更新。";
         private static string _extraLink = string.Empty;
+        private static bool _needManualUpdate = false;
 
-        /// <summary>
-        /// 更新状态改变时将引发此事件。
-        /// </summary>
-        public static event EventHandler<UpdateStatusChangedEventArgs> StatusChanged;
+        static UpdateService()
+        {
+            _webClient.DownloadProgressChanged += (a, b) => DownloadProgressChanged?.Invoke(a, b);
+        }
 
         /// <summary>
         /// 单文件下载进度改变时将引发此事件。
@@ -39,14 +53,14 @@ namespace UminekoLauncher.Services
         public static event DownloadProgressChangedEventHandler DownloadProgressChanged;
 
         /// <summary>
+        /// 更新状态改变时将引发此事件。
+        /// </summary>
+        public static event EventHandler<UpdateStatusChangedEventArgs> StatusChanged;
+
+        /// <summary>
         /// 更新文件全部下载完成后将引发此事件。
         /// </summary>
         public static event EventHandler UpdatesAllDownloaded;
-
-        /// <summary>
-        /// 表示更新服务的当前状态。
-        /// </summary>
-        public static UpdateStatus Status { get; private set; } = UpdateStatus.NotStarted;
 
         /// <summary>
         /// 更新日志文本。
@@ -58,10 +72,10 @@ namespace UminekoLauncher.Services
         /// </summary>
         public static string ExtraLink => _extraLink;
 
-        static UpdateService()
-        {
-            _webClient.DownloadProgressChanged += (a, b) => DownloadProgressChanged?.Invoke(a, b);
-        }
+        /// <summary>
+        /// 表示更新服务的当前状态。
+        /// </summary>
+        public static UpdateStatus Status { get; private set; } = UpdateStatus.NotStarted;
 
         /// <summary>
         /// 开始检查更新。
@@ -235,32 +249,20 @@ namespace UminekoLauncher.Services
     }
 
     /// <summary>
-    /// 表示更新服务状态。
-    /// </summary>
-    public enum UpdateStatus
-    {
-        NotStarted,
-        ReadyToUpdate,
-        NeedManualUpdate,
-        UpToDate,
-        Error
-    }
-
-    /// <summary>
     /// 表示待更新项。
     /// </summary>
-    public class UpdateItem
+    internal class UpdateItem
     {
-        public bool IsRestartNeeded { get; set; }
-        public Checksum PackageHash { get; set; }
         public Uri DownloadUri { get; set; }
         public string FilePath { get; set; }
+        public bool IsRestartNeeded { get; set; }
+        public Checksum PackageHash { get; set; }
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public class UpdateStatusChangedEventArgs : EventArgs
+    internal class UpdateStatusChangedEventArgs : EventArgs
     {
         public UpdateStatusChangedEventArgs(UpdateStatus status, Exception e = null)
         {
@@ -268,8 +270,7 @@ namespace UminekoLauncher.Services
             Exception = e;
         }
 
-        public UpdateStatus UpdateStatus { get; }
-
         public Exception Exception { get; }
+        public UpdateStatus UpdateStatus { get; }
     }
 }

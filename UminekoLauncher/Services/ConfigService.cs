@@ -9,7 +9,7 @@ namespace UminekoLauncher.Services
     /// <summary>
     /// 游戏配置服务。
     /// </summary>
-    public static class ConfigService
+    internal static class ConfigService
     {
         private const string ConfigPath = "ons.cfg";
 
@@ -17,8 +17,7 @@ namespace UminekoLauncher.Services
         /// 判断配置文件是否存在。
         /// </summary>
         /// <returns>若文件存在，则为 <see cref="bool">true</see>，否则为 <see cref="bool">false</see>。</returns>
-        public static bool FileExists()
-            => File.Exists(ConfigPath);
+        public static bool FileExists() => File.Exists(ConfigPath);
 
         /// <summary>
         /// 从文件中载入游戏配置。
@@ -30,8 +29,10 @@ namespace UminekoLauncher.Services
             {
                 throw new FileNotFoundException("未找到游戏配置文件。");
             }
-            var config = new ConfigModel();
-            config.OtherConfigs = File.ReadAllLines(ConfigPath).ToList();
+            var config = new ConfigModel
+            {
+                OtherConfigs = File.ReadAllLines(ConfigPath).ToList()
+            };
             for (int i = 0; i < config.OtherConfigs.Count; i++)
             {
                 string line = config.OtherConfigs[i].Trim();
@@ -57,21 +58,27 @@ namespace UminekoLauncher.Services
                         case "1280":
                             config.DisplayResolution = DisplayResolution.x720;
                             break;
+
                         case "1366":
                             config.DisplayResolution = DisplayResolution.x768;
                             break;
+
                         case "1440":
                             config.DisplayResolution = DisplayResolution.x810;
                             break;
+
                         case "1600":
                             config.DisplayResolution = DisplayResolution.x900;
                             break;
+
                         case "1920":
                             config.DisplayResolution = DisplayResolution.x1080;
                             break;
+
                         case "2560":
                             config.DisplayResolution = DisplayResolution.x1440;
                             break;
+
                         default:
                             config.DisplayResolution = DisplayResolution.Custom;
                             config.CustomDisplayResolution = str;
@@ -121,21 +128,27 @@ namespace UminekoLauncher.Services
                 case DisplayResolution.x720:
                     displayResolution += "1280";
                     break;
+
                 case DisplayResolution.x768:
                     displayResolution += "1366";
                     break;
+
                 case DisplayResolution.x810:
                     displayResolution += "1440";
                     break;
+
                 case DisplayResolution.x900:
                     displayResolution += "1600";
                     break;
+
                 case DisplayResolution.x1080:
                     displayResolution += "1920";
                     break;
+
                 case DisplayResolution.x1440:
                     displayResolution += "2560";
                     break;
+
                 case DisplayResolution.Custom:
                     if (string.IsNullOrEmpty(config.CustomDisplayResolution))
                     {
@@ -146,6 +159,7 @@ namespace UminekoLauncher.Services
                         displayResolution += config.CustomDisplayResolution;
                     }
                     break;
+
                 default:
                     goto case DisplayResolution.x1080;
             }
@@ -156,9 +170,11 @@ namespace UminekoLauncher.Services
                 case DisplayMode.Window:
                     configStrings.Add("window");
                     break;
+
                 case DisplayMode.FullScreen:
                     configStrings.Add("fullscreen");
                     break;
+
                 case DisplayMode.Auto:
                 default:
                     break;

@@ -36,10 +36,5 @@ namespace UminekoLauncher.Views
         {
             DialogResult = true;
         }
-
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
-        }
     }
 }

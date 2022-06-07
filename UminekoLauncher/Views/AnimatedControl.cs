@@ -9,31 +9,42 @@ namespace UminekoLauncher.Views
 {
     public class AnimatedControl : UserControl
     {
+        public static readonly DependencyProperty IsOpenProperty =
+            DependencyProperty.Register("IsOpen", typeof(bool), typeof(AnimatedControl), new PropertyMetadata(false));
+
         protected readonly BlurEffect _blurEffect = new BlurEffect() { Radius = 20 };
-        protected readonly DoubleAnimation _opacityFadeIn = new DoubleAnimation()
-        {
-            From = 0,
-            To = 1,
-            Duration = TimeSpan.FromSeconds(0.2)
-        };
-        protected readonly DoubleAnimation _opacityFadeOut = new DoubleAnimation()
-        {
-            From = 1,
-            To = 0,
-            Duration = TimeSpan.FromSeconds(0.2)
-        };
+
         protected readonly DoubleAnimation _blurFadeIn = new DoubleAnimation()
         {
             From = 20,
             To = 0,
             Duration = TimeSpan.FromSeconds(0.2)
         };
+
         protected readonly DoubleAnimation _blurFadeOut = new DoubleAnimation()
         {
             From = 0,
             To = 20,
             Duration = TimeSpan.FromSeconds(0.2)
         };
+
+        protected readonly DoubleAnimation _opacityFadeIn = new DoubleAnimation()
+        {
+            From = 0,
+            To = 1,
+            Duration = TimeSpan.FromSeconds(0.2)
+        };
+
+        protected readonly DoubleAnimation _opacityFadeOut = new DoubleAnimation()
+        {
+            From = 1,
+            To = 0,
+            Duration = TimeSpan.FromSeconds(0.2)
+        };
+
+        private readonly DependencyPropertyDescriptor _descriptor =
+            DependencyPropertyDescriptor.FromProperty(IsOpenProperty, typeof(AnimatedControl));
+
         private readonly Storyboard _fadeInAnimation = new Storyboard();
         private readonly Storyboard _fadeOutAnimation = new Storyboard();
         private readonly ObjectAnimationUsingKeyFrames _visibilityFadeIn = new ObjectAnimationUsingKeyFrames();
@@ -61,6 +72,13 @@ namespace UminekoLauncher.Views
             Storyboard.SetTargetProperty(_visibilityFadeOut, new PropertyPath("Visibility"));
         }
 
+        [Description("表示该动画控件是否展开（显示）。"), Category("公共")]
+        public bool IsOpen
+        {
+            get => (bool)GetValue(IsOpenProperty);
+            set => SetValue(IsOpenProperty, value);
+        }
+
         private void IsOpenPropertyChanged(object sender, EventArgs e)
         {
             if (IsOpen)
@@ -72,18 +90,5 @@ namespace UminekoLauncher.Views
                 _fadeOutAnimation.Begin(this);
             }
         }
-
-        [Description("表示该动画控件是否展开（显示）。"), Category("公共")]
-        public bool IsOpen
-        {
-            get => (bool)GetValue(IsOpenProperty);
-            set => SetValue(IsOpenProperty, value);
-        }
-
-        public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register("IsOpen", typeof(bool), typeof(AnimatedControl), new PropertyMetadata(false));
-
-        private readonly DependencyPropertyDescriptor _descriptor =
-            DependencyPropertyDescriptor.FromProperty(IsOpenProperty, typeof(AnimatedControl));
     }
 }

@@ -1,22 +1,38 @@
-﻿<v:AnimatedWindow x:Class="ZipExtractor.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:v="clr-namespace:ZipExtractor.Views"
-        mc:Ignorable="d" AllowsTransparency="True" Background="{x:Null}"
-        Window.SizeToContent="Height" Width="350" WindowStyle="None" ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Topmost="True"
-        Loaded="Window_Loaded" Closed="Window_Closed">
+﻿<v:AnimatedWindow
+    x:Class="ZipExtractor.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:v="clr-namespace:ZipExtractor.Views"
+    Width="350"
+    AllowsTransparency="True"
+    Background="{x:Null}"
+    Closed="Window_Closed"
+    Loaded="Window_Loaded"
+    ResizeMode="NoResize"
+    ShowInTaskbar="False"
+    Topmost="True"
+    Window.SizeToContent="Height"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
     <Grid>
         <Border CornerRadius="5">
             <Border.Background>
-                <ImageBrush ImageSource="/Resources/mbg.jpg" Stretch="UniformToFill" Opacity="0.9"/>
+                <ImageBrush
+                    ImageSource="/Resources/mbg.jpg"
+                    Opacity="0.9"
+                    Stretch="UniformToFill" />
             </Border.Background>
         </Border>
         <StackPanel Margin="13">
-            <TextBlock x:Name="textStatus" Margin="0,0,0,10" HorizontalAlignment="Left" TextWrapping="Wrap"/>
-            <ProgressBar x:Name="pbProgress"/>
+            <TextBlock
+                x:Name="textStatus"
+                Margin="0,0,0,10"
+                HorizontalAlignment="Left"
+                TextWrapping="Wrap" />
+            <ProgressBar x:Name="pbProgress" />
         </StackPanel>
     </Grid>
 </v:AnimatedWindow>

@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace UminekoLauncher.Views.ValueConverters
 {
-    class MainAvailablityConverter : IMultiValueConverter
+    internal class MainAvailablityConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {

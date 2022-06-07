@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace UminekoLauncher.Views.ValueConverters
 {
-    class EnumToIntConverter : IValueConverter
+    internal class EnumToIntConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

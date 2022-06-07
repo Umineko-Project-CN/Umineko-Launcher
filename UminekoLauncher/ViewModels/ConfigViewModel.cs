@@ -7,9 +7,15 @@ using UminekoLauncher.Views;
 
 namespace UminekoLauncher.ViewModels
 {
-    class ConfigViewModel : ObservableObject
+    internal class ConfigViewModel : ObservableObject
     {
         private ConfigModel _config;
+
+        public ConfigViewModel()
+        {
+            LoadCommand = new RelayCommand<bool>(Load);
+            DismissCommand = new RelayCommand<AnimatedControl>(Dismiss);
+        }
 
         public ConfigModel Config
         {
@@ -17,20 +23,19 @@ namespace UminekoLauncher.ViewModels
             set => SetProperty(ref _config, value);
         }
 
-        public ICommand LoadCommand => new RelayCommand<bool>(Load);
-
-        public ICommand DismissCommand => new RelayCommand<AnimatedControl>(Dismiss);
-
-        private void Load(bool configViewOpen)
-        {
-            if (configViewOpen)
-                Config = ConfigService.LoadConfig();
-        }
+        public ICommand DismissCommand { get; }
+        public ICommand LoadCommand { get; }
 
         private void Dismiss(AnimatedControl control)
         {
             ConfigService.SaveConfig(Config);
             control.IsOpen = false;
+        }
+
+        private void Load(bool configViewOpen)
+        {
+            if (configViewOpen)
+                Config = ConfigService.LoadConfig();
         }
     }
 }

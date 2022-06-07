@@ -7,7 +7,7 @@ using UminekoLauncher.Services;
 
 namespace UminekoLauncher.Views.ValueConverters
 {
-    class UpdateStatusConverter : IValueConverter
+    internal class UpdateStatusConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -24,10 +24,13 @@ namespace UminekoLauncher.Views.ValueConverters
                     {
                         case UpdateStatus.NotStarted:
                             return "正在检测";
+
                         case UpdateStatus.UpToDate:
                             return "最新版本";
+
                         case UpdateStatus.Error:
                             return "更新失败";
+
                         default:
                             return "需要更新";
                     }
@@ -36,8 +39,10 @@ namespace UminekoLauncher.Views.ValueConverters
                     {
                         case UpdateStatus.ReadyToUpdate:
                             return "";
+
                         case UpdateStatus.NeedManualUpdate:
                             return "";
+
                         default:
                             return "";
                     }
@@ -46,8 +51,10 @@ namespace UminekoLauncher.Views.ValueConverters
                     {
                         case UpdateStatus.ReadyToUpdate:
                             return "获取更新";
+
                         case UpdateStatus.NeedManualUpdate:
                             return "前往下载";
+
                         default:
                             return "开始游戏";
                     }
@@ -56,8 +63,10 @@ namespace UminekoLauncher.Views.ValueConverters
                     {
                         case UpdateStatus.UpToDate:
                             return Application.Current.FindResource("GreenLight");
+
                         case UpdateStatus.Error:
                             return Application.Current.FindResource("RedLight");
+
                         default:
                             return Application.Current.FindResource("YellowLight");
                     }

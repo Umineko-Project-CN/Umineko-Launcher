@@ -8,7 +8,7 @@ namespace UminekoLauncher.Services
     /// <summary>
     /// 杂项类。
     /// </summary>
-    public static class Misc
+    internal static class Misc
     {
         /// <summary>
         /// 获取某文件的校验值。
@@ -22,21 +22,20 @@ namespace UminekoLauncher.Services
             {
                 using (HashAlgorithm hashAlgorithm = HashAlgorithm.Create(algorithm))
                 {
-                    if (hashAlgorithm != null)
+                    if (hashAlgorithm == null)
                     {
-                        using (FileStream stream = File.OpenRead(filePath))
-                        {
-                            byte[] hash = hashAlgorithm.ComputeHash(stream);
-                            return new Checksum()
-                            {
-                                HashAlgorithm = algorithm,
-                                Value = BitConverter.ToString(hash).Replace("-", string.Empty)
-                            };
-                        }
+                        throw new Exception("不支持该校验算法。");
                     }
-                    throw new Exception("不支持该校验算法。");
+                    using (FileStream stream = File.OpenRead(filePath))
+                    {
+                        byte[] hash = hashAlgorithm.ComputeHash(stream);
+                        return new Checksum()
+                        {
+                            HashAlgorithm = algorithm,
+                            Value = BitConverter.ToString(hash).Replace("-", string.Empty)
+                        };
+                    }
                 }
-
             }
             catch (FileNotFoundException)
             {
@@ -63,7 +62,6 @@ namespace UminekoLauncher.Services
                     } while (!str.StartsWith("\"resver\""));
                     return new Version(str.Split('=')[1].Trim('\"'));
                 }
-
             }
             catch
             {

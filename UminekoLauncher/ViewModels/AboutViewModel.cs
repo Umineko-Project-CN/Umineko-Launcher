@@ -8,18 +8,26 @@ using UminekoLauncher.Views;
 
 namespace UminekoLauncher.ViewModels
 {
-    class AboutViewModel : ObservableObject
+    internal class AboutViewModel : ObservableObject
     {
-        private const string _uminekoProjectUrl = "https://umineko-project.org/";
-        private const string _snsteamUrl = "https://snsteam.club/";
-        private const string _entergramUrl = "http://entergram.co.jp/umineko/";
-        private const string _steamUrl = "https://store.steampowered.com/bundle/5465/Umineko_When_They_Cry_Complete_Collection/";
-        private const string _playStationUrl = "https://store.playstation.com/ja-jp/product/JP0741-CUSA16973_00-UMINEKOSAKUZZZZZ";
-        private const string _nintendoUrl = "https://store-jp.nintendo.com/list/software/70010000012343.html";
+        private const string EntergramUrl = "http://entergram.co.jp/umineko/";
+        private const string NintendoUrl = "https://store-jp.nintendo.com/list/software/70010000012343.html";
+        private const string PlayStationUrl = "https://store.playstation.com/ja-jp/product/JP0741-CUSA16973_00-UMINEKOSAKUZZZZZ";
+        private const string SnsteamUrl = "https://snsteam.club/";
+        private const string SteamUrl = "https://store.steampowered.com/bundle/5465/Umineko_When_They_Cry_Complete_Collection/";
+        private const string UminekoProjectUrl = "https://umineko-project.org/";
 
-        public string TextVersion => $"LauncherVer. {Application.ResourceAssembly.GetName().Version}";
-        public ICommand DismissCommand => new RelayCommand<AnimatedControl>(Dismiss);
-        public ICommand OpenWebsiteCommand => new RelayCommand<string>(OpenWebsite);
+        public AboutViewModel()
+        {
+            DismissCommand = new RelayCommand<AnimatedControl>(Dismiss);
+            OpenWebsiteCommand = new RelayCommand<string>(OpenWebsite);
+        }
+
+        public ICommand DismissCommand { get; }
+        public ICommand OpenWebsiteCommand { get; }
+        public string TextVersion { get; } = $"LauncherVer. {Application.ResourceAssembly.GetName().Version}";
+
+        private void Dismiss(AnimatedControl control) => control.IsOpen = false;
 
         private void OpenWebsite(string str)
         {
@@ -27,32 +35,33 @@ namespace UminekoLauncher.ViewModels
             switch (str)
             {
                 case "up":
-                    url = _uminekoProjectUrl;
+                    url = UminekoProjectUrl;
                     break;
+
                 case "sn":
-                    url = _snsteamUrl;
+                    url = SnsteamUrl;
                     break;
+
                 case "eg":
-                    url = _entergramUrl;
+                    url = EntergramUrl;
                     break;
+
                 case "st":
-                    url = _steamUrl;
+                    url = SteamUrl;
                     break;
+
                 case "ps":
-                    url = _playStationUrl;
+                    url = PlayStationUrl;
                     break;
+
                 case "ns":
-                    url = _nintendoUrl;
+                    url = NintendoUrl;
                     break;
+
                 default:
                     throw new ArgumentException();
             }
             Process.Start(url);
-        }
-
-        private void Dismiss(AnimatedControl control)
-        {
-            control.IsOpen = false;
         }
     }
 }

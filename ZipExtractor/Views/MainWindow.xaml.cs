@@ -16,14 +16,14 @@ namespace ZipExtractor
     public partial class MainWindow : AnimatedWindow
     {
         private const int MaxRetries = 2;
-        private BackgroundWorker _backgroundWorker;
+        private readonly string[] _args;
+        private readonly BackgroundWorker _backgroundWorker;
+        private readonly string _executableArgs;
+        private readonly string _executablePath;
+        private readonly string _extractPath;
+        private readonly bool _hasExecutable;
         private readonly StringBuilder _logBuilder = new StringBuilder();
         private readonly string _zipFilePath;
-        private readonly string _extractPath;
-        private readonly string _executablePath;
-        private readonly string _executableArgs;
-        private readonly bool _hasExecutable;
-        private readonly string[] _args;
 
         public MainWindow()
         {
@@ -51,30 +51,6 @@ namespace ZipExtractor
             _backgroundWorker.DoWork += DoWork;
             _backgroundWorker.ProgressChanged += ProgressChanged;
             _backgroundWorker.RunWorkerCompleted += RunWorkerCompleted;
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            _logBuilder.AppendLine(DateTime.Now.ToString("F"));
-            _logBuilder.AppendLine();
-            _logBuilder.AppendLine("ZipExtractor 以下列命令行参数启动：");
-            for (int i = 0; i < _args.Length; i++)
-            {
-                _logBuilder.AppendLine($"[{i}] {_args[i]}");
-            }
-            _logBuilder.AppendLine();
-            // 解压所有文件。
-            _backgroundWorker?.RunWorkerAsync();
-        }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            // 取消当前任务。
-            _backgroundWorker?.CancelAsync();
-            // 写入日志。
-            _logBuilder.AppendLine();
-            File.AppendAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ZipExtractor.log"),
-                               _logBuilder.ToString());
         }
 
         private void DoWork(object sender, DoWorkEventArgs e)
@@ -252,6 +228,30 @@ namespace ZipExtractor
                 _logBuilder.AppendLine();
                 Application.Current.MainWindow.Close();
             }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            // 取消当前任务。
+            _backgroundWorker?.CancelAsync();
+            // 写入日志。
+            _logBuilder.AppendLine();
+            File.AppendAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ZipExtractor.log"),
+                               _logBuilder.ToString());
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            _logBuilder.AppendLine(DateTime.Now.ToString("F"));
+            _logBuilder.AppendLine();
+            _logBuilder.AppendLine("ZipExtractor 以下列命令行参数启动：");
+            for (int i = 0; i < _args.Length; i++)
+            {
+                _logBuilder.AppendLine($"[{i}] {_args[i]}");
+            }
+            _logBuilder.AppendLine();
+            // 解压所有文件。
+            _backgroundWorker?.RunWorkerAsync();
         }
     }
 }
