@@ -6,6 +6,7 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 using UminekoLauncher.Services;
+using UminekoLauncher.Localization;
 
 namespace UminekoLauncher.ViewModels
 {
@@ -15,7 +16,7 @@ namespace UminekoLauncher.ViewModels
         private long _bytesReceived;
         private long _currentBytesReceived;
         private int _downloadProgress;
-        private string _downloadSpeed = "正在下载……";
+        private string _downloadSpeed = Lang.Downloading;
         private Window _downloadWindow;
         private string _fileSize;
 
@@ -91,7 +92,7 @@ namespace UminekoLauncher.ViewModels
         private void UpdateSpeedText(object sender, ElapsedEventArgs e)
         {
             long bytesPerSecond = _currentBytesReceived - _bytesReceived;
-            DownloadSpeed = $"正在下载：{BytesToString(bytesPerSecond)}/s";
+            DownloadSpeed = $"{Lang.Downloading2}{BytesToString(bytesPerSecond)}/s";
             _bytesReceived = _currentBytesReceived;
         }
     }

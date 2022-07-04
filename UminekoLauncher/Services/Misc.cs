@@ -2,6 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 using UminekoLauncher.Models;
+using UminekoLauncher.Localization;
 
 namespace UminekoLauncher.Services
 {
@@ -24,7 +25,7 @@ namespace UminekoLauncher.Services
                 {
                     if (hashAlgorithm == null)
                     {
-                        throw new Exception("不支持该校验算法。");
+                        throw new Exception(Lang.Error_Checksum);
                     }
                     using (FileStream stream = File.OpenRead(filePath))
                     {

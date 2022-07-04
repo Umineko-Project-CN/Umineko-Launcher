@@ -5,6 +5,7 @@
     xmlns:ctl="clr-namespace:UminekoLauncher.Views.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:l="clr-namespace:UminekoLauncher.Localization"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:v="clr-namespace:UminekoLauncher.Views"
     xmlns:vc="clr-namespace:UminekoLauncher.Views.ValueConverters"
@@ -37,8 +38,8 @@
                     <TextBlock
                         FontSize="17"
                         FontWeight="Bold"
-                        Text="分辨率" />
-                    <TextBlock FontSize="10" Text="设置游戏使用的画面分辨率。" />
+                        Text="{x:Static l:Lang.Resolution}" />
+                    <TextBlock FontSize="10" Text="{x:Static l:Lang.Resolution_Description}" />
                 </StackPanel>
                 <ComboBox HorizontalAlignment="Right" SelectedIndex="{Binding Config.DisplayResolution, Converter={StaticResource EnumToIntConverter}}">
                     <ComboBoxItem Content="1280×720" />
@@ -47,7 +48,7 @@
                     <ComboBoxItem Content="1600×900" />
                     <ComboBoxItem Content="1920×1080" />
                     <ComboBoxItem Content="2560×1440" />
-                    <ComboBoxItem Content="自定义" />
+                    <ComboBoxItem Content="{x:Static l:Lang.Custom}" />
                 </ComboBox>
             </DockPanel>
             <DockPanel Margin="0,0,0,19">
@@ -55,13 +56,13 @@
                     <TextBlock
                         FontSize="17"
                         FontWeight="Bold"
-                        Text="显示模式" />
-                    <TextBlock FontSize="10" Text="设置游戏使用的显示模式。" />
+                        Text="{x:Static l:Lang.Display_Mode}" />
+                    <TextBlock FontSize="10" Text="{x:Static l:Lang.Display_Mode_Desciption}" />
                 </StackPanel>
                 <ComboBox HorizontalAlignment="Right" SelectedIndex="{Binding Config.DisplayMode, Converter={StaticResource EnumToIntConverter}}">
-                    <ComboBoxItem Content="窗口化" />
-                    <ComboBoxItem Content="全屏幕" />
-                    <ComboBoxItem Content="自动" />
+                    <ComboBoxItem Content="{x:Static l:Lang.Window}" />
+                    <ComboBoxItem Content="{x:Static l:Lang.Full_Screen}" />
+                    <ComboBoxItem Content="{x:Static l:Lang.Auto}" />
                 </ComboBox>
             </DockPanel>
             <DockPanel Margin="0,0,0,19">
@@ -69,12 +70,12 @@
                     <TextBlock
                         FontSize="17"
                         FontWeight="Bold"
-                        Text="缩放全屏" />
-                    <TextBlock FontSize="10" Text="设置全屏游戏时是否铺满屏幕。" />
+                        Text="{x:Static l:Lang.Scale}" />
+                    <TextBlock FontSize="10" Text="{x:Static l:Lang.Scale_Decription}" />
                 </StackPanel>
                 <ComboBox HorizontalAlignment="Right" SelectedIndex="{Binding Config.Scale}">
-                    <ComboBoxItem Content="关闭" />
-                    <ComboBoxItem Content="开启" />
+                    <ComboBoxItem Content="{x:Static l:Lang.Disabled}" />
+                    <ComboBoxItem Content="{x:Static l:Lang.Enabled}" />
                 </ComboBox>
             </DockPanel>
             <DockPanel>
@@ -82,12 +83,12 @@
                     <TextBlock
                         FontSize="17"
                         FontWeight="Bold"
-                        Text="片头曲版本" />
-                    <TextBlock FontSize="10" Text="可在 PS3 版与经典版间进行切换，只会影响 EP1-4。" />
+                        Text="{x:Static l:Lang.Legacy_OP}" />
+                    <TextBlock FontSize="10" Text="{x:Static l:Lang.Legacy_OP_Decription}" />
                 </StackPanel>
                 <ComboBox HorizontalAlignment="Right" SelectedIndex="{Binding Config.LegacyOp}">
-                    <ComboBoxItem Content="PS3 版" />
-                    <ComboBoxItem Content="经典版" />
+                    <ComboBoxItem Content="{x:Static l:Lang.PS3}" />
+                    <ComboBoxItem Content="{x:Static l:Lang.Legacy}" />
                 </ComboBox>
             </DockPanel>
         </StackPanel>
@@ -97,7 +98,7 @@
             Padding="15,0,0,0"
             Command="{Binding DismissCommand}"
             CommandParameter="{Binding ElementName=Popup}"
-            Content="确定"
+            Content="{x:Static l:Lang.OK}"
             FontSize="17"
             FontWeight="Bold"
             IconMargin="0"

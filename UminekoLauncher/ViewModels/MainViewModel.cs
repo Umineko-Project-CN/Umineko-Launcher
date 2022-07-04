@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Input;
 using UminekoLauncher.Services;
 using UminekoLauncher.Views;
+using UminekoLauncher.Localization;
 
 namespace UminekoLauncher.ViewModels
 {
@@ -18,8 +19,8 @@ namespace UminekoLauncher.ViewModels
         private readonly ICommand _updateCommand;
         private ICommand _actionCommand;
         private bool _canAction = false;
-        private string _info = "请稍候";
-        private string _news = "正在加载……\n\n为保证体验，建议等待检测完成后再开始游戏。";
+        private string _info = Lang.Wait;
+        private string _news = Lang.Loading;
 
         public MainViewModel()
         {
@@ -76,12 +77,12 @@ namespace UminekoLauncher.ViewModels
             Process[] processes = Process.GetProcessesByName(currentProcessName);
             if (processes.Length > 1)
             {
-                MessageWindow.Show("出错了！启动器已在运行。");
+                MessageWindow.Show(Lang.Error_Running);
                 Application.Current.Shutdown();
             }
             if (!ConfigService.FileExists())
             {
-                MessageWindow.Show("出错了！未检测到相关重要文件，请检查游戏完整性。");
+                MessageWindow.Show(Lang.Error_Broken);
                 Application.Current.Shutdown();
             }
             else
@@ -112,13 +113,13 @@ namespace UminekoLauncher.ViewModels
             }
             catch (Exception)
             {
-                MessageWindow.Show("启动失败！请检查游戏完整性及相关设置。");
+                MessageWindow.Show(Lang.Launch_Failed);
             }
         }
 
         private void Update()
         {
-            Information = "请等待更新完成";
+            Information = Lang.Wait_Updating;
             CanAction = false;
             new DownloadWindow().Show();
             Application.Current.MainWindow.Activate();
@@ -132,22 +133,22 @@ namespace UminekoLauncher.ViewModels
             switch (e.UpdateStatus)
             {
                 case UpdateStatus.ReadyToUpdate:
-                    Information = "点击按钮以自动更新";
+                    Information = Lang.Click_Update;
                     ActionCommand = _updateCommand;
                     break;
 
                 case UpdateStatus.NeedManualUpdate:
-                    Information = "点击按钮以前往下载";
+                    Information = Lang.Click_Download;
                     ActionCommand = _goDownloadCommand;
                     break;
 
                 case UpdateStatus.UpToDate:
-                    Information = "无可用更新";
+                    Information = Lang.No_Update;
                     ActionCommand = _launchCommand;
                     break;
 
                 case UpdateStatus.Error:
-                    Information = e.Exception is WebException ? "请检查互联网连接并稍后重试" : "若重试更新无法解决还请反馈";
+                    Information = e.Exception is WebException ? Lang.Check_Internet : Lang.Retry;
                     ActionCommand = _launchCommand;
                     break;
 
@@ -158,7 +159,7 @@ namespace UminekoLauncher.ViewModels
 
         private void VerifyLaunch()
         {
-            if (MessageWindow.Show("确定要检查游戏完整性吗？", true) == true)
+            if (MessageWindow.Show(Lang.Confirm_Check, true) == true)
             {
                 Launch(true);
             }

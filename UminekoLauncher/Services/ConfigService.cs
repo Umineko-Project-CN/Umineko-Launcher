@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UminekoLauncher.Models;
+using UminekoLauncher.Localization;
 
 namespace UminekoLauncher.Services
 {
@@ -27,7 +28,7 @@ namespace UminekoLauncher.Services
         {
             if (!FileExists())
             {
-                throw new FileNotFoundException("未找到游戏配置文件。");
+                throw new FileNotFoundException(Lang.Error_Config);
             }
             var config = new ConfigModel
             {

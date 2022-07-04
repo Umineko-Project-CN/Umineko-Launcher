@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Windows;
 using ZipExtractor.Views;
+using ZipExtractor.Localization;
 
 namespace ZipExtractor
 {
@@ -64,18 +65,18 @@ namespace ZipExtractor
                     {
                         if (process.MainModule != null && process.MainModule.FileName.Equals(_executablePath))
                         {
-                            _logBuilder.AppendLine("等待应用进程退出……");
-                            _backgroundWorker.ReportProgress(0, "等待应用退出……");
+                            _logBuilder.AppendLine(Lang.Wait);
+                            _backgroundWorker.ReportProgress(0, Lang.Wait1);
                             process.WaitForExit();
                         }
                     }
                     catch (Exception exception)
                     {
-                        _logBuilder.AppendLine($"捕获到异常：\n{exception.Message}");
+                        _logBuilder.AppendLine($"{Lang.Exception}\n{exception.Message}");
                     }
                 }
             }
-            _logBuilder.AppendLine("BackgroundWorker 成功启动");
+            _logBuilder.AppendLine($"BackgroundWorker {Lang.Worker_Started}");
             // 保证解压路径的最后一个字符是目录分隔符。否则，恶意 zip 文件可能会遍历到期望的解压路径之外。
             string path = _extractPath;
             if (!path.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
@@ -84,7 +85,7 @@ namespace ZipExtractor
             }
             ZipArchive archive = ZipFile.Open(_zipFilePath, ZipArchiveMode.Read, Encoding.GetEncoding("GBK"));
             ReadOnlyCollection<ZipArchiveEntry> entries = archive.Entries;
-            _logBuilder.AppendLine($"在此 zip 文件中找到总共 {entries.Count} 个文件和文件夹");
+            _logBuilder.AppendLine(Lang.Count.Replace("{0}", entries.Count.ToString()));
             try
             {
                 int progress = 0;
@@ -96,7 +97,7 @@ namespace ZipExtractor
                         break;
                     }
                     ZipArchiveEntry entry = entries[i];
-                    string currentInfo = $"正在解压 {entry.FullName}";
+                    string currentInfo = $"{Lang.Extracting} {entry.FullName}";
                     _backgroundWorker.ReportProgress(progress, currentInfo);
                     int retries = 0;
                     bool extracted = false;
@@ -150,8 +151,8 @@ namespace ZipExtractor
                                     foreach (var lockingProcess in lockingProcesses)
                                     {
                                         MessageBoxResult dialogResult =
-                                            MessageBox.Show($"{lockingProcess.ProcessName} 仍处于打开状态并且其正在使用“{filePath}”。请手动关闭此进程并重试。",
-                                                            "无法更新该文件！", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+                                            MessageBox.Show(Lang.Error_Occupied.Replace("{0}", lockingProcess.ProcessName).Replace("{1}", filePath),
+                                                            Lang.Cannot_Update, MessageBoxButton.OKCancel, MessageBoxImage.Error);
                                         if (dialogResult == MessageBoxResult.Cancel)
                                         {
                                             throw;
@@ -196,7 +197,7 @@ namespace ZipExtractor
                 {
                     return;
                 }
-                textStatus.Text = "完成！";
+                textStatus.Text = Lang.Completed;
                 if (_hasExecutable)
                 {
                     try
@@ -206,7 +207,7 @@ namespace ZipExtractor
                             Arguments = _executableArgs
                         };
                         Process.Start(processStartInfo);
-                        _logBuilder.AppendLine("已成功启动更新后的应用");
+                        _logBuilder.AppendLine(Lang.Launch_Success);
                     }
                     catch (Win32Exception exception)
                     {
@@ -220,7 +221,7 @@ namespace ZipExtractor
             catch (Exception exception)
             {
                 _logBuilder.AppendLine();
-                _logBuilder.AppendLine($"捕获到异常：\n{exception.Message}");
+                _logBuilder.AppendLine($"{Lang.Exception}\n{exception.Message}");
                 MessageBox.Show(exception.Message, exception.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
@@ -244,7 +245,7 @@ namespace ZipExtractor
         {
             _logBuilder.AppendLine(DateTime.Now.ToString("F"));
             _logBuilder.AppendLine();
-            _logBuilder.AppendLine("ZipExtractor 以下列命令行参数启动：");
+            _logBuilder.AppendLine($"ZipExtractor {Lang.Started}");
             for (int i = 0; i < _args.Length; i++)
             {
                 _logBuilder.AppendLine($"[{i}] {_args[i]}");

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ctl="clr-namespace:UminekoLauncher.Views.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:l="clr-namespace:UminekoLauncher.Localization"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:v="clr-namespace:UminekoLauncher.Views"
     xmlns:vm="clr-namespace:UminekoLauncher.ViewModels"
@@ -31,48 +32,48 @@
                     <TextBlock
                         FontSize="10"
                         FontWeight="Bold"
-                        Text="本游戏为免费提供，仅供学习交流使用，热爱本作品请购买正版。" />
+                        Text="{x:Static l:Lang.Disclaimer}" />
                 </StackPanel>
             </DockPanel>
             <DockPanel Margin="0,0,0,19">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock FontSize="17" Text="Umineko Project" />
-                    <TextBlock FontSize="10" Text="访问制作组官网。" />
+                    <TextBlock FontSize="17" Text="{x:Static l:Lang.Umineko_Project}" />
+                    <TextBlock FontSize="10" Text="{x:Static l:Lang.Uminkeo_Project_Description}" />
                 </StackPanel>
                 <Button
                     HorizontalAlignment="Right"
                     Command="{Binding OpenWebsiteCommand}"
                     CommandParameter="up"
-                    Content="前往" />
+                    Content="{x:Static l:Lang.Go}" />
             </DockPanel>
             <DockPanel Margin="0,0,0,19">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock FontSize="17" Text="日不落汉化组" />
-                    <TextBlock FontSize="10" Text="访问汉化组官网。" />
+                    <TextBlock FontSize="17" Text="{x:Static l:Lang.Sun_Never_Sets_Team}" />
+                    <TextBlock FontSize="10" Text="{x:Static l:Lang.Sun_Never_Sets_Team_Description}" />
                 </StackPanel>
                 <Button
                     HorizontalAlignment="Right"
                     Command="{Binding OpenWebsiteCommand}"
                     CommandParameter="sn"
-                    Content="前往" />
+                    Content="{x:Static l:Lang.Go}" />
             </DockPanel>
             <StackPanel Height="35" Orientation="Horizontal">
                 <ctl:FxButton
                     Margin="0,0,13.5,0"
                     Command="{Binding OpenWebsiteCommand}"
                     CommandParameter="st"
-                    Content="Steam 版"
+                    Content="{x:Static l:Lang.Steam_Version}"
                     Style="{StaticResource BlackButton}" />
                 <ctl:FxButton
                     Command="{Binding OpenWebsiteCommand}"
                     CommandParameter="ps"
-                    Content="PS4 版"
+                    Content="{x:Static l:Lang.PS4_Version}"
                     Style="{StaticResource BlueButton}" />
                 <ctl:FxButton
                     Margin="13.5,0,0,0"
                     Command="{Binding OpenWebsiteCommand}"
                     CommandParameter="ns"
-                    Content="NS 版"
+                    Content="{x:Static l:Lang.NS_Version}"
                     Style="{StaticResource RedButton}" />
             </StackPanel>
         </StackPanel>
@@ -82,7 +83,7 @@
             Padding="15,0,0,0"
             Command="{Binding DismissCommand}"
             CommandParameter="{Binding ElementName=Popup}"
-            Content="确定"
+            Content="{x:Static l:Lang.OK}"
             FontSize="17"
             FontWeight="Bold"
             IconMargin="0"

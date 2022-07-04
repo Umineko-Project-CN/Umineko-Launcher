@@ -95,7 +95,7 @@ namespace UminekoLauncher.Views.Controls
             {
                 return DependencyProperty.UnsetValue;
             }
-            if ((bool)values[1])
+            if ((bool)values[1] && CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "zh")
             {
                 var str = values[0] as string;
                 return str?.Aggregate(string.Empty, (a, b) => $"{a} {b}");

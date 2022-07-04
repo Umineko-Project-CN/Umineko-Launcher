@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 using System.Windows;
 
 namespace UminekoLauncher
@@ -13,5 +8,10 @@ namespace UminekoLauncher
     /// </summary>
     public partial class App : Application
     {
+        //protected override void OnStartup(StartupEventArgs e)
+        //{
+        //    base.OnStartup(e);
+        //    CultureInfo.CurrentUICulture = new CultureInfo("fr");
+        //}
     }
 }

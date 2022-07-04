@@ -5,6 +5,7 @@
     xmlns:ctl="clr-namespace:UminekoLauncher.Views.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:l="clr-namespace:UminekoLauncher.Localization"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:v="clr-namespace:UminekoLauncher.Views"
     xmlns:vc="clr-namespace:UminekoLauncher.Views.ValueConverters"
@@ -132,7 +133,7 @@
                     IconMargin="0"
                     IconSize="32"
                     Style="{StaticResource IconFxButton}"
-                    ToolTip="填写反馈" />
+                    ToolTip="{x:Static l:Lang.Feedback}" />
             </StackPanel>
 
             <StackPanel Margin="0,47,0,0" Orientation="Horizontal">

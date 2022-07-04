@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 using UminekoLauncher.Services;
+using UminekoLauncher.Localization;
 
 namespace UminekoLauncher.Views.ValueConverters
 {
@@ -23,16 +24,16 @@ namespace UminekoLauncher.Views.ValueConverters
                     switch (status)
                     {
                         case UpdateStatus.NotStarted:
-                            return "正在检测";
+                            return Lang.Checking;
 
                         case UpdateStatus.UpToDate:
-                            return "最新版本";
+                            return Lang.Latest;
 
                         case UpdateStatus.Error:
-                            return "更新失败";
+                            return Lang.Failed;
 
                         default:
-                            return "需要更新";
+                            return Lang.Updatable;
                     }
                 case "ActionIcon":
                     switch (status)
@@ -50,13 +51,13 @@ namespace UminekoLauncher.Views.ValueConverters
                     switch (status)
                     {
                         case UpdateStatus.ReadyToUpdate:
-                            return "获取更新";
+                            return Lang.Update;
 
                         case UpdateStatus.NeedManualUpdate:
-                            return "前往下载";
+                            return Lang.Download;
 
                         default:
-                            return "开始游戏";
+                            return Lang.Start;
                     }
                 case "NotificationLight":
                     switch (status)

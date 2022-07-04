@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Serialization;
 using UminekoLauncher.Models;
+using UminekoLauncher.Localization;
 
 namespace UminekoLauncher.Services
 {
@@ -38,7 +39,7 @@ namespace UminekoLauncher.Services
             CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)
         };
 
-        private static string _changelog = "尚未检查更新。";
+        private static string _changelog = Lang.Update_Not_Checked;
         private static string _extraLink = string.Empty;
         private static bool _needManualUpdate = false;
 
@@ -108,11 +109,11 @@ namespace UminekoLauncher.Services
             {
                 if (e is WebException)
                 {
-                    _changelog = "与服务器通信时出错。";
+                    _changelog = Lang.Error_Communication;
                 }
                 else
                 {
-                    _changelog = $"异常：{e}\n{e.Message}";
+                    _changelog = $"{Lang.Exception}{e}\n{e.Message}";
                 }
                 Status = UpdateStatus.Error;
                 var args = new UpdateStatusChangedEventArgs(Status, e);
@@ -180,7 +181,7 @@ namespace UminekoLauncher.Services
             {
                 if (string.IsNullOrEmpty(field))
                 {
-                    throw new MissingFieldException("缺失必要的更新字段。");
+                    throw new MissingFieldException(Lang.Missing_Field);
                 }
             }
             Version localLauncherVersion = Application.ResourceAssembly.GetName().Version;
@@ -221,7 +222,7 @@ namespace UminekoLauncher.Services
         {
             if (Misc.GetHash(item.FilePath) != item.PackageHash)
             {
-                throw new Exception("文件完整性检查失败。");
+                throw new Exception(Lang.Failed_Integrity_Check);
             }
             string executablePath = Process.GetCurrentProcess().MainModule.FileName;
             string extractionPath = Path.GetDirectoryName(executablePath);
