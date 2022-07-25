@@ -34,6 +34,12 @@
             </Border.Background>
         </Border>
 
+        <Image
+            x:Name="imgLogo"
+            Width="370"
+            Height="153"
+            Margin="370,253,0,0" />
+
         <StackPanel Margin="27,27,0,0">
             <StackPanel.IsEnabled>
                 <MultiBinding Converter="{StaticResource MainAvailablityConverter}" Mode="OneWay">

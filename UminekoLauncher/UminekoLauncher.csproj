@@ -272,6 +272,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\ConfigService.cs" />
+    <Compile Include="Localization\Localized.cs" />
     <Compile Include="Services\Misc.cs" />
     <Compile Include="Services\UpdateService.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
@@ -296,6 +297,9 @@
     </Compile>
     <Compile Include="Views\MessageWindow.xaml.cs">
       <DependentUpon>MessageWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SplashScreen.xaml.cs">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ValueConverters\EnumToIntConverter.cs" />
     <Compile Include="Views\ValueConverters\UpdateStatusConverter.cs" />
@@ -327,6 +331,10 @@
     <Page Include="Views\MessageWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SplashScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -372,7 +380,6 @@
     <Resource Include="Resources\Images\bg.jpg" />
     <Resource Include="Resources\Images\icon.ico" />
     <Resource Include="Resources\Images\mbg.jpg" />
-    <SplashScreen Include="Resources\Images\splash.png" />
     <Resource Include="Resources\Images\wbg.png" />
   </ItemGroup>
   <ItemGroup>
@@ -389,6 +396,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\Splashes\chs.png" />
+    <Resource Include="Resources\Images\Splashes\cht.png" />
+    <Resource Include="Resources\Images\Splashes\en.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

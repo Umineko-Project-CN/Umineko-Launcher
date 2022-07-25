@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using UminekoLauncher.Localization;
 using UminekoLauncher.ViewModels;
 
 namespace UminekoLauncher.Views
@@ -17,6 +18,7 @@ namespace UminekoLauncher.Views
             _blurFadeIn.Duration = TimeSpan.FromSeconds(0.4);
             _opacityFadeOut.Duration = TimeSpan.FromSeconds(0.2);
             _blurFadeOut.Duration = TimeSpan.FromSeconds(0.2);
+            imgLogo.Source = Localized.LogoImage;
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
