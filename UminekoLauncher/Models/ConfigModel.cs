@@ -59,7 +59,7 @@ namespace UminekoLauncher.Models
         /// <summary>
         /// 获取或设置当前游戏脚本。
         /// </summary>
-        public string GameScript { get; set; } = "cn.fie";
+        public string GameScript { get; set; } = "cn.file";
 
         /// <summary>
         /// 获取或设置经典OP配置。

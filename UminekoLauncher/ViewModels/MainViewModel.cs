@@ -73,24 +73,9 @@ namespace UminekoLauncher.ViewModels
 
         private void InitCheck()
         {
-            string currentProcessName = Process.GetCurrentProcess().ProcessName;
-            Process[] processes = Process.GetProcessesByName(currentProcessName);
-            if (processes.Length > 1)
-            {
-                MessageWindow.Show(Lang.Error_Running);
-                Application.Current.Shutdown();
-            }
-            if (!ConfigService.FileExists())
-            {
-                MessageWindow.Show(Lang.Error_Broken);
-                Application.Current.Shutdown();
-            }
-            else
-            {
-                // 检查游戏更新。
-                UpdateService.StatusChanged += UpdateService_StatusChanged;
-                UpdateService.CheckAsync();
-            }
+            // 检查游戏更新。
+            UpdateService.StatusChanged += UpdateService_StatusChanged;
+            UpdateService.CheckAsync();
         }
 
         private void Launch() => Launch(false);

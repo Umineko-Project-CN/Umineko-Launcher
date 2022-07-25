@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using UminekoLauncher.Models;
-using UminekoLauncher.Localization;
 
 namespace UminekoLauncher.Services
 {

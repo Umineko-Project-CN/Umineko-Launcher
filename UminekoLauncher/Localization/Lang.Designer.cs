@@ -142,7 +142,7 @@ namespace UminekoLauncher.Localization {
         }
         
         /// <summary>
-        ///   查找类似 This version is free. It&apos;s your duty to support the original author. 的本地化字符串。
+        ///   查找类似 The software is provided for private, non-commercial use only. 的本地化字符串。
         /// </summary>
         public static string Disclaimer {
             get {
