@@ -69,7 +69,7 @@ namespace UminekoLauncher.Models
         /// <summary>
         /// 获取或设置包含其他游戏配置的列表。
         /// </summary>
-        public List<string> OtherConfigs { get; set; }
+        public List<string> UnsupportedConfigs { get; set; }
 
         /// <summary>
         /// 获取或设置缩放全屏配置。

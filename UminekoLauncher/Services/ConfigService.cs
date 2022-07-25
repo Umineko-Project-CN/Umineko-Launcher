@@ -23,21 +23,13 @@ namespace UminekoLauncher.Services
         /// <summary>
         /// 从文件中载入游戏配置。
         /// </summary>
-        /// <exception cref="FileNotFoundException"></exception>
         public static ConfigModel LoadConfig()
         {
-            if (!FileExists())
+            var config = new ConfigModel();
+            string[] rawConfigs = File.ReadAllLines(ConfigPath);
+            foreach (var rawConfig in rawConfigs)
             {
-                throw new FileNotFoundException(Lang.Error_Config);
-            }
-            var config = new ConfigModel
-            {
-                OtherConfigs = File.ReadAllLines(ConfigPath).ToList()
-            };
-            for (int i = 0; i < config.OtherConfigs.Count; i++)
-            {
-                string line = config.OtherConfigs[i].Trim();
-                config.OtherConfigs[i] = null;
+                string line = rawConfig.Trim();
                 // 游戏脚本。
                 if (line.StartsWith("game-script"))
                 {
@@ -104,9 +96,8 @@ namespace UminekoLauncher.Services
                     config.Scale = true;
                     continue;
                 }
-                config.OtherConfigs[i] = line;
+                config.UnsupportedConfigs.Add(line);
             }
-            config.OtherConfigs.RemoveAll(line => line == null);
             return config;
         }
 
@@ -185,9 +176,9 @@ namespace UminekoLauncher.Services
             {
                 configStrings.Add("scale");
             }
-            if (config.OtherConfigs != null)
+            if (config.UnsupportedConfigs != null)
             {
-                configStrings.AddRange(config.OtherConfigs);
+                configStrings.AddRange(config.UnsupportedConfigs);
             }
             File.WriteAllLines(ConfigPath, configStrings);
         }

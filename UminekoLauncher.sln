@@ -29,8 +29,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_PrefixTranslations = False
-		RESX_TranslatorConfiguration = {"Azure":"{\"AutoDetectHtml\":true,\"MaxCharactersPerMinute\":33300,\"AuthenticationKey\":null,\"Region\":null,\"IsEnabled\":false,\"SaveCredentials\":false,\"Ranking\":1.0}","Baidu":"{\"AppId\":\"20210630000876177\",\"SecretKey\":\"XueoidjaueapWBtsXTux\",\"ApiUrl\":\"https://fanyi-api.baidu.com/api/trans/vip/translate\",\"Domain\":\"1435660288\",\"IsEnabled\":true,\"SaveCredentials\":true,\"Ranking\":1.0}","DeepL":"{\"ApiKey\":null,\"ApiUrl\":null,\"IsEnabled\":false,\"SaveCredentials\":false,\"Ranking\":1.0}","Google":"{\"ApiKey\":null,\"IsEnabled\":false,\"SaveCredentials\":false,\"Ranking\":1.0}","MSTerm":"{\"IsEnabled\":false,\"SaveCredentials\":false,\"Ranking\":1.0}","MyMemory":"{\"Key\":null,\"Mail\":null,\"IsEnabled\":false,\"SaveCredentials\":false,\"Ranking\":1.0}"}
 		SolutionGuid = {767F3035-3D09-42EE-A314-287E4A41E3D5}
+		RESX_TranslatorConfiguration = {"Azure":"{\"AutoDetectHtml\":true,\"MaxCharactersPerMinute\":33300,\"AuthenticationKey\":null,\"Region\":null,\"IsEnabled\":false,\"SaveCredentials\":false,\"Ranking\":1.0}","Baidu":"{\"AppId\":null,\"SecretKey\":null,\"ApiUrl\":\"https://fanyi-api.baidu.com/api/trans/vip/translate\",\"Domain\":\"1435660288\",\"IsEnabled\":true,\"SaveCredentials\":false,\"Ranking\":1.0}","DeepL":"{\"ApiKey\":null,\"ApiUrl\":null,\"IsEnabled\":false,\"SaveCredentials\":false,\"Ranking\":1.0}","Google":"{\"ApiKey\":null,\"IsEnabled\":false,\"SaveCredentials\":false,\"Ranking\":1.0}","MSTerm":"{\"IsEnabled\":false,\"SaveCredentials\":false,\"Ranking\":1.0}","MyMemory":"{\"Key\":null,\"Mail\":null,\"IsEnabled\":false,\"SaveCredentials\":false,\"Ranking\":1.0}"}
+		RESX_PrefixTranslations = False
 	EndGlobalSection
 EndGlobal

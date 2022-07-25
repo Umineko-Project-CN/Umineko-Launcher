@@ -1,6 +1,8 @@
 ﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using System;
 using System.Windows.Input;
+using UminekoLauncher.Localization;
 using UminekoLauncher.Models;
 using UminekoLauncher.Services;
 using UminekoLauncher.Views;
@@ -28,14 +30,30 @@ namespace UminekoLauncher.ViewModels
 
         private void Dismiss(AnimatedControl control)
         {
-            ConfigService.SaveConfig(Config);
+            try
+            {
+                ConfigService.SaveConfig(Config);
+            }
+            catch (Exception e)
+            {
+                MessageWindow.Show($"{Lang.Exception}{e.Message}");
+            }
             control.IsOpen = false;
         }
 
         private void Load(bool configViewOpen)
         {
             if (configViewOpen)
-                Config = ConfigService.LoadConfig();
+            {
+                try
+                {
+                    Config = ConfigService.LoadConfig();
+                }
+                catch (Exception e)
+                {
+                    MessageWindow.Show($"{Lang.Exception}{e.Message}");
+                }
+            }
         }
     }
 }
