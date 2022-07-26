@@ -44,7 +44,7 @@ namespace UminekoLauncher.Models
         /// <summary>
         /// 当 <see cref="DisplayResolution"/> 设置为 <see cref="DisplayResolution.Custom"/> 时，表示自定义分辨率的值。
         /// </summary>
-        public string CustomDisplayResolution { get; set; }
+        public string CustomDisplayResolution { get; set; } = null;
 
         /// <summary>
         /// 获取或设置游戏显示模式。
@@ -69,7 +69,7 @@ namespace UminekoLauncher.Models
         /// <summary>
         /// 获取或设置包含其他游戏配置的列表。
         /// </summary>
-        public List<string> UnsupportedConfigs { get; set; }
+        public List<string> UnsupportedConfigs { get; set; } = new List<string>();
 
         /// <summary>
         /// 获取或设置缩放全屏配置。
