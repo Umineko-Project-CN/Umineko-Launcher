@@ -12,5 +12,10 @@ namespace UminekoLauncher.Views
             InitializeComponent();
             DataContext = new AboutViewModel();
         }
+
+        private void OkButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            IsOpen = false;
+        }
     }
 }

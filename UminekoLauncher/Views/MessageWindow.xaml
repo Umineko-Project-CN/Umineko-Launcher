@@ -53,7 +53,7 @@
             </UniformGrid.Resources>
             <ctl:FxButton
                 x:Name="btnConfirm"
-                Click="btnConfirm_Click"
+                Click="Confirm_Click"
                 Content="{x:Static l:Lang.OK}" />
             <ctl:FxButton
                 x:Name="btnCancel"

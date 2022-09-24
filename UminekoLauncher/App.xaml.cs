@@ -46,5 +46,11 @@ namespace UminekoLauncher
             }
             CultureInfo.CurrentUICulture = new CultureInfo(culture);
         }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+            Config.GetConfig().Save();
+        }
     }
 }

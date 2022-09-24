@@ -15,16 +15,16 @@ namespace UminekoLauncher.Views
             DataContext = new DownloadViewModel();
         }
 
-        private void downloadWindow_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var viewModel = (DownloadViewModel)DataContext;
-            viewModel.LoadedCommand.Execute(null);
+            viewModel.DownloadCommand.Execute(this);
         }
 
-        private void downloadWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var viewModel = (DownloadViewModel)DataContext;
-            viewModel.ClosingCommand.Execute(null);
+            viewModel.CleanUpCommand.Execute(null);
         }
     }
 }

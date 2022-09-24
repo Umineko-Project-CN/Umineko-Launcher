@@ -1,9 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Input;
 using UminekoLauncher.Localization;
 using UminekoLauncher.Models;
 using UminekoLauncher.Services;
@@ -18,7 +16,7 @@ namespace UminekoLauncher.ViewModels
 
         public LanguageViewModel()
         {
-            SaveCommand = new RelayCommand<AnimatedWindow>(Save);
+            CheckCommand = new RelayCommand<Window>(Check);
             _language = _config.Language;
         }
 
@@ -28,42 +26,35 @@ namespace UminekoLauncher.ViewModels
             set => SetProperty(ref _language, value);
         }
 
-        public ICommand SaveCommand { get; }
+        public RelayCommand<Window> CheckCommand { get; }
 
-        private void Save(AnimatedWindow window)
+        private void Check(Window window)
         {
-            if (Language != _config.Language)
+            if (Language == _config.Language)
             {
-                if (Language == Language.Other)
-                {
-                    MessageWindow.Show(Lang.Language_Other);
-                    Language = _config.Language;
-                    return;
-                }
-                _config.Language = Language;
-                if (Language != _config.Language)
-                {
-                    if (MessageWindow.Show(Lang.Require_CHT_Resource, true) != true)
-                    {
-                        Language = _config.Language;
-                        return;
-                    }
-                    Process.Start("https://snsteam.club/downloads/");
-                }
-                else
-                {
-                    try
-                    {
-                        _config.Save();
-                    }
-                    catch (Exception e)
-                    {
-                        MessageWindow.Show($"{Lang.Exception}{e.Message}");
-                    }
-                    MessageWindow.Show(Lang.Language_Info);
-                }
+                window.Close();
+                return;
             }
-            window.Close();
+            if (Language == Language.Other)
+            {
+                MessageWindow.Show(Lang.Language_Other);
+                Language = _config.Language;
+                return;
+            }
+            _config.Language = Language;
+            if (Language == _config.Language)
+            {
+                MessageWindow.Show(Lang.Language_Info);
+                window.Close();
+                return;
+            }
+            if (MessageWindow.Show(Lang.Require_CHT_Resource, true) == true)
+            {
+                Process.Start("https://snsteam.club/downloads/");
+                window.Close();
+                return;
+            }
+            Language = _config.Language;
         }
     }
 }

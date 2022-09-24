@@ -4,20 +4,19 @@ using System;
 using System.Diagnostics;
 using System.Net;
 using System.Windows;
-using System.Windows.Input;
+using UminekoLauncher.Localization;
 using UminekoLauncher.Services;
 using UminekoLauncher.Views;
-using UminekoLauncher.Localization;
 
 namespace UminekoLauncher.ViewModels
 {
     internal class MainViewModel : ObservableObject
     {
         private const string SurveyUrl = "https://wj.qq.com/s2/8553984/974a/";
-        private readonly ICommand _goDownloadCommand;
-        private readonly ICommand _launchCommand;
-        private readonly ICommand _updateCommand;
-        private ICommand _actionCommand;
+        private readonly RelayCommand _goDownloadCommand;
+        private readonly RelayCommand _launchCommand;
+        private readonly RelayCommand _updateCommand;
+        private RelayCommand _actionCommand;
         private bool _canAction = false;
         private string _info = Lang.Wait;
         private string _news = Lang.Loading;
@@ -27,28 +26,26 @@ namespace UminekoLauncher.ViewModels
             ActionCommand = _launchCommand;
             GoSurveyCommand = new RelayCommand(GoSurvey);
             VerifyCommand = new RelayCommand(VerifyLaunch);
-            ExitCommand = new RelayCommand<Window>(Exit);
             _launchCommand = new RelayCommand(Launch);
             _updateCommand = new RelayCommand(Update);
             _goDownloadCommand = new RelayCommand(GoDownload);
             InitCheck();
         }
 
-        public ICommand ActionCommand
+        public RelayCommand ActionCommand
         {
             get => _actionCommand;
             set => SetProperty(ref _actionCommand, value);
         }
+
+        public RelayCommand GoSurveyCommand { get; }
+        public RelayCommand VerifyCommand { get; }
 
         public bool CanAction
         {
             get => _canAction;
             set => SetProperty(ref _canAction, value);
         }
-
-        public ICommand ExitCommand { get; }
-
-        public ICommand GoSurveyCommand { get; }
 
         public string Information
         {
@@ -63,13 +60,6 @@ namespace UminekoLauncher.ViewModels
         }
 
         public UpdateStatus UpdateStatus => Updater.Status;
-        public ICommand VerifyCommand { get; }
-
-        private void Exit(Window window) => window.Close();
-
-        private void GoDownload() => Process.Start(Updater.ExtraLink);
-
-        private void GoSurvey() => Process.Start(SurveyUrl);
 
         private void InitCheck()
         {
@@ -77,6 +67,10 @@ namespace UminekoLauncher.ViewModels
             Updater.StatusChanged += UpdateService_StatusChanged;
             Updater.CheckAsync();
         }
+
+        private void GoDownload() => Process.Start(Updater.ExtraLink);
+
+        private void GoSurvey() => Process.Start(SurveyUrl);
 
         private void Launch() => Launch(false);
 
@@ -102,11 +96,19 @@ namespace UminekoLauncher.ViewModels
             }
         }
 
+        private void VerifyLaunch()
+        {
+            if (MessageWindow.Show(Lang.Confirm_Check, true) == true)
+            {
+                Launch(true);
+            }
+        }
+
         private void Update()
         {
             Information = Lang.Wait_Updating;
             CanAction = false;
-            new DownloadWindow().Show();
+            new DownloadWindow().ShowDialog();
             Application.Current.MainWindow.Activate();
         }
 
@@ -139,14 +141,6 @@ namespace UminekoLauncher.ViewModels
 
                 default:
                     break;
-            }
-        }
-
-        private void VerifyLaunch()
-        {
-            if (MessageWindow.Show(Lang.Confirm_Check, true) == true)
-            {
-                Launch(true);
             }
         }
     }

@@ -4,9 +4,8 @@ using System;
 using System.Net;
 using System.Timers;
 using System.Windows;
-using System.Windows.Input;
-using UminekoLauncher.Services;
 using UminekoLauncher.Localization;
+using UminekoLauncher.Services;
 
 namespace UminekoLauncher.ViewModels
 {
@@ -22,11 +21,12 @@ namespace UminekoLauncher.ViewModels
 
         public DownloadViewModel()
         {
-            LoadedCommand = new RelayCommand<Window>(Loaded);
-            ClosingCommand = new RelayCommand(Closing);
+            DownloadCommand = new RelayCommand<Window>(Download);
+            CleanUpCommand = new RelayCommand(CleanUp);
         }
 
-        public ICommand ClosingCommand { get; }
+        public RelayCommand<Window> DownloadCommand { get; }
+        public RelayCommand CleanUpCommand { get; }
 
         public int DownloadProgress
         {
@@ -46,8 +46,6 @@ namespace UminekoLauncher.ViewModels
             set => SetProperty(ref _fileSize, value);
         }
 
-        public ICommand LoadedCommand { get; }
-
         private static string BytesToString(long byteCount)
         {
             string[] suf = { "B", "KB", "MB", "GB", "TB", "PB", "EB" };
@@ -59,14 +57,7 @@ namespace UminekoLauncher.ViewModels
             return $"{Math.Sign(byteCount) * num} {suf[place]}";
         }
 
-        private void Closing()
-        {
-            _timer.Stop();
-            Updater.DownloadProgressChanged -= UpdateService_DownloadProgressChanged;
-            Updater.UpdatesAllDownloaded -= UpdateService_UpdatesAllDownloaded;
-        }
-
-        private void Loaded(Window window)
+        private void Download(Window window)
         {
             _downloadWindow = window;
             Updater.DownloadProgressChanged += UpdateService_DownloadProgressChanged;
@@ -75,6 +66,13 @@ namespace UminekoLauncher.ViewModels
             _timer.Interval = 500;
             _timer.Elapsed += UpdateSpeedText;
             _timer.Start();
+        }
+
+        private void CleanUp()
+        {
+            _timer.Stop();
+            Updater.DownloadProgressChanged -= UpdateService_DownloadProgressChanged;
+            Updater.UpdatesAllDownloaded -= UpdateService_UpdatesAllDownloaded;
         }
 
         private void UpdateService_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)

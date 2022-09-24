@@ -3,8 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Input;
-using UminekoLauncher.Views;
 
 namespace UminekoLauncher.ViewModels
 {
@@ -19,15 +17,11 @@ namespace UminekoLauncher.ViewModels
 
         public AboutViewModel()
         {
-            DismissCommand = new RelayCommand<AnimatedControl>(Dismiss);
             OpenWebsiteCommand = new RelayCommand<string>(OpenWebsite);
         }
 
-        public ICommand DismissCommand { get; }
-        public ICommand OpenWebsiteCommand { get; }
+        public RelayCommand<string> OpenWebsiteCommand { get; }
         public string TextVersion { get; } = $"LauncherVer. {Application.ResourceAssembly.GetName().Version}";
-
-        private void Dismiss(AnimatedControl control) => control.IsOpen = false;
 
         private void OpenWebsite(string str)
         {

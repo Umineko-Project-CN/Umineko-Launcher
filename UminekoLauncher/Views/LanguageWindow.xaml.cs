@@ -1,8 +1,4 @@
-﻿using System.Diagnostics;
-using System.Windows;
-using System.Windows.Controls;
-using UminekoLauncher.Localization;
-using UminekoLauncher.Services;
+﻿using System.Windows;
 using UminekoLauncher.ViewModels;
 
 namespace UminekoLauncher.Views

@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ctl="clr-namespace:UminekoLauncher.Views.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:l="clr-namespace:UminekoLauncher.Localization"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:v="clr-namespace:UminekoLauncher.Views"
@@ -70,8 +69,7 @@
                 </StackPanel.Resources>
                 <ctl:FxButton
                     Width="68"
-                    Command="{Binding ExitCommand}"
-                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                    Click="ExitButton_Click"
                     CornerRadius="15,0,0,15"
                     Icon="&#xe5cd;"
                     IconSize="28" />
@@ -82,7 +80,7 @@
                     IsChecked="{Binding ElementName=ConfigPopup, Path=IsOpen, Mode=TwoWay}" />
                 <ctl:FxButton
                     Width="64"
-                    Click="Language_Click"
+                    Click="LanguageButton_Click"
                     CornerRadius="0"
                     Icon="&#xe894;" />
                 <ctl:FxToggleButton

@@ -32,7 +32,7 @@ namespace UminekoLauncher.Views
         public static bool? Show(string message, bool isOkCancel = false)
             => new MessageWindow(message, isOkCancel).ShowDialog();
 
-        private void btnConfirm_Click(object sender, RoutedEventArgs e)
+        private void Confirm_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
         }

@@ -27,9 +27,17 @@ namespace UminekoLauncher.Views
             DragMove();
         }
 
-        private void Language_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void ExitButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            Close();
+        }
+
+        private void LanguageButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var viewModel = (MainViewModel)DataContext;
+            viewModel.CanAction = false;
             new LanguageWindow().ShowDialog();
+            viewModel.CanAction = true;
         }
 
         private void ActionButton_MouseRightButtonUp(object sender, MouseButtonEventArgs e)

@@ -1,5 +1,4 @@
-﻿using System.Windows.Controls;
-using UminekoLauncher.ViewModels;
+﻿using UminekoLauncher.ViewModels;
 
 namespace UminekoLauncher.Views
 {
@@ -12,6 +11,11 @@ namespace UminekoLauncher.Views
         {
             InitializeComponent();
             DataContext = new ConfigViewModel();
+        }
+
+        private void OkButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            IsOpen = false;
         }
     }
 }
