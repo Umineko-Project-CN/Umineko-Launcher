@@ -287,4 +287,22 @@
   <data name="Failed Integrity Check" xml:space="preserve">
     <value>文件完整性检查失败。</value>
   </data>
+  <data name="Language Select" xml:space="preserve">
+    <value>语言选择</value>
+  </data>
+  <data name="Language Select Description" xml:space="preserve">
+    <value>配置游戏将要使用的语言。</value>
+  </data>
+  <data name="Require CHT Resource" xml:space="preserve">
+    <value>需要下载额外资源才能以繁体中文游玩，立即下载？</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="Language Info" xml:space="preserve">
+    <value>启动器界面将于下次运行时改变。</value>
+  </data>
+  <data name="Language Other" xml:space="preserve">
+    <value>请通过游戏内设置选择其他语言。</value>
+  </data>
 </root>

@@ -17,7 +17,7 @@ namespace UminekoLauncher.Views
             _blurFadeIn.Duration = TimeSpan.FromSeconds(0.2);
             _opacityFadeOut.Duration = TimeSpan.FromSeconds(0.2);
             _blurFadeOut.Duration = TimeSpan.FromSeconds(0.2);
-            imgSplash.Source = Localized.LogoImage;
+            imgSplash.Source = Localized.GameLogoImage;
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)

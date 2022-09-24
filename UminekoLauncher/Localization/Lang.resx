@@ -243,7 +243,7 @@ To ensure the experience, it is recommended to wait for the detection to complet
     <value>Please wait for the update to complete</value>
   </data>
   <data name="Click Update" xml:space="preserve">
-    <value>Click the button to automatically update</value>
+    <value>Click the button to update</value>
   </data>
   <data name="Click Download" xml:space="preserve">
     <value>Click the button to go to the download</value>
@@ -291,5 +291,23 @@ To ensure the experience, it is recommended to wait for the detection to complet
   </data>
   <data name="Failed Integrity Check" xml:space="preserve">
     <value>File integrity check failed.</value>
+  </data>
+  <data name="Language Select" xml:space="preserve">
+    <value>Language Select</value>
+  </data>
+  <data name="Language Select Description" xml:space="preserve">
+    <value>Configure the game language.</value>
+  </data>
+  <data name="Require CHT Resource" xml:space="preserve">
+    <value>Require additional resources to play in Traditional Chinese, download now?</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="Language Info" xml:space="preserve">
+    <value>The launcher UI will change the next time it is opened.</value>
+  </data>
+  <data name="Language Other" xml:space="preserve">
+    <value>Please select other languages via in-game settings.</value>
   </data>
 </root>

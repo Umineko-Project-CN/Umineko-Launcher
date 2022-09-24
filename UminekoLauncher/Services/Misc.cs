@@ -69,5 +69,14 @@ namespace UminekoLauncher.Services
                 return new Version(0, 0, 0, 0);
             }
         }
+
+        /// <summary>
+        /// 检测繁中语言包资源是否存在。
+        /// </summary>
+        /// <returns>表示检测结果的 <see cref="bool"/> 值。</returns>
+        public static bool LangCHTResourceExist()
+        {
+            return File.Exists("language_cht/placeholder");
+        }
     }
 }

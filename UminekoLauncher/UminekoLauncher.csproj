@@ -271,11 +271,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\ConfigService.cs" />
+    <Compile Include="Services\Config.cs" />
     <Compile Include="Localization\Localized.cs" />
     <Compile Include="Services\Misc.cs" />
-    <Compile Include="Services\UpdateService.cs" />
+    <Compile Include="Services\Updater.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\LanguageViewModel.cs" />
     <Compile Include="ViewModels\ConfigViewModel.cs" />
     <Compile Include="ViewModels\DownloadViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -291,6 +292,9 @@
     <Compile Include="Views\Controls\FxToggleButton.cs" />
     <Compile Include="Views\DownloadWindow.xaml.cs">
       <DependentUpon>DownloadWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LanguageWindow.xaml.cs">
+      <DependentUpon>LanguageWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -323,6 +327,10 @@
     <Page Include="Views\DownloadWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\LanguageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -376,7 +384,6 @@
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\bbg.png" />
     <Resource Include="Resources\Images\bg.jpg" />
     <Resource Include="Resources\Images\icon.ico" />
     <Resource Include="Resources\Images\mbg.jpg" />
@@ -397,11 +404,14 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\Images\Splashes\chs.png" />
     <Resource Include="Resources\Images\Splashes\cht.png" />
     <Resource Include="Resources\Images\Splashes\en.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Logos\chs.png" />
+    <Resource Include="Resources\Images\Logos\cht.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

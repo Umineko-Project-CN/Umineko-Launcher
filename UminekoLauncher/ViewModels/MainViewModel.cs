@@ -62,20 +62,20 @@ namespace UminekoLauncher.ViewModels
             set => SetProperty(ref _news, value);
         }
 
-        public UpdateStatus UpdateStatus => UpdateService.Status;
+        public UpdateStatus UpdateStatus => Updater.Status;
         public ICommand VerifyCommand { get; }
 
         private void Exit(Window window) => window.Close();
 
-        private void GoDownload() => Process.Start(UpdateService.ExtraLink);
+        private void GoDownload() => Process.Start(Updater.ExtraLink);
 
         private void GoSurvey() => Process.Start(SurveyUrl);
 
         private void InitCheck()
         {
             // 检查游戏更新。
-            UpdateService.StatusChanged += UpdateService_StatusChanged;
-            UpdateService.CheckAsync();
+            Updater.StatusChanged += UpdateService_StatusChanged;
+            Updater.CheckAsync();
         }
 
         private void Launch() => Launch(false);
@@ -114,7 +114,7 @@ namespace UminekoLauncher.ViewModels
         {
             OnPropertyChanged(nameof(UpdateStatus));
             CanAction = true;
-            News = UpdateService.Changelog;
+            News = Updater.Changelog;
             switch (e.UpdateStatus)
             {
                 case UpdateStatus.ReadyToUpdate:

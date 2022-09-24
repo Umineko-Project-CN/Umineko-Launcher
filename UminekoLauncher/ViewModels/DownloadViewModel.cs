@@ -62,16 +62,16 @@ namespace UminekoLauncher.ViewModels
         private void Closing()
         {
             _timer.Stop();
-            UpdateService.DownloadProgressChanged -= UpdateService_DownloadProgressChanged;
-            UpdateService.UpdatesAllDownloaded -= UpdateService_UpdatesAllDownloaded;
+            Updater.DownloadProgressChanged -= UpdateService_DownloadProgressChanged;
+            Updater.UpdatesAllDownloaded -= UpdateService_UpdatesAllDownloaded;
         }
 
         private void Loaded(Window window)
         {
             _downloadWindow = window;
-            UpdateService.DownloadProgressChanged += UpdateService_DownloadProgressChanged;
-            UpdateService.UpdatesAllDownloaded += UpdateService_UpdatesAllDownloaded;
-            UpdateService.Update();
+            Updater.DownloadProgressChanged += UpdateService_DownloadProgressChanged;
+            Updater.UpdatesAllDownloaded += UpdateService_UpdatesAllDownloaded;
+            Updater.Update();
             _timer.Interval = 500;
             _timer.Elapsed += UpdateSpeedText;
             _timer.Start();

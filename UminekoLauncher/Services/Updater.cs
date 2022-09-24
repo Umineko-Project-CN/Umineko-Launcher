@@ -27,7 +27,7 @@ namespace UminekoLauncher.Services
     /// <summary>
     /// 更新服务。
     /// </summary>
-    internal static class UpdateService
+    internal static class Updater
     {
         private const string UpdateUrl = "https://down.snsteam.club/update.xml";
         private static readonly string _installerPath = Path.Combine(Path.GetTempPath(), "ZipExtractor.exe");
@@ -43,7 +43,7 @@ namespace UminekoLauncher.Services
         private static string _extraLink = string.Empty;
         private static bool _needManualUpdate = false;
 
-        static UpdateService()
+        static Updater()
         {
             _webClient.DownloadProgressChanged += (a, b) => DownloadProgressChanged?.Invoke(a, b);
         }

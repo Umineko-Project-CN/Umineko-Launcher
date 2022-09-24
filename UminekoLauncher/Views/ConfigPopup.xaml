@@ -15,12 +15,12 @@
     Height="277"
     d:DataContext="{d:DesignInstance Type=vm:ConfigViewModel}"
     mc:Ignorable="d">
-    <UserControl.Background>
-        <ImageBrush ImageSource="/Resources/Images/wbg.png" Stretch="UniformToFill" />
-    </UserControl.Background>
     <UserControl.Resources>
         <vc:EnumToIntConverter x:Key="EnumToIntConverter" />
     </UserControl.Resources>
+    <v:AnimatedControl.Background>
+        <ImageBrush ImageSource="/Resources/Images/wbg.png" Stretch="UniformToFill" />
+    </v:AnimatedControl.Background>
     <i:Interaction.Triggers>
         <i:PropertyChangedTrigger Binding="{Binding ElementName=Popup, Path=IsOpen, Mode=OneWay}">
             <i:InvokeCommandAction Command="{Binding LoadCommand}" CommandParameter="{Binding ElementName=Popup, Path=IsOpen}" />
@@ -96,7 +96,7 @@
             Grid.Row="1"
             Margin="13,0,13,13"
             Padding="15,0,0,0"
-            Command="{Binding DismissCommand}"
+            Command="{Binding SaveCommand}"
             CommandParameter="{Binding ElementName=Popup}"
             Content="{x:Static l:Lang.OK}"
             FontSize="17"

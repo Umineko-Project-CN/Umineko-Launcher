@@ -35,10 +35,18 @@
         </Border>
 
         <Image
-            x:Name="imgLogo"
+            x:Name="imgGame"
             Width="370"
             Height="153"
-            Margin="370,253,0,0" />
+            Margin="0,0,50,12"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom" />
+        <Image
+            x:Name="imgTeam"
+            Width="180"
+            Margin="0,23,23,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top" />
 
         <StackPanel Margin="27,27,0,0">
             <StackPanel.IsEnabled>
@@ -55,13 +63,7 @@
                 </Style>
             </StackPanel.Resources>
 
-            <StackPanel
-                Width="200"
-                Height="33"
-                Orientation="Horizontal">
-                <StackPanel.Background>
-                    <ImageBrush ImageSource="/Resources/Images/bbg.png" />
-                </StackPanel.Background>
+            <StackPanel Height="33" Orientation="Horizontal">
                 <StackPanel.Resources>
                     <Style BasedOn="{StaticResource TransparentFxButton}" TargetType="ctl:FxButton" />
                     <Style BasedOn="{StaticResource TransparentFxButton}" TargetType="ctl:FxToggleButton" />
@@ -78,6 +80,11 @@
                     CornerRadius="0"
                     Icon="&#xe8b8;"
                     IsChecked="{Binding ElementName=ConfigPopup, Path=IsOpen, Mode=TwoWay}" />
+                <ctl:FxButton
+                    Width="64"
+                    Click="Language_Click"
+                    CornerRadius="0"
+                    Icon="&#xe894;" />
                 <ctl:FxToggleButton
                     Width="68"
                     CornerRadius="0,15,15,0"
@@ -128,7 +135,7 @@
                     </i:Interaction.Triggers>
                 </ctl:FxButton>
                 <ctl:FxButton
-                    Width="55"
+                    Width="55.5"
                     Height="43"
                     Margin="10,0,0,0"
                     HorizontalAlignment="Left"

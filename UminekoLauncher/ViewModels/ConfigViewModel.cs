@@ -3,7 +3,6 @@ using Microsoft.Toolkit.Mvvm.Input;
 using System;
 using System.Windows.Input;
 using UminekoLauncher.Localization;
-using UminekoLauncher.Models;
 using UminekoLauncher.Services;
 using UminekoLauncher.Views;
 
@@ -11,28 +10,28 @@ namespace UminekoLauncher.ViewModels
 {
     internal class ConfigViewModel : ObservableObject
     {
-        private ConfigModel _config;
+        private Config _config = Config.GetConfig();
 
         public ConfigViewModel()
         {
             LoadCommand = new RelayCommand<bool>(Load);
-            DismissCommand = new RelayCommand<AnimatedControl>(Dismiss);
+            SaveCommand = new RelayCommand<AnimatedControl>(Save);
         }
 
-        public ConfigModel Config
+        public Config Config
         {
             get => _config;
             set => SetProperty(ref _config, value);
         }
 
-        public ICommand DismissCommand { get; }
+        public ICommand SaveCommand { get; }
         public ICommand LoadCommand { get; }
 
-        private void Dismiss(AnimatedControl control)
+        private void Save(AnimatedControl control)
         {
             try
             {
-                ConfigService.SaveConfig(Config);
+                _config.Save();
             }
             catch (Exception e)
             {
@@ -43,16 +42,18 @@ namespace UminekoLauncher.ViewModels
 
         private void Load(bool configViewOpen)
         {
-            if (configViewOpen)
+            if (!configViewOpen)
             {
-                try
-                {
-                    Config = ConfigService.LoadConfig();
-                }
-                catch (Exception e)
-                {
-                    MessageWindow.Show($"{Lang.Exception}{e.Message}");
-                }
+                return;
+            }
+            try
+            {
+                _config.Load();
+                OnPropertyChanged(nameof(Config));
+            }
+            catch (Exception e)
+            {
+                MessageWindow.Show($"{Lang.Exception}{e.Message}");
             }
         }
     }

@@ -4,46 +4,6 @@ using System.Xml.Serialization;
 namespace UminekoLauncher.Models
 {
     /// <summary>
-    /// 获取 XML 校验码值所使用的类。
-    /// </summary>
-    public class Checksum
-    {
-        private string _value;
-
-        /// <summary>
-        /// 校验码算法。
-        /// </summary>
-        [XmlAttribute("Algorithm")]
-        public string HashAlgorithm { get; set; }
-
-        /// <summary>
-        /// 文件校验码值。
-        /// </summary>
-        [XmlText]
-        public string Value
-        {
-            get => _value;
-            set => _value = value.ToUpperInvariant();
-        }
-
-        public static bool operator !=(Checksum a, Checksum b) => !a.Equals(b);
-
-        public static bool operator ==(Checksum a, Checksum b) => a.Equals(b);
-
-        public override bool Equals(object obj)
-        {
-            return obj is Checksum checksum &&
-                   Value == checksum.Value &&
-                   HashAlgorithm == checksum.HashAlgorithm;
-        }
-
-        public override int GetHashCode()
-        {
-            return -1937169414 + EqualityComparer<string>.Default.GetHashCode(Value);
-        }
-    }
-
-    /// <summary>
     /// 该类表示更新信息，应从服务器获取的 XML 实例化。
     /// </summary>
     [XmlRoot("UpdateInfo")]
@@ -107,6 +67,46 @@ namespace UminekoLauncher.Models
             /// </summary>
             [XmlElement("Version")]
             public string Version { get; set; }
+        }
+    }
+
+    /// <summary>
+    /// 获取 XML 校验码值所使用的类。
+    /// </summary>
+    public class Checksum
+    {
+        private string _value;
+
+        /// <summary>
+        /// 校验码算法。
+        /// </summary>
+        [XmlAttribute("Algorithm")]
+        public string HashAlgorithm { get; set; }
+
+        /// <summary>
+        /// 文件校验码值。
+        /// </summary>
+        [XmlText]
+        public string Value
+        {
+            get => _value;
+            set => _value = value.ToUpperInvariant();
+        }
+
+        public static bool operator !=(Checksum a, Checksum b) => !a.Equals(b);
+
+        public static bool operator ==(Checksum a, Checksum b) => a.Equals(b);
+
+        public override bool Equals(object obj)
+        {
+            return obj is Checksum checksum &&
+                   Value == checksum.Value &&
+                   HashAlgorithm == checksum.HashAlgorithm;
+        }
+
+        public override int GetHashCode()
+        {
+            return -1937169414 + EqualityComparer<string>.Default.GetHashCode(Value);
         }
     }
 }

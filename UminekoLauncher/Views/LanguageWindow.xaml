@@ -1,0 +1,70 @@
+﻿<v:AnimatedWindow
+    x:Class="UminekoLauncher.Views.LanguageWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctl="clr-namespace:UminekoLauncher.Views.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:l="clr-namespace:UminekoLauncher.Localization"
+    xmlns:local="clr-namespace:UminekoLauncher.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:v="clr-namespace:UminekoLauncher.Views"
+    xmlns:vc="clr-namespace:UminekoLauncher.Views.ValueConverters"
+    xmlns:vm="clr-namespace:UminekoLauncher.ViewModels"
+    x:Name="Window"
+    Width="350"
+    d:DataContext="{d:DesignInstance Type=vm:ConfigViewModel}"
+    AllowsTransparency="True"
+    Background="{x:Null}"
+    ResizeMode="NoResize"
+    ShowInTaskbar="False"
+    SizeToContent="Height"
+    Topmost="True"
+    WindowStartupLocation="CenterOwner"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <v:AnimatedWindow.Resources>
+        <vc:EnumToIntConverter x:Key="EnumToIntConverter" />
+    </v:AnimatedWindow.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <Border Grid.RowSpan="2" CornerRadius="5">
+            <Border.Background>
+                <ImageBrush
+                    ImageSource="/Resources/Images/mbg.jpg"
+                    Opacity="0.9"
+                    Stretch="UniformToFill" />
+            </Border.Background>
+        </Border>
+        <DockPanel Margin="13">
+            <StackPanel>
+                <TextBlock.Foreground>#cccccc</TextBlock.Foreground>
+                <TextBlock
+                    FontSize="17"
+                    FontWeight="Bold"
+                    Text="{x:Static l:Lang.Language_Select}" />
+                <TextBlock FontSize="10" Text="{x:Static l:Lang.Language_Select_Description}" />
+            </StackPanel>
+            <ComboBox HorizontalAlignment="Right" SelectedIndex="{Binding Language, Converter={StaticResource EnumToIntConverter}}">
+                <ComboBoxItem Content="简体中文" />
+                <ComboBoxItem Content="繁體中文" />
+                <ComboBoxItem Content="English" />
+                <ComboBoxItem Content="{x:Static l:Lang.Other}" />
+            </ComboBox>
+        </DockPanel>
+        <ctl:FxButton
+            Grid.Row="1"
+            Margin="13,0,13,13"
+            Padding="15,0,0,0"
+            Command="{Binding SaveCommand}"
+            CommandParameter="{Binding ElementName=Window}"
+            Content="{x:Static l:Lang.OK}"
+            FontSize="17"
+            FontWeight="Bold"
+            IconMargin="0"
+            IsCancel="True"
+            IsDefault="True" />
+    </Grid>
+</v:AnimatedWindow>

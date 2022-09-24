@@ -106,7 +106,7 @@ namespace UminekoLauncher.Localization {
         }
         
         /// <summary>
-        ///   查找类似 Click the button to automatically update 的本地化字符串。
+        ///   查找类似 Click the button to update 的本地化字符串。
         /// </summary>
         public static string Click_Update {
             get {
@@ -304,6 +304,42 @@ namespace UminekoLauncher.Localization {
         }
         
         /// <summary>
+        ///   查找类似 The launcher UI will change the next time it is opened. 的本地化字符串。
+        /// </summary>
+        public static string Language_Info {
+            get {
+                return ResourceManager.GetString("Language Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Please select other languages via in-game settings. 的本地化字符串。
+        /// </summary>
+        public static string Language_Other {
+            get {
+                return ResourceManager.GetString("Language Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Language Select 的本地化字符串。
+        /// </summary>
+        public static string Language_Select {
+            get {
+                return ResourceManager.GetString("Language Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Configure the game language. 的本地化字符串。
+        /// </summary>
+        public static string Language_Select_Description {
+            get {
+                return ResourceManager.GetString("Language Select Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Latest 的本地化字符串。
         /// </summary>
         public static string Latest {
@@ -396,6 +432,15 @@ namespace UminekoLauncher.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Other 的本地化字符串。
+        /// </summary>
+        public static string Other {
+            get {
+                return ResourceManager.GetString("Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 PS3 的本地化字符串。
         /// </summary>
         public static string PS3 {
@@ -410,6 +455,15 @@ namespace UminekoLauncher.Localization {
         public static string PS4_Version {
             get {
                 return ResourceManager.GetString("PS4 Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Require additional resources to play in Traditional Chinese, download now? 的本地化字符串。
+        /// </summary>
+        public static string Require_CHT_Resource {
+            get {
+                return ResourceManager.GetString("Require CHT Resource", resourceCulture);
             }
         }
         

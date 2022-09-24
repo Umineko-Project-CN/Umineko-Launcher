@@ -18,12 +18,18 @@ namespace UminekoLauncher.Views
             _blurFadeIn.Duration = TimeSpan.FromSeconds(0.4);
             _opacityFadeOut.Duration = TimeSpan.FromSeconds(0.2);
             _blurFadeOut.Duration = TimeSpan.FromSeconds(0.2);
-            imgLogo.Source = Localized.LogoImage;
+            imgGame.Source = Localized.GameLogoImage;
+            imgTeam.Source = Localized.TeamLogoImage;
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+        }
+
+        private void Language_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            new LanguageWindow().ShowDialog();
         }
     }
 }

@@ -22,12 +22,29 @@ namespace UminekoLauncher
                 MessageWindow.Show(Lang.Error_Running);
                 Current.Shutdown();
             }
-            if (!ConfigService.FileExists())
+            Config config = Config.GetConfig();
+            if (!config.FileExists())
             {
                 MessageWindow.Show(Lang.Error_Broken);
                 Current.Shutdown();
             }
-            //CultureInfo.CurrentUICulture = new CultureInfo("en");
+            config.Load();
+            string culture;
+            switch (config.Language)
+            {
+                case Models.Language.CHS:
+                    culture = "zh-CHS";
+                    break;
+
+                case Models.Language.CHT:
+                    culture = "zh-CHT";
+                    break;
+
+                default:
+                    culture = "en";
+                    break;
+            }
+            CultureInfo.CurrentUICulture = new CultureInfo(culture);
         }
     }
 }

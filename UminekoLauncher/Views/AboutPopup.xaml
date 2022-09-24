@@ -13,9 +13,9 @@
     Height="277"
     d:DataContext="{d:DesignInstance Type=vm:AboutViewModel}"
     mc:Ignorable="d">
-    <UserControl.Background>
+    <v:AnimatedControl.Background>
         <ImageBrush ImageSource="/Resources/Images/wbg.png" Stretch="UniformToFill" />
-    </UserControl.Background>
+    </v:AnimatedControl.Background>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
