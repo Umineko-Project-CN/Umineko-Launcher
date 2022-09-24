@@ -31,5 +31,11 @@ namespace UminekoLauncher.Views
         {
             new LanguageWindow().ShowDialog();
         }
+
+        private void ActionButton_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var viewModel = (MainViewModel)DataContext;
+            viewModel.VerifyCommand.Execute(null);
+        }
     }
 }

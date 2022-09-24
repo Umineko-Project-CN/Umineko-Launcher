@@ -21,11 +21,6 @@
     <v:AnimatedControl.Background>
         <ImageBrush ImageSource="/Resources/Images/wbg.png" Stretch="UniformToFill" />
     </v:AnimatedControl.Background>
-    <i:Interaction.Triggers>
-        <i:PropertyChangedTrigger Binding="{Binding ElementName=Popup, Path=IsOpen, Mode=OneWay}">
-            <i:InvokeCommandAction Command="{Binding LoadCommand}" CommandParameter="{Binding ElementName=Popup, Path=IsOpen}" />
-        </i:PropertyChangedTrigger>
-    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />

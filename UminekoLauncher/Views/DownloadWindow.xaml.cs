@@ -14,5 +14,17 @@ namespace UminekoLauncher.Views
             Owner = Application.Current.MainWindow;
             DataContext = new DownloadViewModel();
         }
+
+        private void downloadWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            var viewModel = (DownloadViewModel)DataContext;
+            viewModel.LoadedCommand.Execute(null);
+        }
+
+        private void downloadWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var viewModel = (DownloadViewModel)DataContext;
+            viewModel.ClosingCommand.Execute(null);
+        }
     }
 }

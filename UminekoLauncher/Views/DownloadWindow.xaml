@@ -12,6 +12,8 @@
     d:DataContext="{d:DesignInstance Type=vm:DownloadViewModel}"
     AllowsTransparency="True"
     Background="{x:Null}"
+    Closing="downloadWindow_Closing"
+    Loaded="downloadWindow_Loaded"
     ResizeMode="NoResize"
     ShowInTaskbar="False"
     Topmost="True"
@@ -19,14 +21,6 @@
     WindowStartupLocation="CenterOwner"
     WindowStyle="None"
     mc:Ignorable="d">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadedCommand}" CommandParameter="{Binding ElementName=downloadWindow}" />
-        </i:EventTrigger>
-        <i:EventTrigger EventName="Closing">
-            <i:InvokeCommandAction Command="{Binding ClosingCommand}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
     <Grid>
         <Border CornerRadius="5">
             <Border.Background>

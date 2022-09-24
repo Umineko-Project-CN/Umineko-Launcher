@@ -127,13 +127,8 @@
                     FontWeight="Bold"
                     Icon="{Binding UpdateStatus, Converter={StaticResource UpdateStatusConverter}, ConverterParameter=ActionIcon}"
                     IconMargin="-10,0,7,0"
-                    IconSize="32">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseRightButtonUp">
-                            <i:InvokeCommandAction Command="{Binding VerifyCommand}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </ctl:FxButton>
+                    IconSize="32"
+                    MouseRightButtonUp="ActionButton_MouseRightButtonUp" />
                 <ctl:FxButton
                     Width="55.5"
                     Height="43"
