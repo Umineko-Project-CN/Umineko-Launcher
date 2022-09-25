@@ -27,6 +27,7 @@ namespace UminekoLauncher
             {
                 MessageWindow.Show(Lang.Error_Broken);
                 Current.Shutdown();
+                return;
             }
             config.Load();
             string culture;
