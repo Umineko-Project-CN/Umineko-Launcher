@@ -13,8 +13,8 @@
     Opacity="0"
     ResizeMode="NoResize"
     ShowInTaskbar="False"
+    SizeToContent="Height"
     Topmost="True"
-    Window.SizeToContent="Height"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">

@@ -14,10 +14,9 @@
     Height="420"
     d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
     AllowsTransparency="True"
-    Background="Transparent"
+    Background="{x:Null}"
     Icon="/Resources/Images/icon.ico"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
-    Opacity="0"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
@@ -128,7 +127,7 @@
                     IconSize="32"
                     MouseRightButtonUp="ActionButton_MouseRightButtonUp" />
                 <ctl:FxButton
-                    Width="55.5"
+                    Width="54"
                     Height="43"
                     Margin="10,0,0,0"
                     HorizontalAlignment="Left"

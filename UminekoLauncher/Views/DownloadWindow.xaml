@@ -14,8 +14,8 @@
     Loaded="Window_Loaded"
     ResizeMode="NoResize"
     ShowInTaskbar="False"
+    SizeToContent="Height"
     Topmost="True"
-    Window.SizeToContent="Height"
     WindowStartupLocation="CenterOwner"
     WindowStyle="None"
     mc:Ignorable="d">
