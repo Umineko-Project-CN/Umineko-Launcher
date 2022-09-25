@@ -54,7 +54,7 @@ namespace UminekoLauncher
             Config config = Config.GetConfig();
             if (config.FileExists())
             {
-                Config.GetConfig().Save();
+                config.Save();
             }
         }
     }
