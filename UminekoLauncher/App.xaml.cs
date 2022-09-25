@@ -51,7 +51,11 @@ namespace UminekoLauncher
         protected override void OnExit(ExitEventArgs e)
         {
             base.OnExit(e);
-            Config.GetConfig().Save();
+            Config config = Config.GetConfig();
+            if (config.FileExists())
+            {
+                Config.GetConfig().Save();
+            }
         }
     }
 }
