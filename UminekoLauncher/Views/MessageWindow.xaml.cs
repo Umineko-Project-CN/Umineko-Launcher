@@ -11,7 +11,7 @@ namespace UminekoLauncher.Views
         {
             InitializeComponent();
             Window mainWindow = Application.Current.MainWindow;
-            if (mainWindow.IsActive)
+            if (mainWindow != this)
             {
                 Owner = mainWindow;
                 WindowStartupLocation = WindowStartupLocation.CenterOwner;
