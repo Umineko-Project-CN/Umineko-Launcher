@@ -76,7 +76,7 @@ namespace UminekoLauncher.Services
         /// <returns>表示检测结果的 <see cref="bool"/> 值。</returns>
         public static bool LangCHTResourceExist()
         {
-            return File.Exists("language_cht/placeholder");
+            return File.Exists("cht.cfg");
         }
     }
 }
