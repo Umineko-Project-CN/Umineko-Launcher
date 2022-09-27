@@ -50,7 +50,7 @@ namespace UminekoLauncher.ViewModels
             }
             if (MessageWindow.Show(Lang.Require_CHT_Resource, true) == true)
             {
-                Process.Start("https://snsteam.club/downloads/");
+                Process.Start("https://snsteam.club/downloads#download");
                 window.Close();
                 return;
             }
