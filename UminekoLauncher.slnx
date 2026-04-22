@@ -1,0 +1,13 @@
+<Solution>
+  <Project Path="src/UminekoLauncher/UminekoLauncher.csproj">
+    <BuildDependency Project="src/ZipExtractor/ZipExtractor.csproj" />
+  </Project>
+  <Project Path="src/ZipExtractor/ZipExtractor.csproj" />
+  <Properties Name="ExtensibilityGlobals" Scope="PostLoad">
+    <Property Name="RESX_PrefixTranslations" Value="False" />
+    <Property
+      Name="RESX_TranslatorConfiguration"
+      Value="{&quot;Azure&quot;:&quot;{\&quot;AutoDetectHtml\&quot;:true,\&quot;MaxCharactersPerMinute\&quot;:33300,\&quot;AuthenticationKey\&quot;:null,\&quot;Region\&quot;:null,\&quot;IsEnabled\&quot;:false,\&quot;SaveCredentials\&quot;:false,\&quot;Ranking\&quot;:1.0}&quot;,&quot;Baidu&quot;:&quot;{\&quot;AppId\&quot;:null,\&quot;SecretKey\&quot;:null,\&quot;ApiUrl\&quot;:\&quot;https://fanyi-api.baidu.com/api/trans/vip/translate\&quot;,\&quot;Domain\&quot;:\&quot;1435660288\&quot;,\&quot;IsEnabled\&quot;:true,\&quot;SaveCredentials\&quot;:false,\&quot;Ranking\&quot;:1.0}&quot;,&quot;DeepL&quot;:&quot;{\&quot;ApiKey\&quot;:null,\&quot;ApiUrl\&quot;:null,\&quot;IsEnabled\&quot;:false,\&quot;SaveCredentials\&quot;:false,\&quot;Ranking\&quot;:1.0}&quot;,&quot;Google&quot;:&quot;{\&quot;ApiKey\&quot;:null,\&quot;IsEnabled\&quot;:false,\&quot;SaveCredentials\&quot;:false,\&quot;Ranking\&quot;:1.0}&quot;,&quot;MSTerm&quot;:&quot;{\&quot;IsEnabled\&quot;:false,\&quot;SaveCredentials\&quot;:false,\&quot;Ranking\&quot;:1.0}&quot;,&quot;MyMemory&quot;:&quot;{\&quot;Key\&quot;:null,\&quot;Mail\&quot;:null,\&quot;IsEnabled\&quot;:false,\&quot;SaveCredentials\&quot;:false,\&quot;Ranking\&quot;:1.0}&quot;}"
+    />
+  </Properties>
+</Solution>
