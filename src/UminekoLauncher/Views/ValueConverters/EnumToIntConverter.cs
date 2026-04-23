@@ -1,28 +1,26 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace UminekoLauncher.Views.ValueConverters
-{
-    internal class EnumToIntConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null)
-            {
-                return DependencyProperty.UnsetValue;
-            }
-            return (int)value;
-        }
+namespace UminekoLauncher.Views.ValueConverters;
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+internal class EnumToIntConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value == null)
         {
-            if (value == null)
-            {
-                return DependencyProperty.UnsetValue;
-            }
-            return Enum.Parse(targetType, value.ToString());
+            return DependencyProperty.UnsetValue;
         }
+        return (int)value;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value == null)
+        {
+            return DependencyProperty.UnsetValue;
+        }
+        return Enum.Parse(targetType, value.ToString() ?? "");
     }
 }

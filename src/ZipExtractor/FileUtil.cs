@@ -1,155 +1,178 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace ZipExtractor
+namespace ZipExtractor;
+
+/// <summary>
+/// https://stackoverflow.com/a/20623302/1273550
+/// </summary>
+internal static class FileUtil
 {
-    /// <summary>
-    /// https://stackoverflow.com/a/20623302/1273550
-    /// </summary>
-    internal static class FileUtil
+    private const int CCH_RM_MAX_APP_NAME = 255;
+
+    private const int CCH_RM_MAX_SVC_NAME = 63;
+
+    private const int RmRebootReasonNone = 0;
+
+    private enum RM_APP_TYPE
     {
-        private const int CCH_RM_MAX_APP_NAME = 255;
+        RmUnknownApp = 0,
+        RmMainWindow = 1,
+        RmOtherWindow = 2,
+        RmService = 3,
+        RmExplorer = 4,
+        RmConsole = 5,
+        RmCritical = 1000,
+    }
 
-        private const int CCH_RM_MAX_SVC_NAME = 63;
+    /// <summary>
+    /// Find out what process(es) have a lock on the specified file.
+    /// </summary>
+    /// <param name="path">Path of the file.</param>
+    /// <returns>Processes locking the file</returns>
+    /// <remarks>See also:
+    /// http://msdn.microsoft.com/en-us/library/windows/desktop/aa373661(v=vs.85).aspx
+    /// http://wyupdate.googlecode.com/svn-history/r401/trunk/frmFilesInUse.cs (no copyright in code at time of viewing)
+    ///
+    /// </remarks>
+    public static List<Process> WhoIsLocking(string path)
+    {
+        string key = Guid.NewGuid().ToString();
+        List<Process> processes = [];
 
-        private const int RmRebootReasonNone = 0;
+        int res = RmStartSession(out var handle, 0, key);
 
-        private enum RM_APP_TYPE
+        if (res != 0)
+            throw new Exception(
+                "Could not begin restart session.  Unable to determine file locker."
+            );
+
+        try
         {
-            RmUnknownApp = 0,
-            RmMainWindow = 1,
-            RmOtherWindow = 2,
-            RmService = 3,
-            RmExplorer = 4,
-            RmConsole = 5,
-            RmCritical = 1000
-        }
+            const int ERROR_MORE_DATA = 234;
+            uint pnProcInfo = 0,
+                lpdwRebootReasons = RmRebootReasonNone;
 
-        /// <summary>
-        /// Find out what process(es) have a lock on the specified file.
-        /// </summary>
-        /// <param name="path">Path of the file.</param>
-        /// <returns>Processes locking the file</returns>
-        /// <remarks>See also:
-        /// http://msdn.microsoft.com/en-us/library/windows/desktop/aa373661(v=vs.85).aspx
-        /// http://wyupdate.googlecode.com/svn-history/r401/trunk/frmFilesInUse.cs (no copyright in code at time of viewing)
-        ///
-        /// </remarks>
-        public static List<Process> WhoIsLocking(string path)
-        {
-            string key = Guid.NewGuid().ToString();
-            List<Process> processes = new List<Process>();
+            string[] resources = [path]; // Just checking on one resource.
 
-            int res = RmStartSession(out var handle, 0, key);
+            res = RmRegisterResources(handle, (uint)resources.Length, resources, 0, null, 0, null);
 
             if (res != 0)
-                throw new Exception("Could not begin restart session.  Unable to determine file locker.");
+                throw new Exception("Could not register resource.");
 
-            try
+            //Note: there's a race condition here -- the first call to RmGetList() returns
+            //      the total number of process. However, when we call RmGetList() again to get
+            //      the actual processes this number may have increased.
+            res = RmGetList(
+                handle,
+                out var pnProcInfoNeeded,
+                ref pnProcInfo,
+                null,
+                ref lpdwRebootReasons
+            );
+
+            if (res == ERROR_MORE_DATA)
             {
-                const int ERROR_MORE_DATA = 234;
-                uint pnProcInfo = 0,
-                    lpdwRebootReasons = RmRebootReasonNone;
+                // Create an array to store the process results
+                RM_PROCESS_INFO[] processInfo = new RM_PROCESS_INFO[pnProcInfoNeeded];
+                pnProcInfo = pnProcInfoNeeded;
 
-                string[] resources = new string[] { path }; // Just checking on one resource.
+                // Get the list
+                res = RmGetList(
+                    handle,
+                    out pnProcInfoNeeded,
+                    ref pnProcInfo,
+                    processInfo,
+                    ref lpdwRebootReasons
+                );
 
-                res = RmRegisterResources(handle, (uint)resources.Length, resources, 0, null, 0, null);
-
-                if (res != 0)
-                    throw new Exception("Could not register resource.");
-
-                //Note: there's a race condition here -- the first call to RmGetList() returns
-                //      the total number of process. However, when we call RmGetList() again to get
-                //      the actual processes this number may have increased.
-                res = RmGetList(handle, out var pnProcInfoNeeded, ref pnProcInfo, null, ref lpdwRebootReasons);
-
-                if (res == ERROR_MORE_DATA)
+                if (res == 0)
                 {
-                    // Create an array to store the process results
-                    RM_PROCESS_INFO[] processInfo = new RM_PROCESS_INFO[pnProcInfoNeeded];
-                    pnProcInfo = pnProcInfoNeeded;
+                    processes = new List<Process>((int)pnProcInfo);
 
-                    // Get the list
-                    res = RmGetList(handle, out pnProcInfoNeeded, ref pnProcInfo, processInfo, ref lpdwRebootReasons);
-
-                    if (res == 0)
+                    // Enumerate all of the results and add them to the
+                    // list to be returned
+                    for (int i = 0; i < pnProcInfo; i++)
                     {
-                        processes = new List<Process>((int)pnProcInfo);
-
-                        // Enumerate all of the results and add them to the
-                        // list to be returned
-                        for (int i = 0; i < pnProcInfo; i++)
+                        try
                         {
-                            try
-                            {
-                                processes.Add(Process.GetProcessById(processInfo[i].Process.dwProcessId));
-                            }
-                            // catch the error -- in case the process is no longer running
-                            catch (ArgumentException)
-                            {
-                            }
+                            processes.Add(
+                                Process.GetProcessById(processInfo[i].Process.dwProcessId)
+                            );
                         }
+                        // catch the error -- in case the process is no longer running
+                        catch (ArgumentException) { }
                     }
-                    else
-                        throw new Exception("Could not list processes locking resource.");
                 }
-                else if (res != 0)
-                    throw new Exception("Could not list processes locking resource. Failed to get size of result.");
+                else
+                    throw new Exception("Could not list processes locking resource.");
             }
-            finally
-            {
-                RmEndSession(handle);
-            }
-
-            return processes;
+            else if (res != 0)
+                throw new Exception(
+                    "Could not list processes locking resource. Failed to get size of result."
+                );
         }
-
-        [DllImport("rstrtmgr.dll")]
-        private static extern int RmEndSession(uint pSessionHandle);
-
-        [DllImport("rstrtmgr.dll")]
-        private static extern int RmGetList(uint dwSessionHandle,
-            out uint pnProcInfoNeeded,
-            ref uint pnProcInfo,
-            [In, Out] RM_PROCESS_INFO[] rgAffectedApps,
-            ref uint lpdwRebootReasons);
-
-        [DllImport("rstrtmgr.dll", CharSet = CharSet.Unicode)]
-        private static extern int RmRegisterResources(uint pSessionHandle,
-            UInt32 nFiles,
-            string[] rgsFilenames,
-            UInt32 nApplications,
-            [In] RM_UNIQUE_PROCESS[] rgApplications,
-            UInt32 nServices,
-            string[] rgsServiceNames);
-
-        [DllImport("rstrtmgr.dll", CharSet = CharSet.Auto)]
-        private static extern int RmStartSession(out uint pSessionHandle, int dwSessionFlags, string strSessionKey);
-
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-        private struct RM_PROCESS_INFO
+        finally
         {
-            public RM_UNIQUE_PROCESS Process;
-
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = CCH_RM_MAX_APP_NAME + 1)]
-            public string strAppName;
-
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = CCH_RM_MAX_SVC_NAME + 1)]
-            public string strServiceShortName;
-
-            public RM_APP_TYPE ApplicationType;
-            public uint AppStatus;
-            public uint TSSessionId;
-            [MarshalAs(UnmanagedType.Bool)] public bool bRestartable;
+            RmEndSession(handle);
         }
 
-        [StructLayout(LayoutKind.Sequential)]
-        private struct RM_UNIQUE_PROCESS
-        {
-            public int dwProcessId;
-            public System.Runtime.InteropServices.ComTypes.FILETIME ProcessStartTime;
-        }
+        return processes;
+    }
+
+    [DllImport("rstrtmgr.dll")]
+    private static extern int RmEndSession(uint pSessionHandle);
+
+    [DllImport("rstrtmgr.dll")]
+    private static extern int RmGetList(
+        uint dwSessionHandle,
+        out uint pnProcInfoNeeded,
+        ref uint pnProcInfo,
+        [In, Out] RM_PROCESS_INFO[]? rgAffectedApps,
+        ref uint lpdwRebootReasons
+    );
+
+    [DllImport("rstrtmgr.dll", CharSet = CharSet.Unicode)]
+    private static extern int RmRegisterResources(
+        uint pSessionHandle,
+        uint nFiles,
+        string[] rgsFilenames,
+        uint nApplications,
+        [In] RM_UNIQUE_PROCESS[]? rgApplications,
+        uint nServices,
+        string[]? rgsServiceNames
+    );
+
+    [DllImport("rstrtmgr.dll", CharSet = CharSet.Auto)]
+    private static extern int RmStartSession(
+        out uint pSessionHandle,
+        int dwSessionFlags,
+        string strSessionKey
+    );
+
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    private struct RM_PROCESS_INFO
+    {
+        public RM_UNIQUE_PROCESS Process;
+
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = CCH_RM_MAX_APP_NAME + 1)]
+        public string strAppName;
+
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = CCH_RM_MAX_SVC_NAME + 1)]
+        public string strServiceShortName;
+
+        public RM_APP_TYPE ApplicationType;
+        public uint AppStatus;
+        public uint TSSessionId;
+
+        [MarshalAs(UnmanagedType.Bool)]
+        public bool bRestartable;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct RM_UNIQUE_PROCESS
+    {
+        public int dwProcessId;
+        public System.Runtime.InteropServices.ComTypes.FILETIME ProcessStartTime;
     }
 }

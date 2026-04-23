@@ -1,102 +1,63 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
-using UminekoLauncher.Services;
 using UminekoLauncher.Localization;
+using UminekoLauncher.Services;
 
-namespace UminekoLauncher.Views.ValueConverters
+namespace UminekoLauncher.Views.ValueConverters;
+
+internal class UpdateStatusConverter : IValueConverter
 {
-    internal class UpdateStatusConverter : IValueConverter
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        if (value == null)
         {
-            if (value == null)
-            {
-                return DependencyProperty.UnsetValue;
-            }
-            UpdateStatus status = (UpdateStatus)value;
-            string flag = parameter as string;
-            switch (flag)
-            {
-                case "UpdateStatus":
-                    switch (status)
-                    {
-                        case UpdateStatus.NotStarted:
-                            return Lang.Checking;
-
-                        case UpdateStatus.UpToDate:
-                            return Lang.Latest;
-
-                        case UpdateStatus.Error:
-                            return Lang.Failed;
-
-                        default:
-                            return Lang.Updatable;
-                    }
-                case "ActionIcon":
-                    switch (status)
-                    {
-                        case UpdateStatus.ReadyToUpdate:
-                            return "";
-
-                        case UpdateStatus.NeedManualUpdate:
-                            return "";
-
-                        default:
-                            return "";
-                    }
-                case "ActionContent":
-                    switch (status)
-                    {
-                        case UpdateStatus.ReadyToUpdate:
-                            return Lang.Update;
-
-                        case UpdateStatus.NeedManualUpdate:
-                            return Lang.Download;
-
-                        default:
-                            return Lang.Start;
-                    }
-                case "NotificationLight":
-                    switch (status)
-                    {
-                        case UpdateStatus.UpToDate:
-                            return Application.Current.FindResource("GreenLight");
-
-                        case UpdateStatus.Error:
-                            return Application.Current.FindResource("RedLight");
-
-                        default:
-                            return Application.Current.FindResource("YellowLight");
-                    }
-                case "StatusFontWeight":
-                    if (status == UpdateStatus.NotStarted || status == UpdateStatus.UpToDate)
-                    {
-                        return FontWeights.Normal;
-                    }
-                    else
-                    {
-                        return FontWeights.Bold;
-                    }
-                case "StatusForeground":
-                    if (status == UpdateStatus.NotStarted || status == UpdateStatus.UpToDate)
-                    {
-                        return Brushes.DarkGray;
-                    }
-                    else
-                    {
-                        return Brushes.White;
-                    }
-                default:
-                    return DependencyProperty.UnsetValue;
-            }
+            return DependencyProperty.UnsetValue;
         }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        UpdateStatus status = (UpdateStatus)value;
+        string flag = (string)parameter;
+        return flag switch
         {
-            throw new NotImplementedException();
-        }
+            "UpdateStatus" => status switch
+            {
+                UpdateStatus.NotStarted => Lang.Checking,
+                UpdateStatus.UpToDate => Lang.Latest,
+                UpdateStatus.Error => Lang.Failed,
+                _ => Lang.Updatable,
+            },
+            "ActionIcon" => status switch
+            {
+                UpdateStatus.ReadyToUpdate => "",
+                UpdateStatus.NeedManualUpdate => "",
+                _ => "",
+            },
+            "ActionContent" => status switch
+            {
+                UpdateStatus.ReadyToUpdate => Lang.Update,
+                UpdateStatus.NeedManualUpdate => Lang.Download,
+                _ => Lang.Start,
+            },
+            "NotificationLight" => status switch
+            {
+                UpdateStatus.UpToDate => Application.Current.FindResource("GreenLight"),
+                UpdateStatus.Error => Application.Current.FindResource("RedLight"),
+                _ => Application.Current.FindResource("YellowLight"),
+            },
+            "StatusFontWeight" => status == UpdateStatus.NotStarted
+            || status == UpdateStatus.UpToDate
+                ? FontWeights.Normal
+                : FontWeights.Bold,
+            "StatusForeground" => status == UpdateStatus.NotStarted
+            || status == UpdateStatus.UpToDate
+                ? Brushes.DarkGray
+                : Brushes.White,
+            _ => DependencyProperty.UnsetValue,
+        };
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
     }
 }

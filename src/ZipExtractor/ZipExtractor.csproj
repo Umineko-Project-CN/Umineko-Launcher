@@ -1,29 +1,47 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <RuntimeIdentifiers>win</RuntimeIdentifiers>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <SelfContained>false</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+
+    <Title>ZipExtractor</Title>
+    <Description></Description>
+    <Company>RBSoft</Company>
+    <Product>ZipExtractor</Product>
+    <Copyright>Copyright © SNSTeam &amp; RBSoft 2022</Copyright>
+    <AssemblyVersion>1.0.0.4</AssemblyVersion>
+    <FileVersion>1.0.0.4</FileVersion>
+    <Version>1.0.0.4</Version>
   </PropertyGroup>
+
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>..\UminekoLauncher\Resources\</OutputPath>
   </PropertyGroup>
+
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="System.IO.Compression">
-      <Version>4.3.0</Version>
-    </PackageReference>
-  </ItemGroup>
+
   <ItemGroup>
     <Resource Include="Resources\mbg.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

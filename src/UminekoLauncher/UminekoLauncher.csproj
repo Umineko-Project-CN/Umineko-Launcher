@@ -1,137 +1,41 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <PublishWizardCompleted>true</PublishWizardCompleted>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <SelfContained>false</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+
+    <Title>海猫鸣泣之时 移植版</Title>
+    <Description>Umineko Project CN Launcher</Description>
+    <Company>日不落汉化组</Company>
+    <Product>Umineko Project CN Launcher</Product>
+    <Copyright>Copyright © SNSTeam 2022</Copyright>
+    <AssemblyVersion>1.5.0.1</AssemblyVersion>
+    <FileVersion>1.5.0.1</FileVersion>
+    <Version>1.5.0.1</Version>
   </PropertyGroup>
+
   <PropertyGroup>
     <ApplicationIcon>Resources\Images\icon.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup>
-    <ManifestCertificateThumbprint>D2376612D8BEC7EAFF1A5E2D681F2E693180E0A4</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>UminekoLauncher_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>false</SignManifests>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data.DataSetExtensions" />
-  </ItemGroup>
+
   <ItemGroup>
     <Resource Include="Resources\Fonts\MaterialIcons-Regular.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="FodyWeavers.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Images\bg.jpg" />
     <Resource Include="Resources\Images\icon.ico" />
     <Resource Include="Resources\Images\mbg.jpg" />
     <Resource Include="Resources\Images\wbg.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.8 %28x86 和 x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Images\Splashes\chs.png" />
     <Resource Include="Resources\Images\Splashes\cht.png" />
     <Resource Include="Resources\Images\Splashes\en.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Images\Logos\chs.png" />
     <Resource Include="Resources\Images\Logos\cht.png" />
   </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
-    <PackageReference Include="Costura.Fody" Version="5.7.0" />
-    <PackageReference Include="Fody" Version="6.6.3" />
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="6.0.0" />
-    <PackageReference Include="Microsoft.NETCore.Platforms" Version="6.0.5" />
-    <PackageReference Include="Microsoft.Win32.Primitives" Version="4.3.0" />
-    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
-    <PackageReference Include="System.AppContext" Version="4.3.0" />
-    <PackageReference Include="System.Buffers" Version="4.5.1" />
-    <PackageReference Include="System.Collections" Version="4.3.0" />
-    <PackageReference Include="System.Collections.Concurrent" Version="4.3.0" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-    <PackageReference Include="System.Console" Version="4.3.1" />
-    <PackageReference Include="System.Diagnostics.Debug" Version="4.3.0" />
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="6.0.0" />
-    <PackageReference Include="System.Diagnostics.Tools" Version="4.3.0" />
-    <PackageReference Include="System.Diagnostics.Tracing" Version="4.3.0" />
-    <PackageReference Include="System.Globalization" Version="4.3.0" />
-    <PackageReference Include="System.Globalization.Calendars" Version="4.3.0" />
-    <PackageReference Include="System.IO" Version="4.3.0" />
-    <PackageReference Include="System.IO.Compression" Version="4.3.0" />
-    <PackageReference Include="System.IO.Compression.ZipFile" Version="4.3.0" />
-    <PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
-    <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
-    <PackageReference Include="System.Linq" Version="4.3.0" />
-    <PackageReference Include="System.Linq.Expressions" Version="4.3.0" />
-    <PackageReference Include="System.Memory" Version="4.5.5" />
-    <PackageReference Include="System.Net.Http" Version="4.3.4" />
-    <PackageReference Include="System.Net.Primitives" Version="4.3.1" />
-    <PackageReference Include="System.Net.Sockets" Version="4.3.0" />
-    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
-    <PackageReference Include="System.ObjectModel" Version="4.3.0" />
-    <PackageReference Include="System.Reflection" Version="4.3.0" />
-    <PackageReference Include="System.Reflection.Extensions" Version="4.3.0" />
-    <PackageReference Include="System.Reflection.Primitives" Version="4.3.0" />
-    <PackageReference Include="System.Resources.ResourceManager" Version="4.3.0" />
-    <PackageReference Include="System.Runtime" Version="4.3.1" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
-    <PackageReference Include="System.Runtime.Extensions" Version="4.3.1" />
-    <PackageReference Include="System.Runtime.Handles" Version="4.3.0" />
-    <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
-    <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
-    <PackageReference Include="System.Runtime.Numerics" Version="4.3.0" />
-    <PackageReference Include="System.Security.Cryptography.Algorithms" Version="4.3.1" />
-    <PackageReference Include="System.Security.Cryptography.Encoding" Version="4.3.0" />
-    <PackageReference Include="System.Security.Cryptography.Primitives" Version="4.3.0" />
-    <PackageReference Include="System.Security.Cryptography.X509Certificates" Version="4.3.2" />
-    <PackageReference Include="System.Text.Encoding" Version="4.3.0" />
-    <PackageReference Include="System.Text.Encoding.Extensions" Version="4.3.0" />
-    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
-    <PackageReference Include="System.Threading" Version="4.3.0" />
-    <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
-    <PackageReference Include="System.Threading.Timer" Version="4.3.0" />
-    <PackageReference Include="System.Xml.ReaderWriter" Version="4.3.1" />
-    <PackageReference Include="System.Xml.XDocument" Version="4.3.0" />
   </ItemGroup>
 </Project>
